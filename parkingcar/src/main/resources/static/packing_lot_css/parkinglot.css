@@ -1,0 +1,41 @@
+#header{
+    height: 100px;
+    background-image: url("/logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: 20px;
+    margin-bottom: 20px;
+}
+#map-control{
+    width: 60%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition-duration: 1s;
+
+}
+polygon{
+    fill: rgba(255,0,0,0.5);
+    transition-duration: 0.2s;
+}
+polygon:hover{
+    fill: rgba(0,0,255,0.5);
+    transition-duration: 0.2s;
+}
+svg{
+    width: 100%;
+    height: 100%;
+}
+#button-level{
+    position: absolute;
+}
+#button-level div{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 80px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}

@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@500&family=Roboto:wght@500&display=swap');
+* {
+    font-family: 'Roboto', sans-serif;
+    color: #51504B;
+    box-sizing: border-box;
+}
+.color1{
+    background-color: white;
+}
+.color2{
+    background-color: #EAE9E5;
+}
+.color3{
+    background-color: #BCBBB6;
+}
+.color4{
+    background-color: #787772;
+    color: white;
+}
+.color5{
+    background-color: #51504B;
+    color: white;
+}
+.filler{
+    border-radius: 30px;
+}
+.boxshadow-inset{
+    box-shadow: inset 10px 10px 20px #51504B;
+}
+.boxshadow-outset{
+    box-shadow: 10px 10px 20px #51504B;
+}
+.hover{
+    transition-duration: 0.2s;
+}
+.hover:hover{
+    scale: 1.1;
+    background-color: #51504B;
+    color: white;
+    transition-duration: 0.2s;
+}
+.hover-border{
+    border: white 4px solid;
+    transition-duration: 0.2s;
+}
+.hover-border:hover{
+    scale: 0.95;
+    transition-duration: 0.2s;
+    animation: choose 1s infinite;
+}
+@keyframes choose {
+    0% {
+        border: #787772 4px solid;
+    }
+    50% {
+        border: #EAE9E5 4px solid;
+    }
+    100% {
+        border: #787772 4px solid;
+    }
+}
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
