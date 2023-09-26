@@ -19,7 +19,8 @@ public class Account {
     private String userName;
     private String passWord;
     private String email;
+    private int status;
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "role_id",referencedColumnName = "id")
     private Role role;
 }
