@@ -1,9 +1,9 @@
-package com.parkingcar.model.Customer;
+package com.parkingcar.model.customer;
 
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.packageRent.PackageRent;
-import com.parkingcar.model.pakingLot.ParkingLot;
-import com.sun.istack.NotNull;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+
 
 @Setter
 @Getter
