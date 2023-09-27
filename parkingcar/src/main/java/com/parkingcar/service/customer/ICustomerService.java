@@ -1,6 +1,6 @@
 package com.parkingcar.service.customer;
 
-import com.parkingcar.model.Customer.Customer;
+import com.parkingcar.model.customer.Customer;
 
 import java.util.List;
 
