@@ -1,6 +1,7 @@
 package com.parkingcar.model.packageRent;
 
-import com.parkingcar.model.Customer.Customer;
+import com.parkingcar.model.bill.Bill;
+import com.parkingcar.model.customer.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,8 @@ public class PackageRent {
     private int day;
     private double moneyRent;
 
-    @OneToMany(mappedBy = "packageRent", cascade = CascadeType.ALL)
-    private List<Customer> customers;
+    @OneToMany(mappedBy = "packageRent")
+    List<Bill> bills;
+    @OneToMany(mappedBy = "packageRent")
+    List<Customer> customers;
 }
