@@ -5,21 +5,29 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/login" th:object="${account}">
+<form action="/accounts/create" th:object="${account}" method="post">
     <table>
         <tr>
             <td>Username: </td>
             <td>
                 <input type="text" th:field="*{userName}">
+
             </td>
-            <td></td>
         </tr>
         <tr>
             <td>Email: </td>
             <td>
                 <input type="text" th:field="*{email}">
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
             </td>
-            <td></td>
+        </tr>
+        <tr>
+            <td>Role: </td>
+            <td>
+                <select th:field="*{role}">
+                    <option th:each="list : ${roleList}" th:text="${list.name}" th:value="${list.id}"></option>
+                </select>
+            </td>
         </tr>
         <table>
             <tr>
@@ -29,14 +37,14 @@
             <tr>
                 <td>
                     <input type="text" th:field="*{passWord}">
+                    <div th:if="${#fields.hasErrors('passWord')}" th:errors="*{passWord}"></div>
                 </td>
-            </tr>
-            <tr>
                 <td>
                     <input type="text">
                 </td>
             </tr>
         </table>
+        <input type="submit" value="submit">
     </table>
 </form>
 </body>
