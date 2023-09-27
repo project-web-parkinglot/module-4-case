@@ -217,12 +217,12 @@ setupMap(1)
 function locationAction(id, event){
 
     //lấy role hiện tại
-    let role = 0;
+    let role = 3;
     // 0 => chưa đăng nhập
     // 1 => khách
     // 2 => nhân viên
     // 3 => admin
-    let status = 0;
+    let status = 3;
     // 0 => cấm thuê
     // 1 => chưa ai thuê
     // 2 => đã có người thuê (bảo mật thông tin)
