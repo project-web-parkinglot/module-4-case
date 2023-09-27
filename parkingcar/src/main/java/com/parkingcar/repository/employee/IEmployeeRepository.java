@@ -20,18 +20,18 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
     @Transactional
     @Modifying
     @Query(value = "update account as acc " +
-            "join account as acc on " +
-            "acc.id = em.account_id " +
+            "join employee as em " +
+            "on acc.id = em.account_id " +
             "set acc.status = 1 " +
             "where em.id = :id ", nativeQuery = true)
     void deleteById(@Param("id") int id);
 
     @Transactional
     @Modifying
-    @Query(value = "update employee as em " +
-            "join account as acc on " +
-            "acc.id = em.account_id " +
+    @Query(value = "update account as acc " +
+            "join employee as em " +
+            "on acc.id = em.account_id " +
             "set acc.status = 0 " +
             "where em.id = :id ", nativeQuery = true)
-    void reActiveEmployee();
+    void reActiveEmployee(@Param("id") int id);
 }
