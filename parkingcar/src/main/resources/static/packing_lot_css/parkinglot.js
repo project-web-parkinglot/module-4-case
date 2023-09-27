@@ -215,6 +215,19 @@ setupMap(1)
 //     alert('x: ' + x + ' y: ' + y);
 // });
 function locationAction(id, event){
+
+    //lấy role hiện tại
+    let role = 0;
+    // 0 => chưa đăng nhập
+    // 1 => khách
+    // 2 => nhân viên
+    // 3 => admin
+    let status = 0;
+    // 0 => cấm thuê
+    // 1 => chưa ai thuê
+    // 2 => đã có người thuê (bảo mật thông tin)
+    // 3 => mine (đã có người thuê có thông tin chính chủ)
+
     cancelOption();
     let poligon = document.getElementById(id);
     poligon.style.fill = "green";
@@ -225,11 +238,68 @@ function locationAction(id, event){
     table.style.left = x + "px";
     table.style.top = y + "px";
 
-    //Check role và giá trị ô
     let data = `<p>${id}</p>`;
-    data += `<div>Login</div>`
+    switch (role){
+        case 0:
+            switch (status){
+                case 0:
+                    data += `<span class="not-available">Not Available</span>`
+                    break;
+                case 1:
+                    data += `<div onclick="buttonOption('login')">Login</div>`
+                    break;
+                case 2:
+                    data += `<span class="not-available">Has Been Owned</span>`
+                    break;
+            }
+            break;
+        case 1:
+            switch (status){
+                case 0:
+                    data += `<span class="not-available">Not Available</span>`
+                    break;
+                case 1:
+                    data += `<div onclick="buttonOption('rental')">Rental</div>`
+                    break;
+                case 2:
+                    data += `<span class="not-available">Has Been Owned</span>`
+                    break;
+                case 3:
+                    data += `<div onclick="buttonOption('extension')">Extension</div>`
+                    data += `<div onclick="buttonOption('end lease')">End Lease</div>`
+                    break;
+            }
+            break;
+        case 2:
+            switch (status){
+                case 0:
+                case 1:
+                    data += `<span class="not-available">Not Available</span>`
+                    break;
+                case 3:
+                    data += `<div onclick="buttonOption('extension')">Extension</div>`
+                    data += `<div onclick="buttonOption('end lease')">End Lease</div>`
+                    break;
+            }
+            break;
+        case 3:
+            switch (status){
+                case 0:
+                    data += `<div onclick="buttonOption('permission')">Permission</div>`
+                    break;
+                case 1:
+                    data += `<div onclick="buttonOption('prohibition')">Prohibition</div>`
+                    break;
+                case 3:
+                    data += `<div onclick="buttonOption('extension')">Extension</div>`
+                    data += `<div onclick="buttonOption('end lease')">End Lease</div>`
+                    break;
+            }
+            break;
+    }
+    data += `<div onclick="buttonOption('cancel')">Cancel</div>`
 
-    data += `<div onclick="cancelOption()">Cancel</div>`
+
     table.innerHTML = data;
 }
 function cancelOption(){
@@ -244,5 +314,18 @@ function buttonOption(action){
     switch (action){
         case "prohibition":
             break;
+        case "permission":
+            break;
+        case "extension":
+            break;
+        case "end lease":
+            break;
+        case "login":
+            break;
+        case "rental":
+            break;
+        case "cancel":
+            cancelOption();
+            break
     }
 }

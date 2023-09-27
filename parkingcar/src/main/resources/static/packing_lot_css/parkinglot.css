@@ -114,7 +114,7 @@ svg{
     transition-duration: 0.2s;
 }
 #option{
-    position: fixed;
+    position: absolute;
     display: none;
     border-radius: 20px;
     text-align: center;
@@ -203,4 +203,7 @@ svg{
     font-weight: bold;
     margin-left: 5px;
     margin-right: 5px;
+}
+.not-available{
+    color: red;
 }
