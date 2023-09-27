@@ -1,6 +1,7 @@
 package com.parkingcar.model.pakingLot;
 
-import com.parkingcar.model.Customer.Customer;
+import com.parkingcar.model.bill.Bill;
+import com.parkingcar.model.customer.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Setter
 @Getter
@@ -31,4 +33,7 @@ public class ParkingLot {
     @ManyToOne()
     @JoinColumn(name = "customer_Id", referencedColumnName = "id")
     private Customer customer;
+
+    @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL)
+    private List<Bill> bills;
 }

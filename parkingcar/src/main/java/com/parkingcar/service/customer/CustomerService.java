@@ -1,7 +1,6 @@
 package com.parkingcar.service.customer;
 
-import com.parkingcar.dto.customer.ICustomerDTO;
-import com.parkingcar.model.Customer.Customer;
+import com.parkingcar.model.customer.Customer;
 import com.parkingcar.repository.customer.ICustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
