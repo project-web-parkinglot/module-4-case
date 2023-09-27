@@ -39,6 +39,5 @@ public class Customer {
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<ParkingLot> parkingLots;
+
 }
