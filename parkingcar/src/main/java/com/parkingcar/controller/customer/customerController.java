@@ -12,8 +12,8 @@ public class customerController {
     @Autowired
     private ICustomerService customerService;
 
-    @GetMapping("")
-    public String showView(){
-
-    }
+//    @GetMapping("")
+//    public String showView(){
+//
+//    }
 }
