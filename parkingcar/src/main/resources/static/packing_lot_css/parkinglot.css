@@ -193,19 +193,9 @@ svg{
     display: grid;
     grid-template-columns: 150px 1fr;
 }
-#promotion p{
-    /*text-align: center;*/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*align-items: center;*/
-    /*vertical-align: center;*/
-    /*justify-content: center;*/
-
-}
 #promotion img{
     width: 75px;
     margin: 20px;
-
 }
 .target-text{
     color: red;

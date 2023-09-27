@@ -240,3 +240,9 @@ function cancelOption(){
         polyList[i].style.fill = "";
     }
 }
+function buttonOption(action){
+    switch (action){
+        case "prohibition":
+            break;
+    }
+}
