@@ -1,8 +1,7 @@
-package com.parkingcar.model.Customer;
+package com.parkingcar.model.customer;
 
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.packageRent.PackageRent;
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,14 +20,11 @@ public class Customer {
     private int id;
     private String name;
     private String phoneNumber;
-    private String licensePlates;
-    private LocalDate timeRemaining;
-    private int quantitySlot;
-    private String locationRent;
     private String roomRented;
     private String address;
-    private String images;
-    private int status;
+    private String avatar;
+    private int gender;
+    private LocalDate DOB;
     @ManyToOne()
     @JoinColumn(name = "packageRent_Id", referencedColumnName = "id")
     private PackageRent packageRent;
