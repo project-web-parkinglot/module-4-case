@@ -23,7 +23,4 @@ public class PackageRent {
 
     @OneToMany(mappedBy = "packageRent", cascade = CascadeType.ALL)
     private List<Customer> customers;
-
-
-
 }

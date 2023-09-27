@@ -185,31 +185,27 @@ function setupMap(level){
     if (level == 1){
         array = arrayPoint1;
         areaControl.style.backgroundImage = `url("/packing_lot_css/img/b1.png")`
-        document.getElementById("button-level").innerHTML = `<div class="color3 filler boxshadow-inset">B1</div>
-                                                                      <div class="hover color2 filler boxshadow-inset" onclick="setupMap(2)">B2</div>`
+        document.getElementById("button-level").innerHTML = `<div class="color4 filler boxshadow-outset">B1</div>
+                                                                      <div class="hover color2 filler boxshadow-outset" onclick="setupMap(2)">B2</div>`
     } else {
         array = arrayPoint2;
         areaControl.style.backgroundImage = `url("/packing_lot_css/img/b2.png")`
-        document.getElementById("button-level").innerHTML = `<div class="hover color2 filler boxshadow-inset" onclick="setupMap(1)">B1</div>
-                                                                      <div class="color3 filler boxshadow-inset">B2</div>`
+        document.getElementById("button-level").innerHTML = `<div class="hover color2 filler boxshadow-outset" onclick="setupMap(1)">B1</div>
+                                                                      <div class="color4 filler boxshadow-outset">B2</div>`
     }
 
 
     for (let i = 0; i < array.length; i++){
         let point = array[i];
-        data += `<polygon points="${width * point.x1  / 100},${height * point.y1 / 100} 
+        data += `<polygon id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
-                                  " onclick="locationAction('${point.alt}')"/>`
+                                  " onclick="locationAction('${point.alt}', event)"/>`
     }
     document.getElementById("parkinglot").innerHTML = data;
-    // alert(width +"-" + height)
-
-
 }
-setupMap(2)
-
+setupMap(1)
 
 // document.getElementById('map-control').addEventListener('click', function(event) {
 //     var rect = event.target.getBoundingClientRect();
@@ -218,6 +214,35 @@ setupMap(2)
 //
 //     alert('x: ' + x + ' y: ' + y);
 // });
-function locationAction(text){
-    alert(text);
+function locationAction(id, event){
+    cancelOption();
+    let poligon = document.getElementById(id);
+    poligon.style.fill = "green";
+    let x = event.clientX;
+    let y = event.clientY;
+    let table = document.getElementById("option");
+    table.style.display = "block";
+    table.style.left = x + "px";
+    table.style.top = y + "px";
+
+    //Check role và giá trị ô
+    let data = `<p>${id}</p>`;
+    data += `<div>Login</div>`
+
+    data += `<div onclick="cancelOption()">Cancel</div>`
+    table.innerHTML = data;
+}
+function cancelOption(){
+    let table = document.getElementById("option");
+    table.style.display = "none";
+    let polyList = document.getElementsByTagName("polygon");
+    for (let i = 0; i < polyList.length; i++){
+        polyList[i].style.fill = "";
+    }
+}
+function buttonOption(action){
+    switch (action){
+        case "prohibition":
+            break;
+    }
 }
