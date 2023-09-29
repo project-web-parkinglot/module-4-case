@@ -23,4 +23,10 @@ public class AccountService implements IAccountService{
     public void createAccount(Account account) {
         iAccountRepository.save(account);
     }
+
+    public static void main(String[] args) {
+        AccountService accountService = new AccountService();
+        Account account = accountService.findAccountByEmail("thien97.night1@gmail.com");
+        System.out.println(account);
+    }
 }
