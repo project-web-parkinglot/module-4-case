@@ -1,4 +1,30 @@
 use `case_study_module_4`;
+INSERT INTO `case_study_module_4`.`role` (`name`) 
+	VALUES ('ROLE_CUSTOMER'),('ROLE_EMPLOYEE'),('ROLE_ADMIN');
+
+insert into `account`(email, pass_word, `status`,user_name,role_id)
+values
+	("long1110dn@gmail.com","abcd1234",0,"dinhlong1110","1"),
+	("tsaivan569@gmail.com","abcd1234",0,"nhavan1110","1"),
+	("smallhouse3110@gmail.com","abcd1234",0,"hongduyen1110","1"),
+	("xuanthanh1107@gmail.com","abcd1234",0,"xuanthanh1110","1"),
+	("lequocthang307@gmail.com","abcd1234",0,"thang307","1"),
+	('thien97.night1@gmail.com', 'a123456',0, 'thien97', '1'),
+	('a@gmail.com', 'a123456',0, 'long', '2'),
+	('b@gmail.com', 'a123456',0, 'thang', '3');
+insert into customer(`address`,`name`,phone_number, room_rented,account_id,dob,images,gender)
+values
+	("Hà Nội","Phúc Long","0932533481","P404",1,"1999-05-06","LINK-IMAGES","1"),
+	("Quảng Nam","Nhã Văn","0783685099","P507",2,"2001-05-03","LINK-IMAGES","0"),
+	("Hồ Chí Minh","Hồng Duyên","0905346958","P203",3,"1992-10-31","LINK-IMAGES","0"),
+	("Đà Nẵng","Xuân Thành","0905346958","P204",4,"1989-07-17","LINK-IMAGES","1"),
+	("Đà Nẵng","Quốc Thắng","0905123456","P504",5,"1994-07-06","LINK-IMAGES","1");
+insert into package_rent(`day`,money_rent,package_name)
+values
+	(90,1500000,"3 tháng"),
+	(180,2700000,"6 tháng"),
+	(365,4000000,"12 tháng");
+
 insert into `parking_lot`
 	(`base_level`,`due_date`,`status`,`x1`,`y1`,`x2`,`y2`,`x3`,`y3`,`x4`,`y4`,`name`,`customer_id`,`car_image`,`license_plate`)
 values
