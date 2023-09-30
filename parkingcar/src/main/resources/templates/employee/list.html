@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+</head>
+<body>
+<div class="row">
+    <div class="col-sm-10">
+        <form action="/admins/employee">
+            <div class="input-group mb-3" style="width: 30%">
+                <input type="text" class="form-control" placeholder="search"
+                       aria-label="" name="searchName" th:value="${searchName}">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+                    Search
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered zero-configuration">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>
+                Name
+                <span style="float: right;">
+                    <a th:href="@{/admins/employee/(sortProperty='name', condition='asc', searchName=${searchName})}">
+                        <i class="fa fa-arrow-up"></i>
+                    </a>
+                    <a th:href="@{/admins/employee/(sortProperty='name', condition='desc', searchName=${searchName})}">
+                        <i class="fa fa-arrow-down"></i>
+                    </a>
+                </span>
+            </th>
+            <th>
+                Day Of Birth
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Salary
+            </th>
+            <th>
+                Email
+                <span style="float: right;">
+                    <a th:href="@{/admins/employee/(sortProperty='acc.email', condition='asc', searchName=${searchName})}">
+                        <i class="fa fa-arrow-up"></i>
+                    </a>
+                    <a th:href="@{/admins/employee/(sortProperty='acc.email', condition='desc', searchName=${searchName})}">
+                        <i class="fa fa-arrow-down"></i>
+                    </a>
+                </span>
+            </th>
+            <th>
+                Status
+            </th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="list1,status : ${list}">
+            <tr>
+                <td th:text="${status.count}"></td>
+                <td th:text="${list1.name}"></td>
+                <td th:text="${list1.dayOfBirth}"></td>
+                <td th:text="${list1.gender == 0 ? 'Female' : 'Male'}"></td>
+                <td th:text="${#numbers.formatDecimal(list1.salary, 0, 'COMMA', 0, 'POINT')} + ' $'"></td>
+                <td th:text="${list1.account.email}"></td>
+                <td th:class="${list1.account.status == 0 ? 'label gradient-4 rounded'
+                                                : 'label gradient-5 rounded'}"
+                    th:text="${list1.account.status == 0 ? 'Available' : 'Not available'}"></td>
+                <td>
+                            <span style="display: flex">
+                        <a ata-toggle="tooltip"
+                           class="label gradient-1 rounded"
+                           data-placement="top" style="margin: 3%;"
+                           th:href="@{/admins/employee/edit/__${list1.id}__/__${list1.account.email}__}"
+                           title="Edit">
+                           <i class="fa fa-pencil"></i>
+                        </a>
+                        <a class="label gradient-3 rounded" data-bs-target="#exampleModal"
+                           data-bs-toggle="modal"
+                           style="margin: 3%;"
+                           th:attr="onclick=|confirmDelete('${list1.id}','${list1.name}')|"
+                           th:if="${list1.account.status == 0}">
+                                <i class="fa-regular fa-trash-can" title="Delete"></i>
+                        </a>
+                                <!--                        <a class="label gradient-7 rounded" data-bs-target="#exampleModal"-->
+                                <!--                           data-bs-toggle="modal"-->
+                                <!--                           style="margin: 3%;"-->
+                                <!--                           th:attr="onclick=|showRecover('${list1.id}','${list1.name}')|"-->
+                                <!--                           th:if="${list1.account.status == 1}">-->
+                                <!--                        <i class="fa fa-arrow-up" title="Recover"></i>-->
+<!--                                </a>-->
+                    </span>
+                </td>
+            </tr>
+            <!-- Modal xóa-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="/admins/employee/delete" method="get">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"><b>Delete</b></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Do you want to delete Player:
+                                    <span id="name"></span></p>
+                                <input type="text" hidden="hidden" name="id" id="id">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </th:block>
+        </tbody>
+    </table>
+    <div class="container" style="display: flex;justify-content: center">
+        <a th:if="${list.hasPrevious()}" th:href="@{/admins/employee/(page=${list.number-1},searchName=${searchName})}"
+           style="margin-right: 10px;">Previous</a>
+        <span th:text="${list.number+1}"></span>/<span th:text="${list.totalPages}"></span>
+        <a th:if="${list.hasNext()}" th:href="@{/admins/employee/(page=${list.number+1},searchName=${searchName})}"
+           style="margin-left: 10px;">Next</a>
+    </div>
+<!--    <nav aria-label="Page navigation example" style="display: flex;justify-content: center">-->
+<!--        <ul class="pagination">-->
+<!--            <th:block th:if="${list.number == 0}">-->
+<!--                <li class="page-item disabled">-->
+<!--                    <a class="page-link"-->
+<!--                       th:disabled="${list.number == 0}"-->
+<!--                       th:href="@{/admins/employee(page=${list.number - 1}, searchName=${searchName})}">Previous</a>-->
+<!--                </li>-->
+<!--            </th:block>-->
+<!--            <th:block th:unless="${list.number == 0}">-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link"-->
+<!--                       th:href="@{/admins/employee(page=${list.number - 1}, searchName=${searchName})}">Previous</a>-->
+<!--                </li>-->
+<!--            </th:block>-->
+<!--            <th:block-->
+<!--                    th:each="index : ${#numbers.sequence(0, list.totalPages - 1)}">-->
+<!--                <th:block th:if="${index.equals(list.number)}">-->
+<!--                    <li class="page-item active">-->
+<!--                        <a class="page-link"-->
+<!--                           th:href="@{/admins/employee(page=${index}, searchName=${searchName})}"-->
+<!--                           th:text="${index + 1}"></a>-->
+<!--                    </li>-->
+<!--                </th:block>-->
+<!--                <th:block th:unless="${index.equals(list.number)}">-->
+<!--                    <li class="page-item">-->
+<!--                        <a class="page-link"-->
+<!--                           th:href="@{/admins/employee(page=${index}, searchName=${searchName})}"-->
+<!--                           th:text="${index + 1}"></a>-->
+<!--                    </li>-->
+<!--                </th:block>-->
+<!--            </th:block>-->
+
+<!--            <th:block th:if="${list.hasNext()}">-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link"-->
+<!--                       th:href="@{/admins/employee(page=${list.number + 1}, searchName=${searchName})}">Next</a>-->
+<!--                </li>-->
+<!--            </th:block>-->
+<!--            <th:block th:unless="${list.hasNext()}">-->
+<!--                <li class="page-item disabled">-->
+<!--                    <a class="page-link"-->
+<!--                       th:href="@{/admins/employee(page=${list.number + 1}, searchName=${searchName})}">Next</a>-->
+<!--                </li>-->
+<!--            </th:block>-->
+<!--        </ul>-->
+<!--    </nav>-->
+</div>
+<script>
+    //delete modal
+    function confirmDelete(id, name) {
+        document.getElementById("name").innerHTML = name;
+        document.getElementById("id").value = id;
+    }
+</script>
+<script crossorigin="anonymous"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

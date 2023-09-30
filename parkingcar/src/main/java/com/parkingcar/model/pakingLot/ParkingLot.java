@@ -26,6 +26,10 @@ public class ParkingLot {
     private double y1;
     private double x2;
     private double y2;
+    private double x3;
+    private double y3;
+    private double x4;
+    private double y4;
     private int baseLevel;
     private int status;
     private String carImage;
