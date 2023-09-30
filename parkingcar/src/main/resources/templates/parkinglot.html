@@ -8,17 +8,80 @@
 
 </head>
 <body class="color2">
-<div id="header" class="filler color1 boxshadow-outset"></div>
-<div></div>
-<div id="map-control" class="filler boxshadow-outset color1">
-    <div id="button-level"></div>
-    <svg id="parkinglot"></svg>
+<div id="header" class="border filler color1 boxshadow-inset">
+    <div class="border hover filler color2 boxshadow-outset">Signup</div>
+    <div class="border hover filler color2 boxshadow-outset">Login</div>
+</div>
+<div id="slogan" class="border filler color1 boxshadow-outset">
+    <div>
+        <img src="/packing_lot_css/img/carSlogan.png"/>
+        <p>chỉ <span class="target-text">5000</span> gửi xe, có người care sáng tối !!!</p>
+    </div>
+</div>
+<div id="control-cover">
+    <div id="cover" class="border filler color1 boxshadow-outset">
+        <div id="function-key"></div>
+    </div>
+    <div></div>
+    <div id="contact-box" class="filler boxshadow-inset color1">
+        <p>Ban quản lý tòa nhà</p>
+        <div id="img-member" th:attr="onmouseleave=|backImgMember()|">
+            <div th:attr="onmouseover=|changeImgMember(0)|" id="img-thang" class="filler boxshadow-outset">Quốc Thắng</div>
+            <div th:attr="onmouseover=|changeImgMember(1)|" id="img-long" class="filler boxshadow-outset">Đình Long</div>
+            <div th:attr="onmouseover=|changeImgMember(2)|" id="img-thien" class="filler boxshadow-outset">Hoàn Thiện</div>
+            <div th:attr="onmouseover=|changeImgMember(3)|" id="img-hai" class="filler boxshadow-outset">Thanh Hải</div>
+        </div>
+        <div id="table-contact">
+            <div class="boxshadow-outset color2 filler" style="background-image: url('/packing_lot_css/icon/phone.png')">Contact us</div>
+            <div class="boxshadow-outset color2 filler" style="background-image: url('/packing_lot_css/icon/face.png')">Follow us</div>
+            <div class="boxshadow-outset color2 filler" style="background-image: url('/packing_lot_css/icon/mail.png')">Feedback to us</div>
+        </div>
+    </div>
+</div>
+
+<div id="clock" class="border filler color1 boxshadow-outset">00:00:00</div>
+
+<div id="map-container" class="filler color1 boxshadow-inset">
+    <div id="parking-info" class="boxshadow-inset filler color2"></div>
+    <div></div>
+    <div id="map-control" class="border filler boxshadow-inset color1">
+        <div id="button-level"></div>
+        <svg id="parkinglot"></svg>
+    </div>
+    <div id="option" class="color2 boxshadow-outset"></div>
+</div>
+
+
+<div id="infomation" class="border filler color1 boxshadow-inset">
+    <img class="boxshadow-outset filler border" src="/packing_lot_css/img/police.png"/>
+    <div id="promotion">
+        <img src="/packing_lot_css/icon/security.png"/>
+        <p>Với kinh nghiệm <span class="target-text">TRÔNG GIỮ XE</span>
+            hơn 30 năm. Đội ngũ giám sát hơn <span class="target-text">3000 NGƯỜI và CHÓ</span>
+            Chúng tôi tự tin mang lại cho bạn giấc ngủ bình thản, sáng dậy với chiếc xe vẫn vẹn nguyên</p>
+        <img src="/packing_lot_css/icon/camera.png"/>
+        <p>Tự hào với dàn <span class="target-text">CAMERA CHẠY BẰNG CƠM</span> hoạt động
+            <span class="target-text">24/7</span>. Chúng tôi cam kết xe của bạn sẽ được cách ly
+            như <span class="target-text">F0 COVID</span></p>
+        <img src="/packing_lot_css/icon/fire.png"/>
+        <p>Bãi đỗ xe được trang bị hệ thông <span class="target-text">PHÒNG CHÁY CHỮA CHÁY</span> hiện đại
+            . Cam kết <span class="target-text">CHÁY 1 XE ĐỀN 1 CĂN HỘ</span></p>
+    </div>
 </div>
 
 
 
+<input type="hidden" id="roleTrans" th:value="${role}">
+<input type="hidden" id="arrayBlockB1" th:value="${arrayBlockB1}">
+<input type="hidden" id="arrayBlockB2" th:value="${arrayBlockB2}">
+<input type="hidden" id="arrayAvailableB1" th:value="${arrayAvailableB1}">
+<input type="hidden" id="arrayAvailableB2" th:value="${arrayAvailableB2}">
+<input type="hidden" id="ownParkingB1" th:value="${ownParkingB1}">
+<input type="hidden" id="ownParkingB2" th:value="${ownParkingB2}">
 
 </body>
 <script src="packing_lot_css/parkinglot.js"></script>
-<script src="packing_lot_css/switch_img.js"></script>
+<script src="packing_lot_css/button.js"></script>
+<script src="packing_lot_css/clock.js"></script>
+<script src="packing_lot_css/memberimg.js"></script>
 </html>
