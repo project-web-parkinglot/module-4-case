@@ -31,12 +31,11 @@
     position: relative;
 }
 polygon{
-    fill: #EAE9E5;
     opacity: 0.4;
     transition-duration: 0.2s;
 }
 polygon:hover{
-    fill: rgba(0,255,0,0.5);
+    fill: rgba(255,0,255,0.5);
     transition-duration: 0.2s;
 }
 svg{
@@ -62,7 +61,8 @@ svg{
 #control-cover{
     width: 100%;
     display: grid;
-    grid-template-columns: 3fr 20px 2fr;
+    aspect-ratio: 16/4;
+    grid-template-columns: 7fr 20px 3fr;
 }
 #cover{
     height: 100%;
@@ -114,7 +114,7 @@ svg{
     transition-duration: 0.2s;
 }
 #option{
-    position: fixed;
+    position: absolute;
     display: none;
     border-radius: 20px;
     text-align: center;
@@ -203,4 +203,174 @@ svg{
     font-weight: bold;
     margin-left: 5px;
     margin-right: 5px;
+}
+.not-available{
+    color: red;
+}
+.blockParking{
+    fill: red;
+}
+.availableParking{
+    fill: green;
+}
+.myParking{
+    fill: blue;
+}
+#img-member{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    transition-duration: 0.5s;
+    width: 90%;
+    margin-left: 5%;
+    height: 100%;
+}
+#contact-box{
+    display: grid;
+    grid-template-rows: 1fr 4fr 3fr;
+}
+#contact-box p{
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+#img-member div{
+    height: 100%;
+    width: 90%;
+    margin-left: 5%;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%);
+    transition-duration: 1s;
+    color: rgba(0,0,0,0);
+    text-align: center;
+    padding: 10px;
+    font-size: 25px;
+    font-weight: bold;
+}
+#img-member div:hover{
+    color: rgba(255,255,255,1);
+    text-shadow:
+            1px 1px 0 black,
+            -1px -1px 0 black,
+            1px -1px 0 black,
+            -1px 1px 0 black;
+}
+#img-thang{
+    background-image: url("/packing_lot_css/img/thang.jpg");
+}
+#img-long{
+    background-image: url("/packing_lot_css/img/default.jpg");
+}
+#img-thien{
+    background-image: url("/packing_lot_css/img/default.jpg");
+}
+#img-hai{
+    background-image: url("/packing_lot_css/img/default.jpg");
+}
+#img-thang:hover{
+    filter: none;
+}
+#img-long:hover{
+    filter: none;
+}
+#img-thien:hover{
+    filter: none;
+}
+#img-hai:hover{
+    filter: none;
+}
+#table-contact{
+    padding: 10px;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+#table-contact div{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    vertical-align: center;
+    height: 80%;
+    width: 35%;
+    margin-left: 60%;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    text-align: left;
+    transition-duration: 0.2s;
+}
+#table-contact div:hover{
+    scale: 1.05;
+    color: white;
+    background-color: #787772;
+    transition-duration: 0.2s;
+}
+#map-container{
+    padding: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 3fr 20px 7fr;
+    margin-bottom: 20px;
+}
+#parking-info{
+    padding: 20px;
+}
+#parking-name{
+    width: 60%;
+    margin-left: 20%;
+    height: 50px;
+    font-size: 22px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#parking-info img{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+#parking-detail{
+    width: 90%;
+    margin-left: 5%;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+#parking-info td{
+    vertical-align: center;
+}
+#plate{
+    width: 60%;
+    margin-left: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 50px;
+    color: darkblue;
+}
+#customer-id{
+    width: 90%;
+    margin-left: 5%;
+    display: grid;
+    grid-template-columns: 3fr 10px 5fr;
+}
+#customer-id img{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#customer-info{
+    width: 100%;
+    margin: 0;
+    padding: 10px 20px;
+    height: 100%;
+}
+#avata{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
 }
