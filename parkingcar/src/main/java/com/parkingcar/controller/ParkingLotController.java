@@ -18,12 +18,7 @@ public class ParkingLotController {
     public String showParkingLotPage(){
         return "parkinglot";
     }
-    @GetMapping("/list")
-    public String showList(Model model){
-        List<Customer> customers = customerService.findAll();
-        model.addAttribute("customers", customers);
-        return "/customer/list-customer";
-    }
+
 
 
 }

@@ -17,6 +17,9 @@ public class Bill {
     @Column(name = "time_pay",columnDefinition = "date not null")
     private LocalDate timePay;
 
+    public Bill() {
+    }
+
     @Column(name = "money_pay",columnDefinition = "int not null")
     private double moneyPay;
 
