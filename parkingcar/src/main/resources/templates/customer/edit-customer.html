@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="form-group row" style="align-content: center">
+  <label class="col-lg-2 col-form-label">Avatar <span
+          class="text-danger">*</span>
+  </label>
+  <div class="col-lg-6">
+    <div id="image-preview-container1">
+      <img style="margin: 2%; width: 10rem" th:src="*{imageIdCardBack}"
+           alt="Avatar's customer">
+      <input type="hidden" th:value="*{imageIdCardBack}">
+    </div>
+    <input type="file"
+           id="upload-file" multiple accept=".jpg, .jpeg, .png"
+           onchange="limitFiles(this, 1)">
+    <input name="image2" type="hidden" id="image2" th:field="*{imageIdCardBack}"
+           required>
+  </div>
+</div>
+
+
+
+<script>
+  function limitFiles(input, maxFiles) {
+    if (input.files.length > maxFiles) {
+      alert(`Chỉ được chọn đúng ${maxFiles} tệp.`);
+      input.value = ""; // Xóa tệp đã chọn nếu vượt quá giới hạn
+    }
+  }
+
+  document.getElementById("upload-file").addEventListener("change", function (e) {
+    const container = document.getElementById("image-preview-container1");
+    container.innerHTML = "";
+
+    const maxFiles = 1;
+    const files = e.target.files;
+
+    if (files.length !== maxFiles) {
+      alert(`Bạn phải chọn đúng ${maxFiles} tệp.`);
+      e.target.value = "";
+      return;
+    }
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const img = document.createElement("img");
+      img.src = URL.createObjectURL(file);
+      img.style.width = "6rem"
+      img.style.height = "6rem"
+      img.style.margin = "7px";
+      container.appendChild(img);
+    }
+  });
+</script>
+<script type="module" src="/js/upload-file.js"></script>
+<script type="module" src="/js/configulation-firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
+</body>
+</html>
