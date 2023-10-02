@@ -24,6 +24,5 @@ public class PackageRent {
 
     @OneToMany(mappedBy = "packageRent")
     List<Bill> bills;
-    @OneToMany(mappedBy = "packageRent")
-    List<Customer> customers;
+
 }
