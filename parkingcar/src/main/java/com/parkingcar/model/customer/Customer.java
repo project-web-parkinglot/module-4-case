@@ -31,7 +31,9 @@ public class Customer {
     private String roomRented;
     private String address;
 
+
     @Column(columnDefinition = "LONGTEXT", length = 65535)
+
     private String images;
 
     @OneToOne

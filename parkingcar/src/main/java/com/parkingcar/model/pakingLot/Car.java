@@ -23,6 +23,7 @@ public class Car {
     @OneToMany(mappedBy = "car")
     private List<CarImage> carImageList;
 
+
     @ManyToOne
     @JoinColumn(name = "customerId", referencedColumnName = "id")
     private Customer customer;
