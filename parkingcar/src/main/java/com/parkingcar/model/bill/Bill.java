@@ -49,6 +49,10 @@ public class Bill {
         this.parkingLot = parkingLot;
     }
 
+    public Bill() {
+
+    }
+
     public int getId() {
         return id;
     }
