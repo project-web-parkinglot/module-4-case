@@ -1,4 +1,5 @@
 package com.parkingcar.model.pakingLot;
+import com.parkingcar.model.bill.Bill;
 import com.parkingcar.model.customer.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,4 +25,6 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "customerId", referencedColumnName = "id")
     private Customer customer;
+    @OneToMany(mappedBy = "car")
+    private List<Bill> billList;
 }

@@ -47,17 +47,17 @@ public class ParkingLotService implements IParkingLotService{
     public String convertClassJsFull(List<ParkingLot> list){
         String result = "[";
         for (ParkingLot parkingLot : list){
-            result += "new parkingLotMine("
-                    + parkingLot.getX1() + "," + parkingLot.getY1() + ","
-                    + parkingLot.getX2() + "," + parkingLot.getY2() + ","
-                    + parkingLot.getX3() + "," + parkingLot.getY3() + ","
-                    + parkingLot.getX4() + "," + parkingLot.getY4() + ",'"
-                    + parkingLot.getName() + "','" + parkingLot.getDueDate() + "','"
-                    + parkingLot.getCarImage() + "','" + parkingLot.getLicensePlate() + "','"
-                    + parkingLot.getCustomer().getName() + "','" + parkingLot.getCustomer().getDOB() + "','"
-                    + parkingLot.getCustomer().getAddress() + "','" + parkingLot.getCustomer().getGender() + "','"
-                    + parkingLot.getCustomer().getImages() + "','" + parkingLot.getCustomer().getPhoneNumber() + "','"
-                    + parkingLot.getCustomer().getRoomRented() + "'),";
+//            result += "new parkingLotMine("
+//                    + parkingLot.getX1() + "," + parkingLot.getY1() + ","
+//                    + parkingLot.getX2() + "," + parkingLot.getY2() + ","
+//                    + parkingLot.getX3() + "," + parkingLot.getY3() + ","
+//                    + parkingLot.getX4() + "," + parkingLot.getY4() + ",'"
+//                    + parkingLot.getName() + "','" + parkingLot.getDueDate() + "','"
+//                    + parkingLot.getCarImage() + "','" + parkingLot.getLicensePlate() + "','"
+//                    + parkingLot.getCustomer().getName() + "','" + parkingLot.getCustomer().getDOB() + "','"
+//                    + parkingLot.getCustomer().getAddress() + "','" + parkingLot.getCustomer().getGender() + "','"
+//                    + parkingLot.getCustomer().getImages() + "','" + parkingLot.getCustomer().getPhoneNumber() + "','"
+//                    + parkingLot.getCustomer().getRoomRented() + "'),";
         }
 
         result += "]";
@@ -189,24 +189,24 @@ public class ParkingLotService implements IParkingLotService{
     @Transactional
     public void lockParking(String name) throws IllegalAccessException {
         ParkingLot parkingLot = findByName(name);
-        if (parkingLot != null || parkingLot.getCustomer() != null) {
-            parkingLot.setStatus(0);
-            parkingLotRepository.save(parkingLot);
-        } else {
-            throw new IllegalAccessException("Cannot Lock this Parkinglot");
-        }
+//        if (parkingLot != null || parkingLot.getCustomer() != null) {
+//            parkingLot.setStatus(0);
+//            parkingLotRepository.save(parkingLot);
+//        } else {
+//            throw new IllegalAccessException("Cannot Lock this Parkinglot");
+//        }
     }
 
     @Override
     @Transactional
     public void unlockParking(String name) throws IllegalAccessException {
         ParkingLot parkingLot = findByName(name);
-        if (parkingLot != null || parkingLot.getCustomer() != null) {
-            parkingLot.setStatus(1);
-            parkingLotRepository.save(parkingLot);
-        } else {
-            throw new IllegalAccessException("Cannot Unlock this Parkinglot");
-        }
+//        if (parkingLot != null || parkingLot.getCustomer() != null) {
+////            parkingLot.setStatus(1);
+//            parkingLotRepository.save(parkingLot);
+//        } else {
+//            throw new IllegalAccessException("Cannot Unlock this Parkinglot");
+//        }
     }
 
     @Override
@@ -215,9 +215,9 @@ public class ParkingLotService implements IParkingLotService{
         ParkingLot parkingLot = findByName(name);
         if (parkingLot != null) {
             parkingLot.setDueDate(null);
-            parkingLot.setCustomer(null);
-            parkingLot.setCarImage(null);
-            parkingLot.setLicensePlate(null);
+//            parkingLot.setCustomer(null);
+//            parkingLot.setCarImage(null);
+//            parkingLot.setLicensePlate(null);
             parkingLotRepository.save(parkingLot);
         } else {
             throw new IllegalAccessException("Cannot end lease this Parkinglot");
