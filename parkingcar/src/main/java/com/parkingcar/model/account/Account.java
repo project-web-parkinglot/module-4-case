@@ -26,7 +26,7 @@ public class Account {
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
 
-    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
-    List<Notification> notificationList;
+//    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
+//    List<Notification> notificationList;
 
 }

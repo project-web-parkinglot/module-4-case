@@ -4,7 +4,10 @@ let availableParkingB1 = [];
 let availableParkingB2 = [];
 let ownParkingB1 = [];
 let ownParkingB2 = [];
+let otherParkingB1 = [];
+let otherParkingB2 = [];
 let arrayMy = [];
+let countdownInterval;
 class parkingLot{
     constructor(x1,y1,x2,y2,x3,y3,x4,y4,alt) {
         this.x1 = x1;
@@ -55,18 +58,43 @@ if (role == ""){
 }
 
 function convertData(){
-    blockParkingB1 = eval(document.getElementById("arrayBlockB1").value);
-    blockParkingB2 = eval(document.getElementById("arrayBlockB2").value);
-    availableParkingB1 = eval(document.getElementById("arrayAvailableB1").value);
-    availableParkingB2 = eval(document.getElementById("arrayAvailableB2").value);
-    ownParkingB1 = eval(document.getElementById("ownParkingB1").value);
-    ownParkingB2 = eval(document.getElementById("ownParkingB2").value);
+    let datablockB1 = document.getElementById("arrayBlockB1").value;
+    if (datablockB1 != ""){
+        blockParkingB1 = eval(datablockB1);
+    }
+    let datablockB2 = document.getElementById("arrayBlockB2").value;
+    if (datablockB2 != ""){
+        blockParkingB2 = eval(datablockB2);
+    }
+    let dataAvailableB1 = document.getElementById("arrayAvailableB1").value;
+    if (dataAvailableB1 != ""){
+        availableParkingB1 = eval(dataAvailableB1);
+    }
+    let dataAvailableB2 = document.getElementById("arrayAvailableB2").value;
+    if (dataAvailableB2 != ""){
+        availableParkingB2 = eval(dataAvailableB2);
+    }
+    let dataOwnB1 = document.getElementById("ownParkingB1").value;
+    if (dataOwnB1 != ""){
+        ownParkingB1 = eval(dataOwnB1);
+    }
+    let dataOwnB2 = document.getElementById("ownParkingB2").value;
+    if (dataOwnB2 != ""){
+        ownParkingB2 = eval(dataOwnB2);
+    }
+    let dataOtherB1 = document.getElementById("otherParkingB1").value;
+    if (dataOtherB1 != ""){
+        otherParkingB1 = eval(dataOtherB1);
+    }
+    let dataOtherB2 = document.getElementById("otherParkingB2").value;
+    if (dataOtherB2 != ""){
+        otherParkingB2 = eval(dataOtherB2);
+    }
 }
 convertData()
 
-
 function setupMap(level){
-
+    cancelOption();
     let areaControl = document.getElementById("map-control");
     let width = areaControl.offsetWidth;
     let height = width * 3 / 4;
@@ -74,28 +102,28 @@ function setupMap(level){
 
     let arrayBlock;
     let arrayAvailable;
-    let arrayNotAvailable = [];
-
+    let arrayOther;
     let data = "";
 
     if (level == 1){
         arrayBlock = blockParkingB1;
         arrayAvailable = availableParkingB1;
+        arrayOther = otherParkingB1;
         arrayMy = ownParkingB1;
 
         areaControl.style.backgroundImage = `url("/packing_lot_css/img/b1.png")`
-        document.getElementById("button-level").innerHTML = `<div class="color4 filler boxshadow-outset">B1</div>
-                                                                      <div class="hover color2 filler boxshadow-outset" onclick="setupMap(2)">B2</div>`
+        document.getElementById("button-level").innerHTML = `<div class="border color4 filler boxshadow-outset">B1</div>
+                                                                      <div class="border hover color2 filler boxshadow-outset" onclick="setupMap(2)">B2</div>`
     } else {
         arrayBlock = blockParkingB2;
         arrayAvailable = availableParkingB2;
+        arrayOther = otherParkingB2;
         arrayMy = ownParkingB2;
 
         areaControl.style.backgroundImage = `url("/packing_lot_css/img/b2.png")`
-        document.getElementById("button-level").innerHTML = `<div class="hover color2 filler boxshadow-outset" onclick="setupMap(1)">B1</div>
-                                                                      <div class="color4 filler boxshadow-outset">B2</div>`
+        document.getElementById("button-level").innerHTML = `<div class="border hover color2 filler boxshadow-outset" onclick="setupMap(1)">B1</div>
+                                                                      <div class="border color4 filler boxshadow-outset">B2</div>`
     }
-
 
     for (let i = 0; i < arrayBlock.length; i++){
         let point = arrayBlock[i];
@@ -119,11 +147,23 @@ function setupMap(level){
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
-                                  " onclick="locationAction('${point.alt}', event, 3)"/>`
+                                  " onclick="locationAction('${point.alt}', event, 3)"/>
+                <text x="${width / 400 * (point.x1 + point.x2 + point.x3 + point.x4)}"
+                      y="${height / 400 * (point.y1 + point.y2 + point.y3 + point.y4)}">
+                ${getTimeRemaining(arrayMy[i].dueDate)}d</text>`
+    }
+    for (let i = 0; i < arrayOther.length; i++){
+        let point = arrayOther[i];
+        data += `<polygon class="otherParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+                                  ${width * point.x2 / 100},${height * point.y2 / 100} 
+                                  ${width * point.x3 / 100},${height * point.y3 / 100} 
+                                  ${width * point.x4 / 100},${height * point.y4 / 100}
+                                  " onclick="locationAction('${point.alt}', event, 2)"/>`
     }
 
 
     document.getElementById("parkinglot").innerHTML = data;
+    setupTimeLeft();
 }
 setupMap(1)
 
@@ -135,23 +175,11 @@ setupMap(1)
 //     alert('x: ' + x + ' y: ' + y);
 // });
 function locationAction(id, event, status){
-
-    //lấy role hiện tại
-
-    // 0 => chưa đăng nhập
-    // 1 => khách
-    // 2 => nhân viên
-    // 3 => admin
-
-    // 0 => cấm thuê
-    // 1 => chưa ai thuê
-    // 2 => đã có người thuê (bảo mật thông tin)
-    // 3 => mine (đã có người thuê có thông tin chính chủ)
     status = +status
 
     cancelOption();
     let poligon = document.getElementById(id);
-    poligon.style.fill = "chocolate";
+    poligon.style.fill = "darkred";
     let x = event.clientX + window.scrollX;
     let y = event.clientY + window.scrollY;
     let table = document.getElementById("option");
@@ -164,12 +192,15 @@ function locationAction(id, event, status){
         case '0':
             switch (status){
                 case 0:
+                    showAlertData("notAvailable", id);
                     data += `<span class="not-available">Not Available</span>`
                     break;
                 case 1:
-                    data += `<div onclick="buttonOption('login')">Login</div>`
+                    showAlertData("login", id);
+                    data += `<div onclick="buttonOption('login', '${id}')">Login</div>`
                     break;
                 case 2:
+                    showAlertData("hasBeenOwned", id);
                     data += `<span class="not-available">Has Been Owned</span>`
                     break;
             }
@@ -177,45 +208,54 @@ function locationAction(id, event, status){
         case '1':
             switch (status){
                 case 0:
+                    showAlertData("notAvailable", id);
                     data += `<span class="not-available">Not Available</span>`
                     break;
                 case 1:
-                    data += `<div onclick="buttonOption('rental')">Rental</div>`
+                    showAlertData("available", id);
+                    data += `<div onclick="buttonOption('rental', '${id}')">Rental</div>`
                     break;
                 case 2:
+                    showAlertData("hasBeenOwned", id);
                     data += `<span class="not-available">Has Been Owned</span>`
                     break;
                 case 3:
-                    data += `<div onclick="buttonOption('extension')">Extension</div>`
-                    data += `<div onclick="buttonOption('end lease')">End Lease</div>`
+                    showInfo(id);
+                    data += `<div onclick="buttonOption('extension','${id}')">Extension</div>`
+                    data += `<div onclick="buttonOption('end lease', '${id}')">End Lease</div>`
                     break;
             }
             break;
         case '2':
             switch (status){
                 case 0:
-                case 1:
+                    showAlertData("notAvailable", id);
                     data += `<span class="not-available">Not Available</span>`
+                    break;
+                case 1:
+                    showAlertData("available", id);
                     break;
                 case 3:
                     showInfo(id);
-                    data += `<div onclick="buttonOption('extension')">Extension</div>`
-                    data += `<div onclick="buttonOption('end lease')">End Lease</div>`
+                    data += `<div onclick="buttonOption('extension', '${id}')">Extension</div>`
+                    data += `<div onclick="buttonOption('end lease', '${id}')">End Lease</div>`
                     break;
             }
             break;
         case '3':
             switch (status){
                 case 0:
-                    data += `<div onclick="buttonOption('permission')">Permission</div>`
+                    showAlertData("permission", id);
+                    data += `<div onclick="buttonOption('permission', '${id}')">Permission</div>`
                     break;
                 case 1:
-                    data += `<div onclick="buttonOption('prohibition')">Prohibition</div>`
+                    showAlertData("prohibition", id);
+                    data += `<div onclick="buttonOption('prohibition', '${id}')">Prohibition</div>`
                     break;
                 case 3:
                     showInfo(id);
-                    data += `<div onclick="buttonOption('extension')">Extension</div>`
-                    data += `<div onclick="buttonOption('end lease')">End Lease</div>`
+                    data += `<div onclick="buttonOption('extension', '${id}')">Extension</div>`
+                    data += `<div onclick="buttonOption('end lease', '${id}')">End Lease</div>`
                     break;
             }
             break;
@@ -234,24 +274,55 @@ function cancelOption(){
     }
     document.getElementById("parking-info").innerHTML = "";
 }
-function buttonOption(action){
+function buttonOption(action, id){
+    clearInterval(countdownInterval);
     switch (action){
         case "prohibition":
+            transferDataConfirm(action, id);
             break;
         case "permission":
+            transferDataConfirm(action, id);
             break;
         case "extension":
             break;
         case "end lease":
+            transferDataConfirm(action, id);
             break;
         case "login":
             break;
         case "rental":
+            transferDataConfirm(action, id);
             break;
         case "cancel":
             cancelOption();
             break
     }
+}
+function transferDataConfirm(action, id){
+    let content = document.getElementById("content-alert");
+    let table = document.getElementById("alert-content");
+    switch (action){
+        case "prohibition":
+            content.innerHTML = `Are you sure about <span class="target-text">LOCK</span><br>
+                                parkinglot <span class="target-text">${id}</span>`;
+            document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('lock','${id}')"></div>`;
+            break;
+        case "permission":
+            content.innerHTML = `Are you sure about <span class="target-text">UNLOCK</span><br>
+                                parkinglot <span class="target-text">${id}</span>`;
+            document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('unlock','${id}')"></div>`;
+            break;
+        case "end lease":
+            content.innerHTML = `Are you sure about <span class="target-text">END LEASE</span><br>
+                                parkinglot <span class="target-text">${id}</span>`;
+            document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('end lease','${id}')"></div>`;
+            break;
+        case "rental":
+            window.location.href = "/parking/create/" + id;
+            return;
+    }
+    table.style.display = "grid";
+    cancelCountDown();
 }
 function showInfo(id){
     let detail = getClass(id);
@@ -303,6 +374,37 @@ function showInfo(id){
                 </div>`
     document.getElementById("parking-info").innerHTML = data;
 }
+function showAlertData(status, parkingId){
+    let dataAlert = "";
+    switch (status) {
+        case "hasBeenOwned":
+            dataAlert = "This ParkingLot Has Been Owned";
+            break;
+        case "notAvailable":
+            dataAlert = "This ParkingLot is Blocked by Admin";
+            break;
+        case "available":
+            dataAlert = "This ParkingLot is Ready for Use";
+            let data = `<div id="parking-name" class="color2 filler boxshadow-outset">Parkinglot : 
+                    <span style="color: green">${parkingId}</span></div>
+                <h1 style="color: green" id="alert-parking">${dataAlert}</h1>`
+            document.getElementById("parking-info").innerHTML = data;
+            return;
+        case "login":
+            dataAlert = "Please Login for Use";
+            break;
+        case "permission":
+            dataAlert = "Unlocked This ParkingLot";
+            break;
+        case "prohibition":
+            dataAlert = "Lock This ParkingLot";
+            break;
+    }
+    let data = `<div id="parking-name" class="color2 filler boxshadow-outset">Parkinglot : 
+                    <span style="color: green">${parkingId}</span></div>
+                <h1 id="alert-parking">${dataAlert}</h1>`
+    document.getElementById("parking-info").innerHTML = data;
+}
 function getClass(id){
     for (let i = 0; i < arrayMy.length; i++){
         if(id == arrayMy[i].alt){
@@ -320,4 +422,54 @@ function printDay(date){
     let month = String(date.getMonth() + 1).padStart(2,'0');
     let year = date.getFullYear();
     return day + " - " + month + " - " + year;
+}
+
+
+function closeTable(){
+    let table = document.getElementById("alert-content");
+    table.style.display = "none";
+}
+function confirmTable(action, id){
+    clearInterval(countdownInterval);
+    switch (action){
+        case "lock":
+            window.location.href = "/parking/lock/" + id;
+            break;
+        case "unlock":
+            window.location.href = "/parking/unlock/" + id;
+            break;
+        case "end lease":
+            window.location.href = "/parking/endlease/" + id;
+            break;
+    }
+}
+function clickHiddenButton(){
+    document.getElementById("button").click();
+    closeTable();
+}
+function cancelCountDown(){
+    let buttonElement = document.getElementById("cancel-button");
+    let countdown = 10;
+    buttonElement.innerHTML = "Cancel 10";
+    countdownInterval = setInterval(function() {
+        countdown--;
+        document.getElementById("cancel-button").innerHTML = "Cancel " + countdown;
+        if (countdown == 0) {
+            clearInterval(countdownInterval);
+            buttonElement.removeAttribute('disabled');
+            buttonElement.click();
+        }
+    }, 1000);
+}
+function setupTimeLeft(){
+    let dayList = document.getElementsByTagName("text");
+    for (let i = 0; i < dayList.length; i++){
+        let day = dayList[i].innerHTML;
+        let dayNum = +day.substring(0,day.length - 1);
+        if (dayNum <= 10){
+            dayList[i].style.fill = "red";
+        } else {
+            dayList[i].style.fill = "green";
+        }
+    }
 }
