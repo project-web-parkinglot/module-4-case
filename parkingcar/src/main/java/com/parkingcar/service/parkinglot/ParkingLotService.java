@@ -190,36 +190,36 @@ public class ParkingLotService implements IParkingLotService{
     @Transactional
     public void lockParking(String name) throws IllegalAccessException {
         ParkingLot parkingLot = findByName(name);
-        if (parkingLot != null || parkingLot.getCar() != null) {
-            parkingLot.setParkingLotStatus(new ParkingLotStatus(1));
-            parkingLotRepository.save(parkingLot);
-        } else {
-            throw new IllegalAccessException("Cannot Lock this Parkinglot");
-        }
+//        if (parkingLot != null || parkingLot.getCar() != null) {
+//            parkingLot.setParkingLotStatus(new ParkingLotStatus(1));
+//            parkingLotRepository.save(parkingLot);
+//        } else {
+//            throw new IllegalAccessException("Cannot Lock this Parkinglot");
+//        }
     }
 
     @Override
     @Transactional
     public void unlockParking(String name) throws IllegalAccessException {
         ParkingLot parkingLot = findByName(name);
-        if (parkingLot != null || parkingLot.getCar() != null) {
-            parkingLot.setParkingLotStatus(new ParkingLotStatus(2));
-            parkingLotRepository.save(parkingLot);
-        } else {
-            throw new IllegalAccessException("Cannot Unlock this Parkinglot");
-        }
+//        if (parkingLot != null || parkingLot.getCar() != null) {
+//            parkingLot.setParkingLotStatus(new ParkingLotStatus(2));
+//            parkingLotRepository.save(parkingLot);
+//        } else {
+//            throw new IllegalAccessException("Cannot Unlock this Parkinglot");
+//        }
     }
 
     @Override
     @Transactional
     public void endLeaseParkingLot(String name) throws IllegalAccessException {
         ParkingLot parkingLot = findByName(name);
-        if (parkingLot != null) {
-            parkingLot.setCar(null);
-            parkingLot.setParkingLotStatus(new ParkingLotStatus(2));
-            parkingLotRepository.save(parkingLot);
-        } else {
-            throw new IllegalAccessException("Cannot end lease this Parkinglot");
-        }
+//        if (parkingLot != null) {
+//            parkingLot.setCar(null);
+//            parkingLot.setParkingLotStatus(new ParkingLotStatus(2));
+//            parkingLotRepository.save(parkingLot);
+//        } else {
+//            throw new IllegalAccessException("Cannot end lease this Parkinglot");
+//        }
     }
 }

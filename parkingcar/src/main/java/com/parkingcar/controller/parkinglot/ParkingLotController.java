@@ -20,7 +20,7 @@ public class ParkingLotController {
     @Autowired
     private IAccountService accountService;
 
-    Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(3, "amin"),null,null);
+    Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(3, "amin"),null);
 
 
 
