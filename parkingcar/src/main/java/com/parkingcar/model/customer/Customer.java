@@ -25,14 +25,11 @@ public class Customer {
     private int id;
     private String name;
     private String phoneNumber;
-    private String gender;
+    private int gender;
     private String DOB;
     private String roomRented;
     private String address;
     private String images;
-    @ManyToOne()
-    @JoinColumn(name = "packageRent_Id", referencedColumnName = "id")
-    private PackageRent packageRent;
 
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
@@ -42,7 +39,5 @@ public class Customer {
     private List<Bill> bills;
 
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<ParkingLot> parkingLots;
 }
 

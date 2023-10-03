@@ -17,8 +17,14 @@ public class Bill {
     @Column(name = "time_pay",columnDefinition = "date not null")
     private LocalDate timePay;
 
+    public Bill() {
+    }
+
     @Column(name = "money_pay",columnDefinition = "int not null")
     private double moneyPay;
+
+    @Column(nullable = false)
+    private int status;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
@@ -31,6 +37,8 @@ public class Bill {
     @ManyToOne
     @JoinColumn(name = "packing_lot_id", referencedColumnName = "id")
     private ParkingLot parkingLot;
+
+
 
     public Bill(int id, LocalDate timePay, double moneyPay, Customer customer, PackageRent packageRent, ParkingLot parkingLot) {
         this.id = id;
