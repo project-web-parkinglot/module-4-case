@@ -1,7 +1,6 @@
 package com.parkingcar.model.pakingLot;
 
 import com.parkingcar.model.bill.Bill;
-import com.parkingcar.model.customer.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,13 +32,13 @@ public class ParkingLot {
     private double x4;
     private double y4;
     private int baseLevel;
-    private int status;
-    private String carImage;
-    @Column(unique = true)
-    private String licensePlate;
-    @ManyToOne()
-    @JoinColumn(name = "customer_Id", referencedColumnName = "id")
-    private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "statusId", referencedColumnName = "id")
+    private ParkingLotStatus parkingLotStatus;
+    @OneToOne
+    @JoinColumn(name = "carId", referencedColumnName = "id")
+    private Car car;
+
 
     @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL)
     private List<Bill> bills;
