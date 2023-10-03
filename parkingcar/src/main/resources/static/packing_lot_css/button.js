@@ -49,5 +49,8 @@ function actionButton(action){
             break;
         case 'rental':
             break;
+        case 'facebook':
+            window.location.href = 'https://www.facebook.com/ssaphie/';
+            break;
     }
 }
