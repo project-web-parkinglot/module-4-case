@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Parking Lot Manager</title>
-    <link rel="stylesheet" href="common.css">
-    <link rel="stylesheet" href="packing_lot_css/parkinglot.css">
-
+    <link rel="stylesheet" href="/common.css">
+    <link rel="stylesheet" href="/packing_lot_css/parkinglot.css">
 </head>
 <body class="color2">
-<div id="header" class="border filler color1 boxshadow-inset">
-    <div class="border hover filler color2 boxshadow-outset">Signup</div>
-    <div class="border hover filler color2 boxshadow-outset">Login</div>
-</div>
-<div id="slogan" class="border filler color1 boxshadow-outset">
-    <div>
-        <img src="/packing_lot_css/img/carSlogan.png"/>
-        <p>chỉ <span class="target-text">5000</span> gửi xe, có người care sáng tối !!!</p>
+<div th:fragment="header">
+    <div id="alert-content" class="border filler boxshadow-outset">
+        <p id="content-alert"></p>
+        <div id="cancel-button" class="boxshadow-inset filler hover border" onclick="closeTable()">Cancel</div>
+        <div id="confirm-button" class="boxshadow-inset filler hover border" onclick="clickHiddenButton()">Confirm</div>
+    </div>
+    <div id="hidden-button"></div>
+
+    <div id="header" class="border filler color1 boxshadow-inset">
+        <div class="border hover filler color2 boxshadow-outset">Signup</div>
+        <div class="border hover filler color2 boxshadow-outset">Login</div>
+    </div>
+    <div id="slogan" class="border filler color1 boxshadow-outset">
+        <div>
+            <img src="/packing_lot_css/img/carSlogan.png"/>
+            <p>chỉ <span class="target-text">5 NGHÌN</span> gửi xe, có người care sáng tối !!!</p>
+        </div>
     </div>
 </div>
 <div id="control-cover">
@@ -24,17 +32,16 @@
     </div>
     <div></div>
     <div id="contact-box" class="filler boxshadow-inset color1">
-        <p>Ban quản lý tòa nhà</p>
+        <p>Building Manager</p>
         <div id="img-member" th:attr="onmouseleave=|backImgMember()|">
-            <div th:attr="onmouseover=|changeImgMember(0)|" id="img-thang" class="filler boxshadow-outset">Quốc Thắng</div>
-            <div th:attr="onmouseover=|changeImgMember(1)|" id="img-long" class="filler boxshadow-outset">Đình Long</div>
-            <div th:attr="onmouseover=|changeImgMember(2)|" id="img-thien" class="filler boxshadow-outset">Hoàn Thiện</div>
-            <div th:attr="onmouseover=|changeImgMember(3)|" id="img-hai" class="filler boxshadow-outset">Thanh Hải</div>
+            <div th:attr="onmouseover=|changeImgMember(0)|" id="img-thang" class="border filler boxshadow-outset">Quốc Thắng</div>
+            <div th:attr="onmouseover=|changeImgMember(1)|" id="img-long" class="border filler boxshadow-outset">Đình Long</div>
+            <div th:attr="onmouseover=|changeImgMember(2)|" id="img-thien" class="border filler boxshadow-outset">Hoàn Thiện</div>
         </div>
         <div id="table-contact">
-            <div class="boxshadow-outset color2 filler" style="background-image: url('/packing_lot_css/icon/phone.png')">Contact us</div>
-            <div class="boxshadow-outset color2 filler" style="background-image: url('/packing_lot_css/icon/face.png')">Follow us</div>
-            <div class="boxshadow-outset color2 filler" style="background-image: url('/packing_lot_css/icon/mail.png')">Feedback to us</div>
+            <div th:attr="onclick=|actionButton('contact')|" class="boxshadow-outset color2 filler" style="background-image: url('/packing_lot_css/icon/phone.png')">Contact us</div>
+            <div th:attr="onclick=|actionButton('facebook')|" class="boxshadow-outset color2 filler" style="background-image: url('/packing_lot_css/icon/face.png')">Follow us</div>
+            <div th:attr="onclick=|actionButton('feedback')|" class="boxshadow-outset color2 filler" style="background-image: url('/packing_lot_css/icon/mail.png')">Feedback to us</div>
         </div>
     </div>
 </div>
@@ -47,10 +54,15 @@
     <div id="map-control" class="border filler boxshadow-inset color1">
         <div id="button-level"></div>
         <svg id="parkinglot"></svg>
+        <div id="note">
+            <div class="blockParking filler">Blocked</div>
+            <div class="availableParking filler">Available</div>
+            <div class="otherParking filler">Has Been Owned</div>
+            <div class="myParking filler">My Parking</div>
+        </div>
     </div>
     <div id="option" class="color2 boxshadow-outset"></div>
 </div>
-
 
 <div id="infomation" class="border filler color1 boxshadow-inset">
     <img class="boxshadow-outset filler border" src="/packing_lot_css/img/police.png"/>
@@ -62,10 +74,10 @@
         <img src="/packing_lot_css/icon/camera.png"/>
         <p>Tự hào với dàn <span class="target-text">CAMERA CHẠY BẰNG CƠM</span> hoạt động
             <span class="target-text">24/7</span>. Chúng tôi cam kết xe của bạn sẽ được cách ly
-            như <span class="target-text">F0 COVID</span></p>
+            như 1 bệnh nhân <span class="target-text">F0 COVID</span></p>
         <img src="/packing_lot_css/icon/fire.png"/>
-        <p>Bãi đỗ xe được trang bị hệ thông <span class="target-text">PHÒNG CHÁY CHỮA CHÁY</span> hiện đại
-            . Cam kết <span class="target-text">CHÁY 1 XE ĐỀN 1 CĂN HỘ</span></p>
+        <p>Bãi đỗ xe được trang bị hệ thông <span class="target-text">PHÒNG CHÁY CHỮA CHÁY</span> hiện đại xen lẫn yếu
+            tố tâm linh. Cam kết <span class="target-text">CHÁY 1 XE ĐỀN 1 CĂN HỘ</span></p>
     </div>
 </div>
 
@@ -78,6 +90,8 @@
 <input type="hidden" id="arrayAvailableB2" th:value="${arrayAvailableB2}">
 <input type="hidden" id="ownParkingB1" th:value="${ownParkingB1}">
 <input type="hidden" id="ownParkingB2" th:value="${ownParkingB2}">
+<input type="hidden" id="otherParkingB1" th:value="${otherParkingB1}">
+<input type="hidden" id="otherParkingB2" th:value="${otherParkingB2}">
 
 </body>
 <script src="packing_lot_css/parkinglot.js"></script>
