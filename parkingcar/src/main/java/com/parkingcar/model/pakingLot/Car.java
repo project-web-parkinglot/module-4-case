@@ -17,14 +17,17 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String carImage;
     @Column(unique = true)
     private String licensePlate;
+
     @OneToMany(mappedBy = "car")
     private List<CarImage> carImageList;
+
+
     @ManyToOne
     @JoinColumn(name = "customerId", referencedColumnName = "id")
     private Customer customer;
+
     @OneToMany(mappedBy = "car")
     private List<Bill> billList;
 }

@@ -22,7 +22,6 @@ public class ParkingLot {
     private int id;
     @Column(unique = true)
     private String name;
-    private LocalDate dueDate;
     private double x1;
     private double y1;
     private double x2;
@@ -35,10 +34,6 @@ public class ParkingLot {
     @ManyToOne
     @JoinColumn(name = "statusId", referencedColumnName = "id")
     private ParkingLotStatus parkingLotStatus;
-    @OneToOne
-    @JoinColumn(name = "carId", referencedColumnName = "id")
-    private Car car;
-
 
     @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL)
     private List<Bill> bills;

@@ -3,6 +3,7 @@ package com.parkingcar.model.customer;
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.bill.Bill;
 import com.parkingcar.model.packageRent.PackageRent;
+import com.parkingcar.model.pakingLot.Car;
 import com.parkingcar.model.pakingLot.ParkingLot;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,10 @@ public class Customer {
     private String DOB;
     private String roomRented;
     private String address;
+
+
+    @Column(columnDefinition = "LONGTEXT", length = 65535)
+
     private String images;
 
     @OneToOne
@@ -37,6 +42,9 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Bill> bills;
+
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    private List<Car> carList;
 
 
 }
