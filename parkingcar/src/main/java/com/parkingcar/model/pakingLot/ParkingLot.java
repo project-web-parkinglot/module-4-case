@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Setter
 @Getter
@@ -20,6 +21,7 @@ public class ParkingLot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(unique = true)
     private String name;
     private LocalDate dueDate;
     private double x1;
@@ -33,6 +35,7 @@ public class ParkingLot {
     private int baseLevel;
     private int status;
     private String carImage;
+    @Column(unique = true)
     private String licensePlate;
     @ManyToOne()
     @JoinColumn(name = "customer_Id", referencedColumnName = "id")
@@ -40,4 +43,17 @@ public class ParkingLot {
 
     @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL)
     private List<Bill> bills;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParkingLot that = (ParkingLot) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
