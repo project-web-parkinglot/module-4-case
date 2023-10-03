@@ -3,7 +3,7 @@ package com.parkingcar.controller.parkinglot;
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.account.Role;
 import com.parkingcar.model.pakingLot.ParkingLot;
-import com.parkingcar.service.accountService.IAccountService;
+import com.parkingcar.service.account.IAccountService;
 import com.parkingcar.service.parkinglot.IParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
