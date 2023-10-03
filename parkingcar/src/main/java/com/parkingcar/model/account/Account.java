@@ -18,14 +18,19 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String userName;
-    private String passWord;
+    private String username;
+    private String password;
     private String email;
-    private int status;
+    private boolean status;
     @ManyToOne
     @JoinColumn(name = "role_id",referencedColumnName = "id")
     private Role role;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
+
+    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
     List<Notification> notificationList;
+
+
 }
