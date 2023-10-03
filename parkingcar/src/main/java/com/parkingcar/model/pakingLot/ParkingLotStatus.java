@@ -18,4 +18,8 @@ public class ParkingLotStatus {
     private String statusName;
     @OneToMany(mappedBy = "parkingLotStatus")
     private List<ParkingLot> parkingLotList;
+
+    public ParkingLotStatus(Integer id) {
+        this.id = id;
+    }
 }

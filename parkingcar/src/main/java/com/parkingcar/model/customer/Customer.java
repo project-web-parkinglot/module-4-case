@@ -30,6 +30,7 @@ public class Customer {
     private String DOB;
     private String roomRented;
     private String address;
+
     @Column(columnDefinition = "LONGTEXT", length = 65535)
     private String images;
 
