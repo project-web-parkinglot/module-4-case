@@ -7,4 +7,6 @@ import java.util.List;
 public interface ICustomerService {
     Customer findById(int id);
     List<Customer> findAll();
+
+   Customer findCustomerByAccountId(int id);
 }

@@ -30,9 +30,6 @@ public class Customer {
     private String roomRented;
     private String address;
     private String images;
-    @ManyToOne()
-    @JoinColumn(name = "packageRent_Id", referencedColumnName = "id")
-    private PackageRent packageRent;
 
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
