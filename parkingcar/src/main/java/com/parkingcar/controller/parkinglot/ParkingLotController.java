@@ -2,12 +2,18 @@ package com.parkingcar.controller.parkinglot;
 
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.account.Role;
+import com.parkingcar.model.customer.Customer;
+import com.parkingcar.model.notification.Notification;
 import com.parkingcar.model.pakingLot.ParkingLot;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import com.parkingcar.service.account.IAccountService;
 =======
 import com.parkingcar.service.accountService.IAccountService;
 >>>>>>> 7c6c3d66beca03317beb459c68acff3dd993d6eb
+=======
+import com.parkingcar.service.account.IAccountService;
+>>>>>>> bd7d0bf0a9fffb4b20dcf4d5bc48ab40d4beedd3
 import com.parkingcar.service.parkinglot.IParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +41,8 @@ public class ParkingLotController {
 
     Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(3, "amin"),null);
 //    Account account = new Account(1, "test", "aaa", "a@gmail.com", 0, new Role(1, "amin"));
+
+
 
 
     @GetMapping("/")

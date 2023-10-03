@@ -23,6 +23,9 @@ public class Bill {
     @Column(name = "money_pay",columnDefinition = "int not null")
     private double moneyPay;
 
+    @Column(nullable = false)
+    private int status;
+
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
@@ -35,6 +38,8 @@ public class Bill {
     @JoinColumn(name = "packing_lot_id", referencedColumnName = "id")
     private ParkingLot parkingLot;
 
+
+
     public Bill(int id, LocalDate timePay, double moneyPay, Customer customer, PackageRent packageRent, ParkingLot parkingLot) {
         this.id = id;
         this.timePay = timePay;
@@ -42,6 +47,10 @@ public class Bill {
         this.customer = customer;
         this.packageRent = packageRent;
         this.parkingLot = parkingLot;
+    }
+
+    public Bill() {
+
     }
 
     public int getId() {

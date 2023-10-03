@@ -2,12 +2,10 @@ package com.parkingcar.dto.customer;
 
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.bill.Bill;
-import com.parkingcar.model.packageRent.PackageRent;
 import com.parkingcar.model.pakingLot.ParkingLot;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import java.time.LocalDate;
 import java.util.List;
 
 
@@ -15,7 +13,7 @@ public class CustomerDTO implements Validator {
     private int id;
     private String name;
     private String phoneNumber;
-    private String gender;
+    private int gender;
     private String DOB;
     private String roomRented;
     private String address;
@@ -27,7 +25,7 @@ public class CustomerDTO implements Validator {
     public CustomerDTO() {
     }
 
-    public CustomerDTO(int id, String name, String phoneNumber, String gender, String DOB, String roomRented,
+    public CustomerDTO(int id, String name, String phoneNumber, int gender, String DOB, String roomRented,
                        String address, String images, Account account, List<Bill> bills, List<ParkingLot> parkingLots)
     {
         this.id = id;
@@ -67,11 +65,11 @@ public class CustomerDTO implements Validator {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
