@@ -268,12 +268,54 @@
     <div class="form-container sign-up-container">
         <form action="#">
             <h1>Create Account</h1>
-<!--            <div class="social-container">-->
-<!--                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>-->
-<!--                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>-->
-<!--                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>-->
-<!--            </div>-->
             <span>or use your email for registration</span>
+            <form action="/signUp" method="post" th:object="${accountDto}">
+                <!-- Username input -->
+                    <input
+                            type="text"
+                            id="form2Example18"
+                            placeholder="Username"
+                            name="username"
+                            th:field="*{username}"
+                    />
+                    <span style="color: red" th:if="${#fields.hasErrors('username')}"
+                          th:errors="*{username}">
+                    </span>
+                <!-- Email input -->
+                    <input
+                            type="email"
+                            id="form2Example4"
+                            placeholder="Email"
+                            name="email"
+                            th:field="*{email}"
+                    />
+                    <span style="color: red" th:if="${#fields.hasErrors('email')}"
+                          th:errors="*{email}"></span>
+                <!-- Password input -->
+                <div class="password-input">
+                        <input
+                                type="password"
+                                id="form2Example5"
+                                placeholder="Password"
+                                name="password"
+                                th:field="*{password}"/>
+                        <span style="color: red" th:if="${#fields.hasErrors('password')}"
+                              th:errors="*{password}"></span>
+                        <input
+                                type="password"
+                                id="form2Example6"
+                                placeholder="Re-enter Password"
+                                name="password1"
+                                onkeyup="checkRPW()"/>
+                        <span style="color: red" id="message"></span>
+                </div>
+                <!-- Submit button -->
+                <div class="btn-sign-in">
+                    <button type="submit" id="signUp1" class="btn btn-primary btn-block mb-3">
+                        Register
+                    </button>
+                </div>
+            </form>
             <input type="text" placeholder="Username" />
             <input type="email" placeholder="Email" />
             <input type="password" placeholder="Password" />
@@ -284,11 +326,6 @@
     <div class="form-container sign-in-container">
         <form action="#">
             <h1>Sign in</h1>
-<!--            <div class="social-container">-->
-<!--                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>-->
-<!--                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>-->
-<!--                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>-->
-<!--            </div>-->
             <span>or use your account</span>
             <input type="email" placeholder="Email" />
             <input type="password" placeholder="Password" />
@@ -329,6 +366,34 @@
     signInButton.addEventListener('click', () => {
         container.classList.remove("right-panel-active");
     });
+    function checkRPW() {
+        let pw = document.getElementById("form2Example5").value;
+        let rpw = document.getElementById("form2Example6").value;
+        let message = document.getElementById("message");
+        let singUpButton = document.getElementById("signUp");
+        singUpButton.disabled = false;
+        if (pw.length >= 6) {
+            if (pw === rpw) {
+                message.textContent = "password ok";
+                // document.getElementById('button').style.display = 'block';
+                message.style.color = "green";
+                singUpButton.disabled = false;
+            } else {
+                message.textContent = "Password not match.";
+                message.style.color = "#C71010FF"
+                singUpButton.disabled = true;
+                // document.getElementById('button').style.display = 'none';
+                let tabRegister = document.getElementById("tab-register");
+                tabRegister.click();
+            }
+        } else {
+            message.textContent = "Password must be at least 6 characters";
+            message.style.color = "#C71010FF";
+            singUpButton.disabled = true;
+            // document.getElementById('button').style.display = 'none';
+        }
+    }
 </script>
+
 </body>
 </html>

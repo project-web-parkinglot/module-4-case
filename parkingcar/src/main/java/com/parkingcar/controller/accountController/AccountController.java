@@ -1,5 +1,6 @@
 package com.parkingcar.controller.accountController;
 
+import com.parkingcar.dto.account.AccountDto;
 import com.parkingcar.model.account.Account;
 import com.parkingcar.service.account.IAccountService;
 import com.parkingcar.service.account.IRoleService;
@@ -20,15 +21,9 @@ public class AccountController {
     @Autowired
     private IRoleService iRoleService;
 
-    @GetMapping("")
-    public String showForm(){
-        return "/account/view";
-    }
-
     @GetMapping ("/login")
-    public String loginForm(Account account, Model model){
-        model.addAttribute("account", account);
-        model.addAttribute("roleList", iRoleService.findAll());
+    public String loginForm( Model model){
+        model.addAttribute("accountDto", new AccountDto());
         return "/account/login";
     }
     @PostMapping("/login")
