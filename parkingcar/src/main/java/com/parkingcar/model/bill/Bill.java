@@ -2,6 +2,7 @@ package com.parkingcar.model.bill;
 
 import com.parkingcar.model.customer.Customer;
 import com.parkingcar.model.packageRent.PackageRent;
+import com.parkingcar.model.pakingLot.Car;
 import com.parkingcar.model.pakingLot.ParkingLot;
 
 import javax.persistence.*;
@@ -22,7 +23,10 @@ public class Bill {
     private double moneyPay;
 
     @Column(nullable = false)
-    private int status;
+    private String status;
+
+    @Column(nullable = false, name = "end_date")
+    private LocalDate endDate;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
@@ -35,20 +39,25 @@ public class Bill {
     @ManyToOne
     @JoinColumn(name = "packing_lot_id", referencedColumnName = "id")
     private ParkingLot parkingLot;
+    @ManyToOne
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    private Car car;
 
 
 
-    public Bill(int id, LocalDate timePay, double moneyPay, Customer customer, PackageRent packageRent, ParkingLot parkingLot) {
+    public Bill() {
+    }
+
+    public Bill(int id, LocalDate timePay, double moneyPay, String status, LocalDate endDate, Customer customer, PackageRent packageRent, ParkingLot parkingLot, Car car) {
         this.id = id;
         this.timePay = timePay;
         this.moneyPay = moneyPay;
+        this.status = status;
+        this.endDate = endDate;
         this.customer = customer;
         this.packageRent = packageRent;
         this.parkingLot = parkingLot;
-    }
-
-    public Bill() {
-
+        this.car = car;
     }
 
     public int getId() {
@@ -75,6 +84,22 @@ public class Bill {
         this.moneyPay = moneyPay;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
     public Customer getCustomer() {
         return customer;
     }
@@ -97,5 +122,13 @@ public class Bill {
 
     public void setParkingLot(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 }

@@ -1,13 +1,9 @@
 package com.parkingcar.model.account;
-
-import com.parkingcar.model.notification.Notification;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Setter
 @Getter
@@ -25,9 +21,6 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "role_id",referencedColumnName = "id")
     private Role role;
-
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-    List<Notification> notificationList;
 
 
     @Column(name = "verification_code", length = 64)
