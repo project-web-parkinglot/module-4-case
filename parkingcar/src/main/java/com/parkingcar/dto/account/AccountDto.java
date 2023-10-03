@@ -1,15 +1,87 @@
 package com.parkingcar.dto.account;
 
 import com.parkingcar.model.account.Account;
+import com.parkingcar.model.account.Role;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 public class AccountDto implements Validator {
     private int id;
-    private String userName;
-    private String passWord;
+    private String username;
+    private String password;
     private String email;
     private String name;
+    private int status;
+    private Role role;
+
+    public AccountDto() {
+    }
+
+    public AccountDto(int id, String username, String password, String email, String name, int status, Role role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.status = status;
+        this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUserName(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassWord(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -19,14 +91,18 @@ public class AccountDto implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         AccountDto accountDto = (AccountDto) target;
-        if (!accountDto.name.matches("^[A-Z][a-z]+(\\s[A-Z][a-z]+)+$")){
-            errors.rejectValue("name",null,"Ex: Truong Tan Hai");
+        if (accountDto.getUsername().trim().isEmpty()) {
+            errors.rejectValue("username", "", "User name could not be void!");
+        } else if (accountDto.getUsername().length() < 5) {
+            errors.rejectValue("username", "", "Your UserName must be at least 6 characters or more!");
         }
-        if (!accountDto.name.matches("^\\b[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}\\b$")){
-            errors.rejectValue("email",null,"Ex: Thang@gmail.com");
+        if (accountDto.email.trim().isEmpty()) {
+            errors.rejectValue("email", "", "Email cannot is empty!");
+        } else if (!accountDto.email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+            errors.rejectValue("email", "", "Invalid email format!");
         }
-        if (!accountDto.passWord.matches("^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$")){
-            errors.rejectValue("passWord",null,"Password include at least 6 characters (contain letter and number)");
+        if (!accountDto.password.matches("^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$")) {
+            errors.rejectValue("passWord", null, "Password include at least 6 characters (contain letter and number)");
         }
     }
 }

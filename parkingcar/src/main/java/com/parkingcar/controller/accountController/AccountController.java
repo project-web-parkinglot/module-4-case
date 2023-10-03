@@ -1,9 +1,8 @@
 package com.parkingcar.controller.accountController;
 
 import com.parkingcar.model.account.Account;
-import com.parkingcar.model.account.Role;
-import com.parkingcar.service.accountService.IAccountService;
-import com.parkingcar.service.accountService.IRoleService;
+import com.parkingcar.service.account.IAccountService;
+import com.parkingcar.service.account.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,13 +25,13 @@ public class AccountController {
         return "/account/view";
     }
 
-    @GetMapping ("/create")
+    @GetMapping ("/login")
     public String loginForm(Account account, Model model){
         model.addAttribute("account", account);
         model.addAttribute("roleList", iRoleService.findAll());
         return "/account/login";
     }
-    @PostMapping("/create")
+    @PostMapping("/login")
     public String loginCreateAccount(@Validated Account account, Model model){
         account.setStatus(0);
         model.addAttribute("message", "Create account successfully");
