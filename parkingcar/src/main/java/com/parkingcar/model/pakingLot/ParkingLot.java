@@ -22,7 +22,6 @@ public class ParkingLot {
     private int id;
     @Column(unique = true)
     private String name;
-    private LocalDate dueDate;
     private double x1;
     private double y1;
     private double x2;

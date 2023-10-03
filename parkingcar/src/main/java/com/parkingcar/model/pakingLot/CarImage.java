@@ -18,6 +18,7 @@ public class CarImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 65535, columnDefinition = "LONGTEXT")
     private String urlImg;
     @ManyToOne
     @JoinColumn(name = "carId", referencedColumnName = "id")
