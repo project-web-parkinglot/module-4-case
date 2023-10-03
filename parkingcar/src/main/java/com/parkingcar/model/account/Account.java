@@ -26,6 +26,7 @@ public class Account {
     @JoinColumn(name = "role_id",referencedColumnName = "id")
     private Role role;
 
+
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
 
