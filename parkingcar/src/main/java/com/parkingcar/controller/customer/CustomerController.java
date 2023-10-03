@@ -22,7 +22,7 @@ public class CustomerController {
     private IAccountService accountService;
 
     //data giả
-    Account account = new Account(1,"dinhlong1110","abcd1234","long1110dn@gmail.com",0,new Role(1,"Customer"));
+    Account account = new Account();
 
     @GetMapping("/detail")
     public String showCustomerDetail(Model model){

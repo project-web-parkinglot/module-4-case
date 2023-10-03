@@ -25,7 +25,7 @@ public class Customer {
     private int id;
     private String name;
     private String phoneNumber;
-    private String gender;
+    private int gender;
     private String DOB;
     private String roomRented;
     private String address;
@@ -39,7 +39,5 @@ public class Customer {
     private List<Bill> bills;
 
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<ParkingLot> parkingLots;
 }
 
