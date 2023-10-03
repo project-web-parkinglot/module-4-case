@@ -1,17 +1,6 @@
 package com.parkingcar.controller.parkinglot;
-
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.account.Role;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import com.parkingcar.model.customer.Customer;
-import com.parkingcar.model.notification.Notification;
-=======
->>>>>>> b205ac6ec909c1ae4197ce08e89eb84580baa618
-=======
-import com.parkingcar.model.customer.Customer;
-import com.parkingcar.model.notification.Notification;
->>>>>>> bd7d0bf0a9fffb4b20dcf4d5bc48ab40d4beedd3
 import com.parkingcar.model.pakingLot.ParkingLot;
 import com.parkingcar.service.account.IAccountService;
 import com.parkingcar.service.parkinglot.IParkingLotService;
@@ -39,7 +28,7 @@ public class ParkingLotController {
 //    2 employee a@gmail.com
 //    1 customer thien97.night1@gmail.com
 
-    Account account = new Account(1, "test", "aaa", "a@gmail.com", 1, new Role(3, "amin"),null);
+    Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(3, "amin"),null,null);
 
 
 

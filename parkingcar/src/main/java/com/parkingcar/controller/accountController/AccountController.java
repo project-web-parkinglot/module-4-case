@@ -33,7 +33,7 @@ public class AccountController {
     }
     @PostMapping("/login")
     public String loginCreateAccount(@Validated Account account, Model model){
-        account.setStatus(0);
+        account.setStatus(false);
         model.addAttribute("message", "Create account successfully");
         return "/account/view";
     }
