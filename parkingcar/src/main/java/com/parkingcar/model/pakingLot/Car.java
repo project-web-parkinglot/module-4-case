@@ -19,8 +19,15 @@ public class Car {
     private Integer id;
     @Column(unique = true)
     private String licensePlate;
+
     @OneToMany(mappedBy = "car")
     private List<CarImage> carImageList;
+
+
+    @ManyToOne
+    @JoinColumn(name = "customerId", referencedColumnName = "id")
+    private Customer customer;
+
     @OneToMany(mappedBy = "car")
     private List<Bill> billList;
 }
