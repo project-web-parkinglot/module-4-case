@@ -2,6 +2,8 @@ package com.parkingcar.controller.parkinglot;
 
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.account.Role;
+import com.parkingcar.model.customer.Customer;
+import com.parkingcar.model.notification.Notification;
 import com.parkingcar.model.pakingLot.ParkingLot;
 import com.parkingcar.service.account.IAccountService;
 import com.parkingcar.service.parkinglot.IParkingLotService;
@@ -29,8 +31,8 @@ public class ParkingLotController {
 //    2 employee a@gmail.com
 //    1 customer thien97.night1@gmail.com
 
-    Account account = new Account(1, "test", "aaa", "a@gmail.com", 0, new Role(3, "amin"));
-//    Account account = new Account(1, "test", "aaa", "a@gmail.com", 0, new Role(1, "amin"));
+    Account account = new Account(1, "test", "aaa", "a@gmail.com", 1, new Role(3, "amin"),null);
+
 
 
     @GetMapping("/")
