@@ -34,10 +34,6 @@ public class ParkingLot {
     @ManyToOne
     @JoinColumn(name = "statusId", referencedColumnName = "id")
     private ParkingLotStatus parkingLotStatus;
-    @OneToOne
-    @JoinColumn(name = "carId", referencedColumnName = "id")
-    private Car car;
-
 
     @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL)
     private List<Bill> bills;
