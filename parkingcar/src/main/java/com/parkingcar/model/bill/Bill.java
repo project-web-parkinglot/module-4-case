@@ -36,7 +36,7 @@ public class Bill {
     @JoinColumn(name = "package_rent_id", referencedColumnName = "id")
     private PackageRent packageRent;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "packing_lot_id", referencedColumnName = "id")
     private ParkingLot parkingLot;
     @ManyToOne
@@ -47,7 +47,6 @@ public class Bill {
 
     public Bill() {
     }
-
     public Bill(int id, LocalDate timePay, double moneyPay, String status, LocalDate endDate, Customer customer, PackageRent packageRent, ParkingLot parkingLot, Car car) {
         this.id = id;
         this.timePay = timePay;
