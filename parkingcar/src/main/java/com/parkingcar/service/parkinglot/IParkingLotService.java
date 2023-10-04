@@ -7,6 +7,7 @@ import com.parkingcar.model.pakingLot.ParkingLot;
 import java.util.List;
 
 public interface IParkingLotService {
+
     List<ParkingLot> getWaitingCheckParkingLot();
     String convertClassJs(List<ParkingLot> list);
     String convertClassJsFull(List<ParkingLot> list);
@@ -20,4 +21,5 @@ public interface IParkingLotService {
     void unlockParking(String name) throws IllegalAccessException;
     void endLeaseParkingLot(String name) throws IllegalAccessException;
     Customer getCustomerByAccountId(Integer accountId);
+
 }

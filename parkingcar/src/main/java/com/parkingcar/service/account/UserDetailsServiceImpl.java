@@ -1,29 +1,31 @@
-//package com.parkingcar.service.account;
-//
-//import com.parkingcar.model.account.Account;
-//import com.parkingcar.repository.account.IAccountRepository;
-//import com.parkingcar.repository.account.IRoleRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.authority.SimpleGrantedAuthority;
-//import org.springframework.security.core.userdetails.User;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.HashSet;
-//import java.util.Set;
-//
-//
-//@Service
-//public class UserDetailsServiceImpl implements UserDetailsService {
-//    @Autowired
-//    IAccountRepository iAccountRepository;
-//    @Autowired
-//    IRoleRepository iRoleRepository;
-//
+
+package com.parkingcar.service.account;
+
+import com.parkingcar.model.account.Account;
+import com.parkingcar.repository.account.IAccountRepository;
+import com.parkingcar.repository.account.IRoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
+
+
+@Service
+public class UserDetailsServiceImpl  {
+    @Autowired
+    IAccountRepository iAccountRepository;
+    @Autowired
+    IRoleRepository iRoleRepository;
+
+
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 //        // đầu tiên mình query xuống database xem có user  đó không
@@ -54,4 +56,8 @@
 //                accountUser.getPassword(), accountUser.isStatus(), true, true, true, grantList);
 //        return userDetails;
 //    }
-//}
+
+}
+
+
+

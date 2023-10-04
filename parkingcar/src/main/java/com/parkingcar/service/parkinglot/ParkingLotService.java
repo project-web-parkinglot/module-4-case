@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Service
 public class ParkingLotService implements IParkingLotService{
+
     @Autowired
     private IParkingLotRepository parkingLotRepository;
     @Autowired
@@ -236,4 +237,5 @@ public class ParkingLotService implements IParkingLotService{
     public Customer getCustomerByAccountId(Integer accountId) {
         return customerUseCreate.getCustomerByAccount_Id(accountId);
     }
+
 }
