@@ -1,9 +1,15 @@
 package com.parkingcar.service.parkinglot;
 
 import com.parkingcar.model.account.Account;
+import com.parkingcar.model.bill.Bill;
+import com.parkingcar.model.customer.Customer;
+import com.parkingcar.model.pakingLot.Car;
+import com.parkingcar.model.pakingLot.CarImage;
 import com.parkingcar.model.pakingLot.ParkingLot;
 import com.parkingcar.model.pakingLot.ParkingLotStatus;
+import com.parkingcar.repository.parkinglot.ICustomerUseCreate;
 import com.parkingcar.repository.parkinglot.IParkingLotRepository;
+import com.parkingcar.repository.parkinglot.IParkingLotStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,24 +19,16 @@ import java.util.List;
 @Service
 public class ParkingLotService implements IParkingLotService{
     @Autowired
-    IParkingLotRepository parkingLotRepository;
+    private IParkingLotRepository parkingLotRepository;
+    @Autowired
+    private IParkingLotStatusRepository parkingLotStatusRepository;
+    @Autowired
+    private ICustomerUseCreate customerUseCreate;
     @Override
-    public List<ParkingLot> findByOwn(Account account) {
-        return parkingLotRepository.getParkingLotByCustomer_Account(account);
-    }
-    @Override
-    public List<ParkingLot> getClosedParkingLot() {
-        return parkingLotRepository.getClosedParkingLot();
+    public List<ParkingLot> getWaitingCheckParkingLot() {
+        return parkingLotRepository.getParkingLotsByParkingLotStatusId(4);
     }
 
-    @Override
-    public List<ParkingLot> getAvailableParkingLot() {
-        return parkingLotRepository.getAvailableParkingLot();
-    }
-    @Override
-    public List<ParkingLot> getAdminCheckParkingLot() {
-        return parkingLotRepository.getAdminCheckParkingLot();
-    }
     public String convertClassJs(List<ParkingLot> list){
         String result = "[";
         for (ParkingLot parkingLot : list){
@@ -39,7 +37,7 @@ public class ParkingLotService implements IParkingLotService{
                     + parkingLot.getX2() + "," + parkingLot.getY2() + ","
                     + parkingLot.getX3() + "," + parkingLot.getY3() + ","
                     + parkingLot.getX4() + "," + parkingLot.getY4() + ",'"
-                    + parkingLot.getName() + "'),";
+                    + parkingLot.getName() + "'," + parkingLot.getId() + "),";
         }
         result += "]";
         return result;
@@ -47,20 +45,29 @@ public class ParkingLotService implements IParkingLotService{
     @Override
     public String convertClassJsFull(List<ParkingLot> list){
         String result = "[";
-//        for (ParkingLot parkingLot : list){
-//            result += "new parkingLotMine("
-//                    + parkingLot.getX1() + "," + parkingLot.getY1() + ","
-//                    + parkingLot.getX2() + "," + parkingLot.getY2() + ","
-//                    + parkingLot.getX3() + "," + parkingLot.getY3() + ","
-//                    + parkingLot.getX4() + "," + parkingLot.getY4() + ",'"
-//                    + parkingLot.getName() + "','" + parkingLot.getDueDate() + "','"
-//                    + parkingLot.getCarImage() + "','" + parkingLot.getLicensePlate() + "','"
-//                    + parkingLot.getCustomer().getName() + "','" + parkingLot.getCustomer().getDOB() + "','"
-//                    + parkingLot.getCustomer().getAddress() + "','" + parkingLot.getCustomer().getGender() + "','"
-//                    + parkingLot.getCustomer().getImages() + "','" + parkingLot.getCustomer().getPhoneNumber() + "','"
-//                    + parkingLot.getCustomer().getRoomRented() + "'),";
-//        }
+        for (ParkingLot parkingLot : list){
+            Bill bill = parkingLot.getBill();
+            Customer customer = bill.getCustomer();
+            Car car = bill.getCar();
+            List<CarImage> carImageList = car.getCarImageList();
+            String dataImg = "[";
+            for (CarImage carImage : carImageList){
+                dataImg += ("'" + carImage.getUrlImg() + "',");
+            }
+            dataImg += "]";
 
+            result += "new parkingLotMine("
+                    + parkingLot.getX1() + "," + parkingLot.getY1() + ","
+                    + parkingLot.getX2() + "," + parkingLot.getY2() + ","
+                    + parkingLot.getX3() + "," + parkingLot.getY3() + ","
+                    + parkingLot.getX4() + "," + parkingLot.getY4() + ",'"
+                    + parkingLot.getName() + "','" + bill.getEndDate() + "',"
+                    + dataImg + ",'" +car.getLicensePlate() + "','"
+                    + customer.getName() + "','" + customer.getDOB() + "','"
+                    + customer.getAddress() + "','" + customer.getGender() + "','"
+                    + customer.getImages() + "','" + customer.getPhoneNumber() + "','"
+                    + customer.getRoomRented() + "'," + parkingLot.getId() + "),";
+        }
         result += "]";
         return result;
     }
@@ -69,7 +76,7 @@ public class ParkingLotService implements IParkingLotService{
     public List<String> getBlockParking() {
         List<String> result = new ArrayList<>();
 
-        List<ParkingLot> blockParking = getClosedParkingLot();
+        List<ParkingLot> blockParking = parkingLotRepository.getParkingLotsByParkingLotStatusId(2);
         List<ParkingLot> blockParkingB1 = new ArrayList<>();
         List<ParkingLot> blockParkingB2 = new ArrayList<>();
         for (ParkingLot parkingLot : blockParking){
@@ -89,7 +96,7 @@ public class ParkingLotService implements IParkingLotService{
     public List<String> getAvailableParking() {
         List<String> result = new ArrayList<>();
 
-        List<ParkingLot> available = getAvailableParkingLot();
+        List<ParkingLot> available = parkingLotRepository.getParkingLotsByParkingLotStatusId(1);
         List<ParkingLot> availableParkingB1 = new ArrayList<>();
         List<ParkingLot> availableParkingB2 = new ArrayList<>();
         for (ParkingLot parkingLot : available){
@@ -109,7 +116,7 @@ public class ParkingLotService implements IParkingLotService{
     public List<String> getCheckParking() {
         List<String> result = new ArrayList<>();
 
-        List<ParkingLot> own = getAdminCheckParkingLot();
+        List<ParkingLot> own = parkingLotRepository.getParkingLotsByParkingLotStatusId(3);
         List<ParkingLot> ownParkingB1 = new ArrayList<>();
         List<ParkingLot> ownParkingB2 = new ArrayList<>();
         for (ParkingLot parkingLot : own){
@@ -129,7 +136,7 @@ public class ParkingLotService implements IParkingLotService{
     public List<String> getMyParking(Account customerAccount) {
         List<String> result = new ArrayList<>();
 
-        List<ParkingLot> own = findByOwn(customerAccount);
+        List<ParkingLot> own = parkingLotRepository.getParkingLotsByBill_Customer_Account(customerAccount);
         List<ParkingLot> ownParkingB1 = new ArrayList<>();
         List<ParkingLot> ownParkingB2 = new ArrayList<>();
         for (ParkingLot parkingLot : own){
@@ -139,7 +146,7 @@ public class ParkingLotService implements IParkingLotService{
                 ownParkingB2.add(parkingLot);
             }
         }
-        List<ParkingLot> other = getAdminCheckParkingLot();
+        List<ParkingLot> other = parkingLotRepository.getParkingLotsByParkingLotStatusId(3);
         for (int i = 0; i < own.size(); i++){
             other.remove(own.get(i));
         }
@@ -165,7 +172,7 @@ public class ParkingLotService implements IParkingLotService{
     public List<String> getAnonymousParking() {
         List<String> result = new ArrayList<>();
 
-        List<ParkingLot> other = getAdminCheckParkingLot();
+        List<ParkingLot> other = parkingLotRepository.getParkingLotsByParkingLotStatusId(3);
         List<ParkingLot> otherParkingB1 = new ArrayList<>();
         List<ParkingLot> otherParkingB2 = new ArrayList<>();
         for (ParkingLot parkingLot : other){
@@ -190,36 +197,43 @@ public class ParkingLotService implements IParkingLotService{
     @Transactional
     public void lockParking(String name) throws IllegalAccessException {
         ParkingLot parkingLot = findByName(name);
-//        if (parkingLot != null || parkingLot.getCar() != null) {
-//            parkingLot.setParkingLotStatus(new ParkingLotStatus(1));
-//            parkingLotRepository.save(parkingLot);
-//        } else {
-//            throw new IllegalAccessException("Cannot Lock this Parkinglot");
-//        }
+        ParkingLotStatus parkingLotStatus = parkingLot.getParkingLotStatus();
+        if (parkingLot != null || parkingLotStatus.getStatusName() == "Available") {
+            parkingLot.setParkingLotStatus(parkingLotStatusRepository.getParkingLotStatusById(2));
+            parkingLotRepository.save(parkingLot);
+        } else {
+            throw new IllegalAccessException("Cannot Lock this Parkinglot");
+        }
     }
 
     @Override
     @Transactional
     public void unlockParking(String name) throws IllegalAccessException {
         ParkingLot parkingLot = findByName(name);
-//        if (parkingLot != null || parkingLot.getCar() != null) {
-//            parkingLot.setParkingLotStatus(new ParkingLotStatus(2));
-//            parkingLotRepository.save(parkingLot);
-//        } else {
-//            throw new IllegalAccessException("Cannot Unlock this Parkinglot");
-//        }
+        ParkingLotStatus parkingLotStatus = parkingLot.getParkingLotStatus();
+        if (parkingLot != null || parkingLotStatus.getStatusName() == "Blocked") {
+            parkingLot.setParkingLotStatus(parkingLotStatusRepository.getParkingLotStatusById(1));
+            parkingLotRepository.save(parkingLot);
+        } else {
+            throw new IllegalAccessException("Cannot Lock this Parkinglot");
+        }
     }
 
     @Override
     @Transactional
     public void endLeaseParkingLot(String name) throws IllegalAccessException {
         ParkingLot parkingLot = findByName(name);
-//        if (parkingLot != null) {
-//            parkingLot.setCar(null);
-//            parkingLot.setParkingLotStatus(new ParkingLotStatus(2));
-//            parkingLotRepository.save(parkingLot);
-//        } else {
-//            throw new IllegalAccessException("Cannot end lease this Parkinglot");
-//        }
+        if (parkingLot != null) {
+            parkingLot.setParkingLotStatus(parkingLotStatusRepository.getParkingLotStatusById(1));
+            parkingLot.setBill(null);
+            parkingLotRepository.save(parkingLot);
+        } else {
+            throw new IllegalAccessException("Cannot end lease this Parkinglot");
+        }
+    }
+
+    @Override
+    public Customer getCustomerByAccountId(Integer accountId) {
+        return customerUseCreate.getCustomerByAccount_Id(accountId);
     }
 }

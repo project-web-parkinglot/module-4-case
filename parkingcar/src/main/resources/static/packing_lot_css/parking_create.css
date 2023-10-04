@@ -1,0 +1,27 @@
+#form-create{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+}
+#form-input{
+    margin-left: 20px;
+    padding: 20px;
+}
+#parking-lot-name{
+    width: 150px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: white;
+    background-color: purple;
+}
+#profile{
+    padding: 20px;
+    border-spacing: 10px;
+}
+#profile th{
+    font-size: 20px;
+}
