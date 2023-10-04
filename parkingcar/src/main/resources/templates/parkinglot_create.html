@@ -4,26 +4,75 @@
     <meta charset="UTF-8">
     <title>New Hire Request</title>
     <link rel="stylesheet" href="/common.css">
+    <link rel="stylesheet" href="/packing_lot_css/parking_create.css">
+
 </head>
 <body class="color2">
 <div th:replace="parkinglot :: header"></div>
 
 
-
-<div id="map-container" class="filler color1 boxshadow-inset">
-    <div id="parking-info" class="boxshadow-inset filler color2"></div>
-    <div></div>
-    <div id="map-control" class="border filler boxshadow-inset color1">
-        <div id="button-level"></div>
-        <svg id="parkinglot"></svg>
+<div id="form-create" class="border filler boxshadow-inset">
+    <div id="map-container">
+        <div id="parking-info" class="boxshadow-outset filler color2"></div>
+        <div></div>
+        <div id="map-control" class="border filler boxshadow-outset color1">
+            <div id="button-level"></div>
+            <svg id="parkinglot"></svg>
+        </div>
+        <div id="option" class="color2 boxshadow-outset"></div>
     </div>
-    <div id="option" class="color2 boxshadow-outset"></div>
+    <div id="form-input" class="filler boxshadow-outset">
+        <div id="parking-lot-name" class="boxshadow-outset filler border" th:text="${parking.name}"></div>
+        <table id="profile" class="boxshadow-inset filler border">
+            <tr>
+                <th colspan="2">Profile</th>
+            </tr>
+            <tr>
+                <td>- User Name : </td>
+                <td th:text="${account.username}"></td>
+            </tr>
+            <tr>
+                <td>- Email : </td>
+                <td th:text="${account.email}"></td>
+            </tr>
+            <tr>
+                <td>- Name : </td>
+                <td th:text="${customer.getName()}"></td>
+            </tr>
+            <tr>
+                <td>- Phone Number : </td>
+                <td th:text="${customer.getPhoneNumber()}"></td>
+            </tr>
+            <tr>
+                <td>- Room in Apartment : </td>
+                <td th:text="${customer.getRoomRented()}"></td>
+            </tr>
+            <tr>
+                <td>- Gender : </td>
+                <td th:text="${customer.getGender() == 1 ? 'Male' : 'Female'}"></td>
+            </tr>
+            <tr>
+                <td>- Birthday : </td>
+                <td th:text="${customer.getDOB()}"></td>
+            </tr>
+            <tr>
+                <td>- Address : </td>
+                <td th:text="${customer.getAddress()}"></td>
+            </tr>
+        </table>
+
+        <form action="/parking/create" method="post">
+            <input type="hidden" name="parkingId" id="id-parkinglot" th:value="${parking.id}">
+
+        </form>
+    </div>
 </div>
+
 
 
 
 <input type="hidden" id="arrayAvailableB1" th:value="${arrayAvailableB1}">
 <input type="hidden" id="arrayAvailableB2" th:value="${arrayAvailableB2}">
 </body>
-<script src="packing_lot_css/parkinglot.js"></script>
+<script src="/packing_lot_css/parkinglotcreate.js"></script>
 </html>

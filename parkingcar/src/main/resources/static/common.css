@@ -68,18 +68,22 @@
 }
 #header{
     height: 100px;
-    background-image: url("/logo.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-y: center;
-    background-position-x: 20px;
     margin-bottom: 20px;
     padding-right: 10px;
+    display: grid;
+    grid-template-columns: 300px 1fr 150px 150px;
+}
+#logo{
+    margin-left: 20px;
+    background-image: url("/logo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 #header div{
     display: inline-flex;
     float: right;
-    width: 100px;
+    width: 90%;
     height: 50px;
     margin-right: 20px;
     align-items: center;

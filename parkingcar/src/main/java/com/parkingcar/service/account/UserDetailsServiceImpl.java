@@ -1,3 +1,4 @@
+
 package com.parkingcar.service.account;
 
 import com.parkingcar.model.account.Account;
@@ -23,6 +24,7 @@ public class UserDetailsServiceImpl  {
     IAccountRepository iAccountRepository;
     @Autowired
     IRoleRepository iRoleRepository;
+
 
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -54,4 +56,8 @@ public class UserDetailsServiceImpl  {
 //                accountUser.getPassword(), accountUser.isStatus(), true, true, true, grantList);
 //        return userDetails;
 //    }
+
 }
+
+
+

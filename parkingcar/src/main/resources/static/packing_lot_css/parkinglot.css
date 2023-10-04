@@ -194,11 +194,29 @@
     justify-content: center;
     align-items: center;
 }
-#parking-info img{
+#show-detail-img{
     width: 80%;
     margin-left: 10%;
     margin-top: 40px;
     margin-bottom: 20px;
+    aspect-ratio: 16/9;
+    background-size: cover;
+    background-position: center;
+    transition-duration: 0.5s;
+}
+#array-picture{
+    width: 100%;
+    aspect-ratio: 5/1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    background-color: white;
+    margin-bottom: 20px;
+}
+#array-picture div{
+    margin: 10px;
+    aspect-ratio: 1/1;
+    background-position: center;
+    background-size: cover;
 }
 #parking-detail{
     width: 90%;
