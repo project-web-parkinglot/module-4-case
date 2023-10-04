@@ -7,6 +7,7 @@ import com.parkingcar.model.pakingLot.Car;
 import com.parkingcar.model.pakingLot.CarImage;
 import com.parkingcar.model.pakingLot.ParkingLot;
 import com.parkingcar.model.pakingLot.ParkingLotStatus;
+import com.parkingcar.repository.parkinglot.IBillUseCreate;
 import com.parkingcar.repository.parkinglot.ICustomerUseCreate;
 import com.parkingcar.repository.parkinglot.IParkingLotRepository;
 import com.parkingcar.repository.parkinglot.IParkingLotStatusRepository;
@@ -25,6 +26,8 @@ public class ParkingLotService implements IParkingLotService{
     private IParkingLotStatusRepository parkingLotStatusRepository;
     @Autowired
     private ICustomerUseCreate customerUseCreate;
+    @Autowired
+    private IBillUseCreate billUseCreate;
     @Override
     public List<ParkingLot> getWaitingCheckParkingLot() {
         return parkingLotRepository.getParkingLotsByParkingLotStatusId(4);
@@ -236,6 +239,16 @@ public class ParkingLotService implements IParkingLotService{
     @Override
     public Customer getCustomerByAccountId(Integer accountId) {
         return customerUseCreate.getCustomerByAccount_Id(accountId);
+    }
+
+    @Override
+    public ParkingLot getParkingById(Integer id) {
+        return parkingLotRepository.getParkingLotById(id);
+    }
+
+    @Override
+    public void saveNewBill(Bill bill) {
+        billUseCreate.save(bill);
     }
 
 }

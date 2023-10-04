@@ -130,6 +130,8 @@ public class ParkingLotController {
     public String createHireRequest(@RequestParam Integer parkingId){
         Bill bill = new Bill();
         bill.setStatus("0");
+        bill.setParkingLot(parkingLotService.getParkingById(parkingId));
+        bill.setCustomer(parkingLotService.getCustomerByAccountId(account.getId()));
 
 
         return "redirect:/";

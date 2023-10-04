@@ -74,6 +74,61 @@ function changeColorParking(){
     let parking = document.getElementById(name);
     parking.style.fill = "purple";
 }
+function transferDataConfirm(action){
+    let content = document.getElementById("content-alert");
+    let table = document.getElementById("alert-content");
+    switch (action){
+        case "back":
+            content.innerHTML = `Are you sure about <span class="target-text">BACK TO MAINPAGE</span><br><br>
+                                 -- your data is not save --`;
+            document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('back')"></div>`;
+            break;
+    }
+    table.style.display = "grid";
+    cancelCountDown();
+}
+function clickHiddenButton(){
+    document.getElementById("button").click();
+    closeTable();
+}
+function confirmTable(action){
+    clearInterval(countdownInterval);
+    switch (action){
+        case "back":
+            window.location.href = "/";
+            break;
+    }
+}
+function cancelCountDown(){
+    let buttonElement = document.getElementById("cancel-button");
+    let countdown = 10;
+    buttonElement.innerHTML = "Cancel 10";
+    countdownInterval = setInterval(function() {
+        countdown--;
+        document.getElementById("cancel-button").innerHTML = "Cancel " + countdown;
+        if (countdown == 0) {
+            clearInterval(countdownInterval);
+            buttonElement.removeAttribute('disabled');
+            buttonElement.click();
+        }
+    }, 1000);
+}
+function setupTimeLeft(){
+    let dayList = document.getElementsByTagName("text");
+    for (let i = 0; i < dayList.length; i++){
+        let day = dayList[i].innerHTML;
+        let dayNum = +day.substring(0,day.length - 1);
+        if (dayNum <= 10){
+            dayList[i].style.fill = "red";
+        } else {
+            dayList[i].style.fill = "green";
+        }
+    }
+}
+function closeTable(){
+    let table = document.getElementById("alert-content");
+    table.style.display = "none";
+}
 convertData();
 setupMap(1);
 changeColorParking();

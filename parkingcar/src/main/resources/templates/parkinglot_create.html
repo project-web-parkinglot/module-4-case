@@ -21,14 +21,14 @@
         </div>
         <div id="option" class="color2 boxshadow-outset"></div>
     </div>
-    <div id="form-input" class="filler boxshadow-outset">
+    <form id="form-input" class="filler boxshadow-outset" action="/parking/create" method="post">
         <div id="parking-lot-name" class="boxshadow-outset filler border" th:text="${parking.name}"></div>
         <table id="profile" class="boxshadow-inset filler border">
             <tr>
                 <th colspan="2">Profile</th>
             </tr>
             <tr>
-                <td>- User Name : </td>
+                <td width="150px">- User Name : </td>
                 <td th:text="${account.username}"></td>
             </tr>
             <tr>
@@ -44,7 +44,7 @@
                 <td th:text="${customer.getPhoneNumber()}"></td>
             </tr>
             <tr>
-                <td>- Room in Apartment : </td>
+                <td>- Room Rented : </td>
                 <td th:text="${customer.getRoomRented()}"></td>
             </tr>
             <tr>
@@ -60,12 +60,20 @@
                 <td th:text="${customer.getAddress()}"></td>
             </tr>
         </table>
+        <div id="array-picture" class="filler boxshadow-inset border"></div>
+        <input required minlength="8" maxlength="10" class="filler boxshadow-inset border"
+               id="plate" type="text" name="licensePlate" placeholder="-- Enter License Plate --">
+        <div id="button">
+            <div></div>
+            <div id="button-back" class="filler boxshadow-outset border hover" onclick="transferDataConfirm('back')">Quit</div>
+            <div id="button-submit" class="filler boxshadow-outset border hover">Submit</div>
+        </div>
 
-        <form action="/parking/create" method="post">
-            <input type="hidden" name="parkingId" id="id-parkinglot" th:value="${parking.id}">
 
-        </form>
-    </div>
+
+
+        <input type="hidden" name="parkingId" id="id-parkinglot" th:value="${parking.id}">
+    </form>
 </div>
 
 
