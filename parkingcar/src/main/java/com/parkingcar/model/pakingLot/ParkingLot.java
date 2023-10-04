@@ -35,8 +35,8 @@ public class ParkingLot {
     @JoinColumn(name = "statusId", referencedColumnName = "id")
     private ParkingLotStatus parkingLotStatus;
 
-    @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL)
-    private List<Bill> bills;
+    @OneToOne(mappedBy = "parkingLot")
+    private Bill bill;
 
     @Override
     public boolean equals(Object o) {
@@ -49,5 +49,24 @@ public class ParkingLot {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "ParkingLot{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", x1=" + x1 +
+                ", y1=" + y1 +
+                ", x2=" + x2 +
+                ", y2=" + y2 +
+                ", x3=" + x3 +
+                ", y3=" + y3 +
+                ", x4=" + x4 +
+                ", y4=" + y4 +
+                ", baseLevel=" + baseLevel +
+                ", parkingLotStatus=" + parkingLotStatus +
+                ", bill=" + bill +
+                '}';
     }
 }

@@ -23,4 +23,9 @@ public class CarImage {
     @ManyToOne
     @JoinColumn(name = "carId", referencedColumnName = "id")
     private Car car;
+
+    @Override
+    public String toString() {
+        return urlImg;
+    }
 }
