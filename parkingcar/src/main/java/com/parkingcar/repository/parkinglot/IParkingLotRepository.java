@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IParkingLotRepository extends JpaRepository<ParkingLot, Integer> {
+
     List<ParkingLot> getParkingLotsByParkingLotStatusId(Integer parkingLotStatusId);
 
     ParkingLot getParkingLotByNameIs(String name);
@@ -17,4 +18,5 @@ public interface IParkingLotRepository extends JpaRepository<ParkingLot, Integer
 //            "where bill.customer_id = :id", nativeQuery = true)
 //    List<Integer> getParkinglotIdByAccountId(@Param("id") Integer accountId);
     List<ParkingLot> getParkingLotsByBill_Customer_Account(Account account);
+
 }

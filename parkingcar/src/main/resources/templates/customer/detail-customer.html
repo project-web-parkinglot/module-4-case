@@ -35,8 +35,9 @@
                     </div>
                 </div>
                 <div class="header">
-                    <span id="info">Thông tin cá nhân</span>
+                    <b id="info" >THÔNG TIN CÁ NHÂN</b>
                 </div>
+
                 <table class="border">
                     <tr>
                         <th>Tên :</th>
@@ -56,7 +57,7 @@
                     </tr>
                     <tr>
                         <th>Ngày sinh:</th>
-                        <td th:text="${customer.DOB}"></td>
+                        <td th:text="${customer.getDOB()}"></td>
                     </tr>
                     <tr>
                         <th>Số điện thoại:</th>
@@ -66,9 +67,21 @@
                         <th>Phòng đang thuê:</th>
                         <td th:text="${customer.roomRented}"></td>
                     </tr>
+                    <tr th:each="car,count:${customer.carList}">
+                        <th th:if="${count.count==1}">Biển số xe:</th>
+                        <th th:if="${count.count > 1}"></th>
+                        <td >
+                            <div th:text="${car.licensePlate}"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <a th:href="@{/customer/edit(id=${customer.id})}" id="btn" role="button" class="btn btn-info">Thay đổi</a>
+                        </td>
+                    </tr>
                 </table>
-
             </div>
+
         </div>
     </div>
 

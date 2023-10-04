@@ -1,3 +1,4 @@
+
 package com.parkingcar.service.account;
 
 import com.parkingcar.model.account.Account;
@@ -19,6 +20,8 @@ import java.util.Set;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
+
     @Autowired
     IAccountRepository iAccountRepository;
     @Autowired
@@ -55,3 +58,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userDetails;
     }
 }
+

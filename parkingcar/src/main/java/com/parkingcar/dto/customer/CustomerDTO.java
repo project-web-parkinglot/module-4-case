@@ -2,10 +2,16 @@ package com.parkingcar.dto.customer;
 
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.bill.Bill;
+import com.parkingcar.model.pakingLot.Car;
+import com.parkingcar.model.pakingLot.CarImage;
 import com.parkingcar.model.pakingLot.ParkingLot;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -20,14 +26,14 @@ public class CustomerDTO implements Validator {
     private String images;
     private Account account;
     private List<Bill> bills;
-    private List<ParkingLot> parkingLots;
+    private List<Car> carList;
 
     public CustomerDTO() {
     }
 
-    public CustomerDTO(int id, String name, String phoneNumber, int gender, String DOB, String roomRented,
-                       String address, String images, Account account, List<Bill> bills, List<ParkingLot> parkingLots)
-    {
+    public CustomerDTO(int id, String name, String phoneNumber, int gender, String DOB, String roomRented, String address,
+                       String images, Account account, List<Bill> bills, List<Car> carList) {
+
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -38,7 +44,8 @@ public class CustomerDTO implements Validator {
         this.images = images;
         this.account = account;
         this.bills = bills;
-        this.parkingLots = parkingLots;
+        this.carList = carList;
+
     }
 
     public int getId() {
@@ -121,13 +128,14 @@ public class CustomerDTO implements Validator {
         this.bills = bills;
     }
 
-    public List<ParkingLot> getParkingLots() {
-        return parkingLots;
+    public List<Car> getCarList() {
+        return carList;
     }
 
-    public void setParkingLots(List<ParkingLot> parkingLots) {
-        this.parkingLots = parkingLots;
+    public void setCarList(List<Car> carList) {
+        this.carList = carList;
     }
+
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -136,6 +144,25 @@ public class CustomerDTO implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-
+        CustomerDTO customerDTO = (CustomerDTO) target;
+        if (customerDTO.getName().equals("")){
+            errors.rejectValue("name",null,"Tên không được để trống");
+        } else if (!customerDTO.getName().matches("^[A-Z][a-z]+(\\s[A-Z][a-z]+)+$")) {
+            errors.rejectValue("name",null,"Tên chỉ chứa kí tự chữ");
+        } else if (!customerDTO.getPhoneNumber().matches("^0[0-9]{9}$")) {
+            errors.rejectValue("phoneNumber",null,"Số điện thoại chỉ chứa kí tự số");
+        } else if (!customerDTO.getAddress().matches("^[A-Z][A-zA-z ]+$")) {
+            errors.rejectValue("address",null,"Quên quán phải bắt đầu bằng chữ in hoa,");
+        } else if (!customerDTO.isAgeValid()) {
+            errors.rejectValue("DOB", null, "Tuổi phải lớn hơn 18");
+        }
+    }
+    public boolean isAgeValid() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate localDateEighteen = currentDate.minusYears(18);
+        String date = getDOB();
+        LocalDate birth = LocalDate.parse(date);
+        Period period = Period.between(birth, currentDate);
+        return period.getYears() <= 60 && period.getYears() >= 18 && localDateEighteen.isAfter(birth);
     }
 }
