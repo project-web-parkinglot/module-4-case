@@ -1,6 +1,7 @@
 package com.parkingcar.service.parkinglot;
 
 import com.parkingcar.model.account.Account;
+import com.parkingcar.model.bill.Bill;
 import com.parkingcar.model.customer.Customer;
 import com.parkingcar.model.pakingLot.ParkingLot;
 
@@ -20,4 +21,6 @@ public interface IParkingLotService {
     void unlockParking(String name) throws IllegalAccessException;
     void endLeaseParkingLot(String name) throws IllegalAccessException;
     Customer getCustomerByAccountId(Integer accountId);
+    ParkingLot getParkingById(Integer id);
+    void saveNewBill(Bill bill);
 }
