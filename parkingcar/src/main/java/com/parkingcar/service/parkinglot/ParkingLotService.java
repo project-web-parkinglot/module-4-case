@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Service
 public class ParkingLotService implements IParkingLotService{
+
     @Autowired
     private IParkingLotRepository parkingLotRepository;
     @Autowired
@@ -249,4 +250,5 @@ public class ParkingLotService implements IParkingLotService{
     public void saveNewBill(Bill bill) {
         billUseCreate.save(bill);
     }
+
 }

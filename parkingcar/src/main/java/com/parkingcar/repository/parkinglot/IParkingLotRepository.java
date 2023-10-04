@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IParkingLotRepository extends JpaRepository<ParkingLot, Integer> {
+
     List<ParkingLot> getParkingLotsByParkingLotStatusId(Integer parkingLotStatusId);
 
     ParkingLot getParkingLotByNameIs(String name);
