@@ -9,14 +9,14 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface IParkingLotRepository extends JpaRepository<ParkingLot, Integer> {
-    List<ParkingLot> getParkingLotByCustomer_Account(Account account);
-    @Query(value = "select * from case_study_module_4.parking_lot where status = 0", nativeQuery = true)
-    List<ParkingLot> getClosedParkingLot();
-    @Query(value = "select * from case_study_module_4.parking_lot where status = 1 and customer_id is null", nativeQuery = true)
-    List<ParkingLot> getAvailableParkingLot();
-    @Query(value = "select * from case_study_module_4.parking_lot where status = 1 and customer_id is not null", nativeQuery = true)
-    List<ParkingLot> getNotAvailableParkingLot();
-    @Query(value = "select * from case_study_module_4.parking_lot where status = 1 and customer_id is not null", nativeQuery = true)
-    List<ParkingLot> getAdminCheckParkingLot();
-    ParkingLot getParkingLotByNameIs(String name);
+//    List<ParkingLot> getParkingLotByCustomer_Account(Account account);
+//    @Query(value = "select * from case_study_module_4.parking_lot where status = 0", nativeQuery = true)
+//    List<ParkingLot> getClosedParkingLot();
+//    @Query(value = "select * from case_study_module_4.parking_lot where status = 1 and customer_id is null", nativeQuery = true)
+//    List<ParkingLot> getAvailableParkingLot();
+//    @Query(value = "select * from case_study_module_4.parking_lot where status = 1 and customer_id is not null", nativeQuery = true)
+//    List<ParkingLot> getNotAvailableParkingLot();
+//    @Query(value = "select * from case_study_module_4.parking_lot where status = 1 and customer_id is not null", nativeQuery = true)
+//    List<ParkingLot> getAdminCheckParkingLot();
+//    ParkingLot getParkingLotByNameIs(String name);
 }
