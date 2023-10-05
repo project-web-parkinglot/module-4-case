@@ -8,6 +8,7 @@ import com.parkingcar.model.pakingLot.ParkingLot;
 import java.util.List;
 
 public interface IParkingLotService {
+
     List<ParkingLot> getWaitingCheckParkingLot();
     String convertClassJs(List<ParkingLot> list);
     String convertClassJsFull(List<ParkingLot> list);

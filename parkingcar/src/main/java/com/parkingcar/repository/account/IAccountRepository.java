@@ -9,5 +9,5 @@ public interface IAccountRepository extends JpaRepository<Account,Integer> {
         Account findAccountByUsername(String userName);
 
         Account findAccountByEmail(String email);
-
+        Account findByVerificationCode(String code);
 }

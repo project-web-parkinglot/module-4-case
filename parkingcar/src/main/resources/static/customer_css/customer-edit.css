@@ -1,0 +1,32 @@
+#form-update{
+    border: 1px solid;
+    width: 800px;
+    border-radius: 10px;
+    background-color: white;
+    height: 559px
+}
+#hd-form{
+    border: 1px solid;
+    width: 800px;
+    border-radius: 10px;
+    background-color: white;
+    height: 50px;
+    margin-bottom: 10px;
+}
+b {
+    padding-left: 220px;
+    padding-top: 50px;
+}
+#bt{
+    margin-left: 324px;
+    width: 20%;
+
+}
+input{
+    opacity: 0.8;
+    border-radius: 7px;
+    box-shadow: #333333;
+}
+
+
+
