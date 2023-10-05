@@ -15,17 +15,17 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "time_pay",columnDefinition = "date not null")
+    @Column(name = "time_pay")
     private LocalDate timePay;
 
 
-    @Column(name = "money_pay",columnDefinition = "int not null")
+    @Column(name = "money_pay")
     private double moneyPay;
 
     @Column(nullable = false)
     private String status;
 
-    @Column(nullable = false, name = "end_date")
+    @Column(name = "end_date")
     private LocalDate endDate;
 
     @ManyToOne
