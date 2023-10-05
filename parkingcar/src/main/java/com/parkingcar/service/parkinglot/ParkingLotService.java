@@ -201,7 +201,7 @@ public class ParkingLotService implements IParkingLotService{
     public void lockParking(String name) throws IllegalAccessException {
         ParkingLot parkingLot = findByName(name);
         ParkingLotStatus parkingLotStatus = parkingLot.getParkingLotStatus();
-        if (parkingLot != null || parkingLotStatus.getStatusName() == "Available") {
+        if (parkingLot != null && parkingLotStatus.getId() == 1) {
             parkingLot.setParkingLotStatus(parkingLotStatusRepository.getParkingLotStatusById(2));
             parkingLotRepository.save(parkingLot);
         } else {
@@ -214,7 +214,7 @@ public class ParkingLotService implements IParkingLotService{
     public void unlockParking(String name) throws IllegalAccessException {
         ParkingLot parkingLot = findByName(name);
         ParkingLotStatus parkingLotStatus = parkingLot.getParkingLotStatus();
-        if (parkingLot != null || parkingLotStatus.getStatusName() == "Blocked") {
+        if (parkingLot != null && parkingLotStatus.getId() == 2) {
             parkingLot.setParkingLotStatus(parkingLotStatusRepository.getParkingLotStatusById(1));
             parkingLotRepository.save(parkingLot);
         } else {

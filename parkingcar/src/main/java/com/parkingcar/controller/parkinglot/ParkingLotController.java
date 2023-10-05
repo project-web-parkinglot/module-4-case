@@ -25,7 +25,7 @@ public class ParkingLotController {
     @Autowired
     private IAccountService accountService;
 
-    Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(2, "amin"), null);
+    Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(1, "amin"), null);
 
     @GetMapping("/")
     public String showParkingLotPage(Model model) {
@@ -69,7 +69,7 @@ public class ParkingLotController {
 
     @GetMapping("/parking/lock/{name}")
     public String lockParking(@PathVariable String name) {
-        if (account.getRole().getId() >= 2) {
+        if (account.getRole().getId() == 1) {
             try {
                 parkingLotService.lockParking(name);
             } catch (IllegalAccessException e) {
@@ -81,7 +81,7 @@ public class ParkingLotController {
 
     @GetMapping("/parking/unlock/{name}")
     public String unlockParking(@PathVariable String name) {
-        if (account.getRole().getId() >= 2) {
+        if (account.getRole().getId() == 1) {
             try {
                 parkingLotService.unlockParking(name);
             } catch (IllegalAccessException e) {

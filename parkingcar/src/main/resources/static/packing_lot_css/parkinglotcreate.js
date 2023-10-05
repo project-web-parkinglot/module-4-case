@@ -129,6 +129,7 @@ function closeTable(){
     let table = document.getElementById("alert-content");
     table.style.display = "none";
 }
+
 convertData();
 setupMap(1);
 changeColorParking();

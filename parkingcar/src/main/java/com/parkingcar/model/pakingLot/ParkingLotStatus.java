@@ -36,4 +36,13 @@ public class ParkingLotStatus {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "ParkingLotStatus{" +
+                "id=" + id +
+                ", statusName='" + statusName + '\'' +
+                ", parkingLotList=" + parkingLotList +
+                '}';
+    }
 }

@@ -60,7 +60,10 @@
                 <td th:text="${customer.getAddress()}"></td>
             </tr>
         </table>
-        <div id="array-picture" class="filler boxshadow-inset border"></div>
+        <div id="array-picture" class="filler boxshadow-inset border">
+            <div class="filler hover-border boxshadow-outset" onclick="addImgToInput()"
+                 style="background-image: url('/packing_lot_css/icon/add.png')"></div>
+        </div>
         <input required minlength="8" maxlength="10" class="filler boxshadow-inset border"
                id="plate" type="text" name="licensePlate" placeholder="-- Enter License Plate --">
         <div id="button">
@@ -71,16 +74,17 @@
 
 
 
-
+        <input type="hidden" name="linkimg" id="carimage">
         <input type="hidden" name="parkingId" id="id-parkinglot" th:value="${parking.id}">
     </form>
 </div>
 
 
 
-
+<input type="file" id="input-img" multiple style="display: none">
 <input type="hidden" id="arrayAvailableB1" th:value="${arrayAvailableB1}">
 <input type="hidden" id="arrayAvailableB2" th:value="${arrayAvailableB2}">
 </body>
 <script src="/packing_lot_css/parkinglotcreate.js"></script>
+<script src="/packing_lot_css/firebase.js"></script>
 </html>
