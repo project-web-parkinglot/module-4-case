@@ -7,7 +7,7 @@
     margin-left: 20px;
     padding: 20px;
     display: grid;
-    grid-template-columns: 4fr 5fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 75px 1fr 50px 100px;
     grid-template-areas: "parking-id parking-id" "profile car-img" "license-plate car-img" "button button";
 
@@ -35,6 +35,15 @@
 #array-picture{
     grid-area: car-img;
     margin-left: 20px;
+    padding: 20px;
+    overflow: hidden;
+}
+#array-picture div{
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    aspect-ratio: 16/9;
+    margin-bottom: 20px;
 }
 #plate{
     grid-area: license-plate;
@@ -65,3 +74,5 @@
 #button-submit{
     background-color: green;
 }
+
+
