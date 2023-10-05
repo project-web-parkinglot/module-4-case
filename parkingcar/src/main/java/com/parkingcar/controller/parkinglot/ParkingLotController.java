@@ -3,6 +3,8 @@ package com.parkingcar.controller.parkinglot;
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.account.Role;
 import com.parkingcar.model.bill.Bill;
+import com.parkingcar.model.customer.Customer;
+import com.parkingcar.model.pakingLot.Car;
 import com.parkingcar.model.pakingLot.ParkingLot;
 import com.parkingcar.service.account.IAccountService;
 import com.parkingcar.service.parkinglot.IParkingLotService;
@@ -25,7 +27,7 @@ public class ParkingLotController {
     @Autowired
     private IAccountService accountService;
 
-    Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(1, "amin"), null);
+    Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(2, "amin"), null);
 
 
     @GetMapping("/")
@@ -51,6 +53,8 @@ public class ParkingLotController {
 
             model.addAttribute("ownParkingB1", adminCheck.get(0));
             model.addAttribute("ownParkingB2", adminCheck.get(1));
+            model.addAttribute("awaitingParkingB1", adminCheck.get(2));
+            model.addAttribute("awaitingParkingB2", adminCheck.get(3));
 
         } else if (account.getRole().getId() == 2) {
             List<String> customerParking = parkingLotService.getMyParking(account);
@@ -59,6 +63,8 @@ public class ParkingLotController {
             model.addAttribute("ownParkingB2", customerParking.get(1));
             model.addAttribute("otherParkingB1", customerParking.get(2));
             model.addAttribute("otherParkingB2", customerParking.get(3));
+            model.addAttribute("awaitingParkingB1", customerParking.get(4));
+            model.addAttribute("awaitingParkingB2", customerParking.get(5));
         } else {
             List<String> anonymousParking = parkingLotService.getAnonymousParking();
 
@@ -117,16 +123,13 @@ public class ParkingLotController {
             return "parkinglot_create";
         }
         return "redirect:/";
-
     }
     @PostMapping("parking/create")
-    public String createHireRequest(@RequestParam Integer parkingId){
-        Bill bill = new Bill();
-        bill.setStatus("0");
-        bill.setParkingLot(parkingLotService.getParkingById(parkingId));
-        bill.setCustomer(parkingLotService.getCustomerByAccountId(account.getId()));
+    public String createHireRequest(@RequestParam Integer parkingId,
+                                    @RequestParam String linkimg,
+                                    @RequestParam String licensePlate){
 
-
+        parkingLotService.createNewRequest(account, parkingId, linkimg, licensePlate);
         return "redirect:/";
     }
 }

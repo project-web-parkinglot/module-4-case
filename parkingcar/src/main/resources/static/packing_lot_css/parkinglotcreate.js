@@ -31,6 +31,9 @@ function setupMap(level){
     let width = areaControl.offsetWidth;
     let height = width * 3 / 4;
     areaControl.style.height = height + "px";
+    document.getElementById("array-picture").style.height = height - 215 + "px";
+
+
     let arrayAvailable;
     let data = "";
     if (level == 1){
@@ -83,6 +86,12 @@ function transferDataConfirm(action){
                                  -- your data is not save --`;
             document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('back')"></div>`;
             break;
+        case "submit":
+            content.innerHTML = `Are you sure about<br>
+                    <span class="target-text">SUBMIT THIS INFOMATION</span><br><br>
+                    <small>we will process the request as soon as possible</small>`;
+            document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('submit')"></div>`;
+            break;
     }
     table.style.display = "grid";
     cancelCountDown();
@@ -96,6 +105,9 @@ function confirmTable(action){
     switch (action){
         case "back":
             window.location.href = "/";
+            break;
+        case "submit":
+            document.getElementById("submit-hidden").click();
             break;
     }
 }
@@ -129,7 +141,23 @@ function closeTable(){
     let table = document.getElementById("alert-content");
     table.style.display = "none";
 }
+function addImgToInput(){
+    document.getElementById("input-img").click();
+}
+function check(){
+    let linkImg = document.getElementById("carimage").value;
+    let id = document.getElementById("id-parkinglot").value;
+    let plate = document.getElementById("plate").value;
 
+    if (linkImg == "" || id == "" || plate == ""){
+        document.getElementById("alert-table").style.display = "grid";
+    } else {
+        transferDataConfirm('submit');
+    }
+}
+function closeAlertTable(){
+    document.getElementById("alert-table").style.display = "none";
+}
 convertData();
 setupMap(1);
 changeColorParking();
