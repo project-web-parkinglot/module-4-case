@@ -25,19 +25,8 @@ public class ParkingLotController {
     @Autowired
     private IAccountService accountService;
 
-<<<<<<< HEAD
     Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(1, "amin"), null);
-=======
 
-
-    Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(3, "amin"),null);
-
-
-
-
-
-
->>>>>>> 2350e4fd95ddf9ec6f41eb0a8e8c744d62467335
 
     @GetMapping("/")
     public String showParkingLotPage(Model model) {
