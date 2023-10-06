@@ -36,11 +36,6 @@ public class CustomerController {
     //data giả
     Account account = new Account(1,"dinhlong1110","abcd1234","long1110dn@gmail.com",false,new Role(2,"ROLE_CUSTOMER"),null);
 
-    @GetMapping
-    public String index(){
-        return "/page_admin/index";
-    }
-
     @GetMapping("/detail")
     public String showCustomerDetail(Model model){
         Customer customer = customerService.findCustomerByAccountId(account.getId());
@@ -74,7 +69,7 @@ public class CustomerController {
         redirectAttributes.addFlashAttribute("message","Sửa thành công");
         return "redirect:/customer/detail";
     }
-    @GetMapping("/showBill")
+    @GetMapping("/showbill")
     public String showListBill(Model model){
         List<ICustomerDTO> customerDTOList = customerService.findCustomerByBills(account.getId());
         List<PackageRent>  packageRentList = packageRentService.findAll();
