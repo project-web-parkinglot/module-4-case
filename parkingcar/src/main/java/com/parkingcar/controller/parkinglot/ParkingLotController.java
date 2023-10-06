@@ -3,8 +3,6 @@ package com.parkingcar.controller.parkinglot;
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.account.Role;
 import com.parkingcar.model.bill.Bill;
-import com.parkingcar.model.customer.Customer;
-import com.parkingcar.model.pakingLot.Car;
 import com.parkingcar.model.pakingLot.ParkingLot;
 import com.parkingcar.service.account.IAccountService;
 import com.parkingcar.service.parkinglot.IParkingLotService;
@@ -26,9 +24,7 @@ public class ParkingLotController {
     private IParkingLotService parkingLotService;
     @Autowired
     private IAccountService accountService;
-
-    Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(2, "amin"), null);
-
+    Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(2, "CUSTOMER"), null);
 
     @GetMapping("/")
     public String showParkingLotPage(Model model) {
@@ -48,7 +44,7 @@ public class ParkingLotController {
         model.addAttribute("arrayAvailableB1", availableParking.get(0));
         model.addAttribute("arrayAvailableB2", availableParking.get(1));
 
-        if (account.getRole().getId() == 1){
+        if (account.getRole().getId() == 1) {
             List<String> adminCheck = parkingLotService.getCheckParking();
 
             model.addAttribute("ownParkingB1", adminCheck.get(0));
@@ -124,10 +120,11 @@ public class ParkingLotController {
         }
         return "redirect:/";
     }
+
     @PostMapping("parking/create")
     public String createHireRequest(@RequestParam Integer parkingId,
                                     @RequestParam String linkimg,
-                                    @RequestParam String licensePlate){
+                                    @RequestParam String licensePlate) {
 
         parkingLotService.createNewRequest(account, parkingId, linkimg, licensePlate);
         return "redirect:/";

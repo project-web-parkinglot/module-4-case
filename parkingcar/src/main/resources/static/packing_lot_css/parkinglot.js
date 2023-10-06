@@ -357,6 +357,7 @@ function transferDataConfirm(action, id){
     table.style.display = "grid";
     cancelCountDown();
 }
+
 function showEditTable(id){
     document.getElementById("edit-table").style.display = "grid";
     let detail = getClass(id, 0);
@@ -366,10 +367,12 @@ function showEditTable(id){
 function closeEditTable(){
     document.getElementById("edit-table").style.display = "none";
 }
+
 function chooseDetailPicture(imgurl){
     let display = document.getElementById("show-detail-img");
     display.style.backgroundImage = `url('${imgurl}')`;
 }
+
 function showInfo(id, ind){
     let detail = getClass(id, ind);
     let dateRemaining = getTimeRemaining(detail.dueDate);

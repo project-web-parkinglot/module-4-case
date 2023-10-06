@@ -112,7 +112,29 @@
                                 </td>
                             </tr>
                         </table>
-                        <button id="bt" class="btn btn-outline-secondary" type="submit">Cập nhật</button>
+<!--                        <button id="bt" class="btn btn-outline-secondary" type="submit">Cập nhật</button>-->
+                        <button id="bt" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Cập nhật
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận xoá</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn có chắc chắc thay đổi <span style="color: red" th:text="${customerDTO.name}"></span> ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -120,6 +142,26 @@
         </div>
     </form>
 </div>
+<!--modal-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!--<div class="form-group row" style="align-content: center">-->

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
@@ -24,6 +25,7 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 
 @Controller
+
 @RequestMapping("/login")
 public class AccountController {
 
@@ -33,6 +35,8 @@ public class AccountController {
     private IRoleService iRoleService;
     @Autowired
     private ICustomerService customerService;
+
+
 
     @GetMapping("/create")
     public String loginForm(Model model) {
@@ -88,4 +92,6 @@ public class AccountController {
         String siteURL = request.getRequestURL().toString();
         return siteURL.replace(request.getServletPath(), "");
     }
+
+
 }
