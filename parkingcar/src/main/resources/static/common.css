@@ -206,6 +206,10 @@ svg{
     fill: blue;
     background-color: rgba(0,0,255,0.9);
 }
+.awaitParking{
+    fill: purple;
+    background-color: rgba(128,0,128,0.9);
+}
 #alert-parking{
     text-align: center;
     font-size: 25px;
@@ -218,9 +222,9 @@ svg{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 10px;
     height: 50px;
-    width: 170px;
+    width: 160px;
     color: white;
     box-shadow: inset 10px 10px 20px rgba(0,0,0,0.5);
 }

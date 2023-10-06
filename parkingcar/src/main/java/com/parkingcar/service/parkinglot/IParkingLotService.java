@@ -1,8 +1,12 @@
 package com.parkingcar.service.parkinglot;
 
 import com.parkingcar.model.account.Account;
+import com.parkingcar.model.bill.Bill;
 import com.parkingcar.model.customer.Customer;
+import com.parkingcar.model.pakingLot.Car;
+import com.parkingcar.model.pakingLot.CarImage;
 import com.parkingcar.model.pakingLot.ParkingLot;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,5 +25,8 @@ public interface IParkingLotService {
     void unlockParking(String name) throws IllegalAccessException;
     void endLeaseParkingLot(String name) throws IllegalAccessException;
     Customer getCustomerByAccountId(Integer accountId);
+    ParkingLot getParkingById(Integer id);
 
+    void createNewRequest(Account account, Integer parkingId, String linkimg, String licensePlate);
+    void checkDueDate();
 }
