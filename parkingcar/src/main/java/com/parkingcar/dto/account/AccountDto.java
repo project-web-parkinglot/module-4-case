@@ -2,27 +2,28 @@ package com.parkingcar.dto.account;
 
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.account.Role;
+import com.parkingcar.service.account.IAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 public class AccountDto implements Validator {
+
     private int id;
     private String username;
     private String password;
     private String email;
-    private String name;
     private int status;
     private Role role;
 
     public AccountDto() {
     }
 
-    public AccountDto(int id, String username, String password, String email, String name, int status, Role role) {
+    public AccountDto(int id, String username, String password, String email, int status, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.name = name;
         this.status = status;
         this.role = role;
     }
@@ -59,13 +60,6 @@ public class AccountDto implements Validator {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getStatus() {
         return status;
@@ -91,9 +85,7 @@ public class AccountDto implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         AccountDto accountDto = (AccountDto) target;
-        if (accountDto.getUsername().trim().isEmpty()) {
-            errors.rejectValue("username", "", "User name could not be void!");
-        } else if (accountDto.getUsername().length() < 5) {
+        if (accountDto.getUsername().length() < 5) {
             errors.rejectValue("username", "", "Your UserName must be at least 6 characters or more!");
         }
         if (accountDto.email.trim().isEmpty()) {
@@ -102,7 +94,7 @@ public class AccountDto implements Validator {
             errors.rejectValue("email", "", "Invalid email format!");
         }
         if (!accountDto.password.matches("^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$")) {
-            errors.rejectValue("passWord", null, "Password include at least 6 characters (contain letter and number)");
+            errors.rejectValue("password", null, "Password include at least 6 characters (contain letter and number)");
         }
     }
 }
