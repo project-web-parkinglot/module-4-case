@@ -1,11 +1,15 @@
 package com.parkingcar.controller.customer;
 
 import com.parkingcar.dto.customer.CustomerDTO;
+import com.parkingcar.dto.customer.ICustomerDTO;
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.account.Role;
 import com.parkingcar.model.customer.Customer;
+import com.parkingcar.model.packageRent.PackageRent;
 import com.parkingcar.service.account.IAccountService;
 import com.parkingcar.service.customer.ICustomerService;
+import com.parkingcar.service.packageRent.IPackageRentService;
+import com.parkingcar.service.packageRent.PackageRentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -25,6 +30,8 @@ public class CustomerController {
     private ICustomerService customerService;
     @Autowired
     private IAccountService accountService;
+    @Autowired
+    private IPackageRentService packageRentService;
 
     //data giả
     Account account = new Account(1,"dinhlong1110","abcd1234","long1110dn@gmail.com",false,new Role(2,"ROLE_CUSTOMER"),null);
@@ -61,6 +68,14 @@ public class CustomerController {
         customerService.saveCustomer(customer);
         redirectAttributes.addFlashAttribute("message","Sửa thành công");
         return "redirect:/customer/detail";
+    }
+    @GetMapping("/showbill")
+    public String showListBill(Model model){
+        List<ICustomerDTO> customerDTOList = customerService.findCustomerByBills(account.getId());
+        List<PackageRent>  packageRentList = packageRentService.findAll();
+        model.addAttribute("customerDTOList",customerDTOList);
+        model.addAttribute("packageRentList", packageRentList);
+        return "/customer/customer-bill";
     }
 }
 

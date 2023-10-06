@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>List bill</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="/page_admin_css/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/page_admin_css/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="/page_admin_css/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!--    ajax-->
+    <script src="/customer_css/code.jquery.com_jquery-3.7.1.min.js"></script>
+</head>
+<body id="page-top">
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">PARKING LOT INFORMATION </h1>
+    <span th:text="${message}"></span>
+    <div class="card shadow mb-4">
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>N0.</th>
+                        <th>Name</th>
+                        <th>Phone number</th>
+                        <th>Room rented</th>
+                        <th>Package</th>
+                        <th>Payment time</th>
+                        <th>Expire</th>
+                        <th>Payment money</th>
+                        <th>Status</th>
+                        <th>License plate</th>
+                        <th>Position</th>
+                        <th>Floor</th>
+                        <th>Extend</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="customer,status: ${customerDTOList}">
+                        <td th:text="${status.count}"></td>
+                        <td th:text="${customer.customerName}"></td>
+                        <td th:text="${customer.phoneNumber}"></td>
+                        <td th:text="${customer.roomRented}"></td>
+                        <td th:text="${customer.namePackage}"></td>
+                        <td th:text="${customer.timePay}"></td>
+                        <td th:text="${customer.endDate}">
+
+                        </td>
+                        <td th:text="${#numbers.formatDecimal(customer.moneyPay,0,'COMMA',0,'POINT')} +'VND'"></td>
+                        <td th:switch="${customer.billStatus}">
+                            <span th:case="1">Approved</span>
+                            <span th:case="0">Not approved</span>
+                        </td>
+                        <td th:text="${customer.licensePlate}"></td>
+                        <td th:text="${customer.parkingLotName}"></td>
+                        <td th:switch="${customer.parkingLotBase}">
+                            <span th:case="1">Basement 1</span>
+                            <span th:case="2">Basement 1</span>
+                        </td>
+                        <td th:switch="${customer.billStatus}">
+                            <span th:case="0">
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#exampleModal">
+                                                            Extend
+                                </button>
+                            </span>
+                            <span th:case="1">
+                                <a class="btn btn-outline-info" th:href="@{/bill/update(id=${customer.getBillId()})}"
+                                   role="button">Extend</a>
+                            </span>
+
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Please choose package</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <b style="color: red">YOUR BILL IS WAITING APPROVAL</b>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="/page_admin_css/vendor/jquery/jquery.min.js"></script>
+<script src="/page_admin_css/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/page_admin_css/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/page_admin_css/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="/page_admin_css/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/page_admin_css/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/page_admin_css/js/demo/datatables-demo.js"></script>
+
+</body>
+</html>

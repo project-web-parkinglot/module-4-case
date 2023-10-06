@@ -7,6 +7,9 @@ import com.parkingcar.model.pakingLot.Car;
 import com.parkingcar.model.pakingLot.CarImage;
 import com.parkingcar.model.pakingLot.ParkingLot;
 import com.parkingcar.model.pakingLot.ParkingLotStatus;
+import com.parkingcar.repository.parkinglot.ICustomerUseCreate;
+import com.parkingcar.repository.parkinglot.IParkingLotRepository;
+import com.parkingcar.repository.parkinglot.IParkingLotStatusRepository;
 import com.parkingcar.repository.parkinglot.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Service
 public class ParkingLotService implements IParkingLotService{
+
     @Autowired
     private IParkingLotRepository parkingLotRepository;
     @Autowired
@@ -30,6 +34,7 @@ public class ParkingLotService implements IParkingLotService{
     private ICarRepository carRepository;
     @Autowired
     private ICarImgRepository carImgRepository;
+
     @Override
     public List<ParkingLot> getWaitingCheckParkingLot() {
         return parkingLotRepository.getParkingLotsByParkingLotStatusId(4);
@@ -133,6 +138,7 @@ public class ParkingLotService implements IParkingLotService{
             }
         }
 
+
         List<ParkingLot> hold = parkingLotRepository.getParkingLotsByParkingLotStatusId(4);
         List<ParkingLot> holdParkingB1 = new ArrayList<>();
         List<ParkingLot> holdParkingB2 = new ArrayList<>();
@@ -148,6 +154,7 @@ public class ParkingLotService implements IParkingLotService{
         result.add(convertClassJsFull(ownParkingB2));
         result.add(convertClassJsFull(holdParkingB1));
         result.add(convertClassJsFull(holdParkingB2));
+
 
         return result;
     }
@@ -167,6 +174,7 @@ public class ParkingLotService implements IParkingLotService{
             }
         }
 
+
         List<ParkingLot> ownParkingB1 = new ArrayList<>();
         List<ParkingLot> ownParkingB2 = new ArrayList<>();
         for (ParkingLot parkingLot : own){
@@ -176,6 +184,7 @@ public class ParkingLotService implements IParkingLotService{
                 ownParkingB2.add(parkingLot);
             }
         }
+
 
         List<ParkingLot> holdParkingB1 = new ArrayList<>();
         List<ParkingLot> holdParkingB2 = new ArrayList<>();
@@ -287,6 +296,7 @@ public class ParkingLotService implements IParkingLotService{
         return customerUseCreate.getCustomerByAccount_Id(accountId);
     }
 
+
     @Override
     public ParkingLot getParkingById(Integer id) {
         return parkingLotRepository.getParkingLotById(id);
@@ -337,4 +347,5 @@ public class ParkingLotService implements IParkingLotService{
             }
         }
     }
+
 }

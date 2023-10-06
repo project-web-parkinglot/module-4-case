@@ -7,16 +7,13 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="/customer_css/customer.css">
     <link rel="stylesheet" href="/common.css">
-    <link rel="stylesheet" href="/packing_lot_css/parkinglot.css">
+
 </head>
 <body class="color2">
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <div id="header" class="border filler color1 boxshadow-inset">
-                <div class="border hover filler color2 boxshadow-outset">Signup</div>
-                <div class="border hover filler color2 boxshadow-outset">Login</div>
-            </div>
+
         </div>
     </div>
     <div class="row">
@@ -26,19 +23,19 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="bg-header">
-                    <img src="/packing_lot_css/cover/cover2.png" class="bg">
-                    <div style="background-color: white;padding: 15px 20px">
+                    <img src="/packing_lot_css/cover/cover2.png" class="bg filler">
+                    <div class="filler" style="background-color: white;padding: 15px 20px">
                         Họ và tên: <span th:text="${customer.name}"></span>
                         <div class="overlay">
-                            <img th:src="${customer.images}" height="200" width="172" style=" padding-left:15px; padding-bottom: 25px"/>
+                            <img class="filler" th:src="${customer.images}" height="200" width="172" style=" padding-left:15px; padding-bottom: 25px"/>
                         </div>
                     </div>
                 </div>
-                <div class="header">
+                <div class="header filler">
                     <b id="info" >THÔNG TIN CÁ NHÂN</b>
                 </div>
 
-                <table class="border">
+                <table class="border filler">
                     <tr>
                         <th>Tên :</th>
                         <td th:text="${customer.name}"></td>
@@ -93,8 +90,4 @@
 
 </script>
 </body>
-<script src="/packing_lot_css/parkinglot.js"></script>
-<script src="/packing_lot_css/button.js"></script>
-<script src="/packing_lot_css/clock.js"></script>
-<script src="/packing_lot_css/memberimg.js"></script>
 </html>

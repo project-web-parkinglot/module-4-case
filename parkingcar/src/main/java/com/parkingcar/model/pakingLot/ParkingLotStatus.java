@@ -40,6 +40,7 @@ public class ParkingLotStatus {
         return Objects.hash(id);
     }
 
+
     @Override
     public String toString() {
         return "ParkingLotStatus{" +
@@ -48,4 +49,5 @@ public class ParkingLotStatus {
                 ", parkingLotList=" + parkingLotList +
                 '}';
     }
+
 }

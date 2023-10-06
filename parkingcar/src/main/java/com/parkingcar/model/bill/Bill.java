@@ -37,7 +37,7 @@ public class Bill {
     private PackageRent packageRent;
 
     @OneToOne
-    @JoinColumn(name = "packing_lot_id", referencedColumnName = "id")
+    @JoinColumn(name = "parking_lot_id", referencedColumnName = "id")
     private ParkingLot parkingLot;
     @ManyToOne
     @JoinColumn(name = "car_id", referencedColumnName = "id")

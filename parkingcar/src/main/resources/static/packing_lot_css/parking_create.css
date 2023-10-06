@@ -6,6 +6,10 @@
 #form-input{
     margin-left: 20px;
     padding: 20px;
+
+}
+#parking-lot-name{
+
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 75px 1fr 50px 100px;
@@ -14,11 +18,23 @@
 }
 #parking-lot-name{
     grid-area: parking-id;
+
     width: 150px;
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: white;
+    background-color: purple;
+}
+#profile{
+    padding: 20px;
+    border-spacing: 10px;
+}
+#profile th{
     font-size: 20px;
     margin-bottom: 20px;
     color: purple;
@@ -95,5 +111,6 @@
     align-items: center;
     justify-content: center;
 }
+
 
 
