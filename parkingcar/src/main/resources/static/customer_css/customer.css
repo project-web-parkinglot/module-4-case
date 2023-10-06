@@ -1,8 +1,8 @@
 .header{
-    border: 1px solid;
     height: 45px;
-    border-radius: 10px;
-
+    background-color:white ;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 #info{
     padding-left: 485px;
@@ -22,7 +22,6 @@ td{
 }
 .border{
     border: 1px solid;
-    border-radius: 10px;
     background-color: white;
 }
 .bg-header{

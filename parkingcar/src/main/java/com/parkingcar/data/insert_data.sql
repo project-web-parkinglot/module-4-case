@@ -214,7 +214,7 @@ values
 	(2,1,74.84,70.52,72.19,70.13,71.74,76.79,74.32,77.17,"B2-80"),    
 	(2,1,77.47,70.8,74.84,70.52,74.32,77.17,77,77.56,"B2-81");
     
-    insert into bill(time_pay,end_date,money_pay,`status`,car_id,customer_id,package_rent_id,packing_lot_id)
+    insert into bill(time_pay,end_date,money_pay,`status`,car_id,customer_id,package_rent_id,parking_lot_id)
     values
     ("2023-08-01","2023-10-13",2000000,1,1,1,1,12),
     ("2023-09-01","2023-10-13",3000000,1,2,1,2,80),

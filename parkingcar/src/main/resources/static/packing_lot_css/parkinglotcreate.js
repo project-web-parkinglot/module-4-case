@@ -34,6 +34,7 @@ function setupMap(level){
     document.getElementById("array-picture").style.height = height - 215 + "px";
 
 
+
     let arrayAvailable;
     let data = "";
     if (level == 1){
@@ -77,6 +78,7 @@ function changeColorParking(){
     let parking = document.getElementById(name);
     parking.style.fill = "purple";
 }
+
 function transferDataConfirm(action){
     let content = document.getElementById("content-alert");
     let table = document.getElementById("alert-content");
@@ -158,6 +160,7 @@ function check(){
 function closeAlertTable(){
     document.getElementById("alert-table").style.display = "none";
 }
+
 convertData();
 setupMap(1);
 changeColorParking();

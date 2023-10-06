@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
@@ -25,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 
 @Controller
+
 @RequestMapping("/login")
 public class AccountController {
 
@@ -108,4 +110,6 @@ public class AccountController {
         String siteURL = request.getRequestURL().toString();
         return siteURL.replace(request.getServletPath(), "");
     }
+
+
 }

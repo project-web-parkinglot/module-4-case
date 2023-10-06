@@ -10,7 +10,6 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 75px 1fr 50px 100px;
     grid-template-areas: "parking-id parking-id" "profile car-img" "license-plate car-img" "button button";
-
 }
 #parking-lot-name{
     grid-area: parking-id;

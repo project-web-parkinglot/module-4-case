@@ -305,7 +305,8 @@ function buttonOption(action, id){
             transferDataConfirm(action, id);
             break;
         case "extension":
-            break;
+            window.location.href = "/customer/showbill"
+            return;
         case "end lease":
             transferDataConfirm(action, id);
             break;
@@ -357,19 +358,45 @@ function transferDataConfirm(action, id){
     table.style.display = "grid";
     cancelCountDown();
 }
+
 function showEditTable(id){
     document.getElementById("edit-table").style.display = "grid";
     let detail = getClass(id, 0);
     document.getElementById("parking-lot-name").innerHTML = `ParkingLot : <span class="target-text">${id}</span>`;
     document.getElementById("plate-edit").value = detail.licensePlate;
+
+    let dataImg = `<div id="add-icon" class="div-main filler hover-border boxshadow-outset"
+                    style="background-image: ; background-position: center" onclick="addImg()"></div>`
+    for (let i = 0 ; i < detail.carImg.length; i++){
+        let img = detail.carImg[i];
+        dataImg += `<div class="div-main filler hover-border boxshadow-outset"
+                    style="background-image: url('/packing_lot_css/icon/non-delete-picture.png')"
+                    onclick="chooseDeleteImg(this)">
+                    <div class="div-branch" style="background-image: url('${img}')"></div></div>`;
+    }
+
+    document.getElementById('array-picture-edit').innerHTML = dataImg;
+}
+function addImg(){
+    document.getElementById("add-img-edit").click();
+}
+function chooseDeleteImg(ele){
+    let background = window.getComputedStyle(ele).getPropertyValue('background-image');
+    if (background.includes(`non-delete-picture`)) {
+        ele.style.backgroundImage = `url("/packing_lot_css/icon/delete-picture.png")`;
+    } else {
+        ele.style.backgroundImage = `url("/packing_lot_css/icon/non-delete-picture.png")`;
+    }
 }
 function closeEditTable(){
     document.getElementById("edit-table").style.display = "none";
 }
+
 function chooseDetailPicture(imgurl){
     let display = document.getElementById("show-detail-img");
     display.style.backgroundImage = `url('${imgurl}')`;
 }
+
 function showInfo(id, ind){
     let detail = getClass(id, ind);
     let dateRemaining = getTimeRemaining(detail.dueDate);

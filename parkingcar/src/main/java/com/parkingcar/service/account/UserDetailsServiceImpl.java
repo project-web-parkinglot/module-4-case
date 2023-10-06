@@ -1,6 +1,5 @@
 
 package com.parkingcar.service.account;
-
 import com.parkingcar.model.account.Account;
 import com.parkingcar.repository.account.IAccountRepository;
 import com.parkingcar.repository.account.IRoleRepository;
@@ -20,7 +19,6 @@ import java.util.Set;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-
 
     @Autowired
     IAccountRepository iAccountRepository;
@@ -58,4 +56,3 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userDetails;
     }
 }
-
