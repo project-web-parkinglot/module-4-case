@@ -14,10 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
@@ -27,7 +24,7 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/login")
 public class AccountController {
 
     @Autowired
@@ -37,23 +34,22 @@ public class AccountController {
     @Autowired
     private ICustomerService customerService;
 
-    @GetMapping("/login")
+    @GetMapping("/create")
     public String loginForm(Model model) {
-        model.addAttribute("accountDto", new AccountDto());
+        AccountDto accountDto = new AccountDto();
+        model.addAttribute("accountDto", accountDto);
         return "/account/login";
     }
 
-    @PostMapping("/login")
-    public String loginCreateAccount(@Validated Account account, Model model) {
-        account.setStatus(false);
-        model.addAttribute("message", "Create account successfully");
-        return "/account/view";
-    }
-
-    @PostMapping("/signUp")
-    private String createAccount(@Valid @ModelAttribute AccountDto accountDto, HttpServletRequest request,
+    @PostMapping("/create")
+    private String createAccount(@Validated  @ModelAttribute("accountDto") AccountDto accountDto,
+                                 @RequestParam("username") String username,
+                                 @RequestParam("password") String password,
+                                 HttpServletRequest request,
                                  BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
             throws MessagingException, UnsupportedEncodingException {
+        accountDto.setUserName(username);
+        accountDto.setPassWord(password);
         new AccountDto().validate(accountDto, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("fail", "Wrong input, please check again");
@@ -66,7 +62,10 @@ public class AccountController {
         } else if (iAccountService.findAccountByUserName(accountDto.getUsername()) != null) {
             model.addAttribute("fail", "This username has been used, please take another one!");
             return "/account/login";
-        } else {
+        }if(bindingResult.hasErrors()){
+            model.addAttribute("fail", "Wrong input, please check again");
+            model.addAttribute("accountDto", accountDto);
+        }
             Account account = new Account();
             BeanUtils.copyProperties(accountDto, account);
             account.setPassword(BCrypt.hashpw(account.getPassword(), BCrypt.gensalt(12)));
@@ -76,12 +75,13 @@ public class AccountController {
             System.out.println(account.getVerificationCode());
             iAccountService.createAccount(account);
             Customer customer = new Customer();
-//            customerService.
+            customer.setAccount(account);
+            customerService.saveCustomer(customer);
             String siteURL = getSiteURL(request);
-//            iAccountService.
+            iAccountService.sendVerificationEmail(account,siteURL);
             redirectAttributes.addFlashAttribute("success","please check your email to confirm your account! ");
-        }
-        return "redirect:/login";
+            redirectAttributes.addFlashAttribute("ok","ok");
+        return "redirect:/login/create";
     }
 
     private String getSiteURL(HttpServletRequest request) {

@@ -5,6 +5,7 @@ import com.parkingcar.repository.account.IAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -47,8 +48,18 @@ public class AccountService implements IAccountService {
         String content = "";
         // email form
         String verifyURL = siteURL + "/verify?code=" + account.getVerificationCode();
-        content += "";
-        // email form
+        content += "      <button style=\"background-color: #2093c7; \n" +
+                "   border: none;\n" +
+                "  color: #ffffff;\n" +
+                "  padding: 16px 32px;\n" +
+                "  text-align: center;\n" +
+                "  text-decoration: none;\n" +
+                "  display: inline-block;\n" +
+                "  font-size: 16px;\n" +
+                "  margin: 4px 2px;\n" +
+                "  justify-content: center;\n" +
+                "  transition-duration: 0.4s;\n" +
+                "  cursor: pointer; border-radius: 20px\"><span style='color: #ffffff'><a href=\"" + verifyURL + "\">Confirm Your Email Address</a></span></button>";
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setFrom(fromAddress, senderName);
@@ -84,12 +95,25 @@ public class AccountService implements IAccountService {
 
     @Override
     public boolean verify(String code) {
-        return false;
+        Account account = iAccountRepository.findByVerificationCode(code);
+        Calendar cal = Calendar.getInstance();
+        if (account == null || account.isStatus()){
+            return false;
+        }else {
+            account.setVerificationCode(null);
+            account.setStatus(true);
+            iAccountRepository.save(account);
+            return true;
+        }
     }
 
     @Override
     public void resetPW(Account account, String newPassword) {
-
+        Account accountUser = iAccountRepository.findAccountByEmail(account.getEmail());
+        account.setPassword(newPassword);
+        account.setPassword(BCrypt.hashpw(account.getPassword(),BCrypt.gensalt(12)));
+        accountUser.setPassword(account.getPassword());
+        iAccountRepository.save(accountUser);
     }
 
     public static void main(String[] args) {
