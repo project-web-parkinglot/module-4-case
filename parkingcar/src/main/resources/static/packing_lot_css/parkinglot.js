@@ -9,7 +9,7 @@ let otherParkingB2 = [];
 let arrayMy = [];
 let countdownInterval;
 class parkingLot{
-    constructor(x1,y1,x2,y2,x3,y3,x4,y4,alt) {
+    constructor(x1,y1,x2,y2,x3,y3,x4,y4,alt,id) {
         this.x1 = x1;
         this.x2 = x2;
         this.x3 = x3;
@@ -19,11 +19,12 @@ class parkingLot{
         this.y3 = y3;
         this.y4 = y4;
         this.alt = alt;
+        this.id = id;
     }
 }
 class parkingLotMine{
     constructor(x1,y1,x2,y2,x3,y3,x4,y4,alt,dueDate,carImg,licensePlate,username,
-                birthday,address,gender,avata,phone,room) {
+                birthday,address,gender,avata,phone,room,id) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -43,6 +44,7 @@ class parkingLotMine{
         this.avata = avata;
         this.phone = phone;
         this.room = room;
+        this.id = id;
     }
     getGender(){
         if (this.gender == 1){
@@ -205,7 +207,7 @@ function locationAction(id, event, status){
                     break;
             }
             break;
-        case '1':
+        case '2':
             switch (status){
                 case 0:
                     showAlertData("notAvailable", id);
@@ -226,23 +228,7 @@ function locationAction(id, event, status){
                     break;
             }
             break;
-        case '2':
-            switch (status){
-                case 0:
-                    showAlertData("notAvailable", id);
-                    data += `<span class="not-available">Not Available</span>`
-                    break;
-                case 1:
-                    showAlertData("available", id);
-                    break;
-                case 3:
-                    showInfo(id);
-                    data += `<div onclick="buttonOption('extension', '${id}')">Extension</div>`
-                    data += `<div onclick="buttonOption('end lease', '${id}')">End Lease</div>`
-                    break;
-            }
-            break;
-        case '3':
+        case '1':
             switch (status){
                 case 0:
                     showAlertData("permission", id);
@@ -324,12 +310,23 @@ function transferDataConfirm(action, id){
     table.style.display = "grid";
     cancelCountDown();
 }
+function chooseDetailPicture(imgurl){
+    let display = document.getElementById("show-detail-img");
+    display.style.backgroundImage = `url('${imgurl}')`;
+}
 function showInfo(id){
     let detail = getClass(id);
     let dateRemaining = getTimeRemaining(detail.dueDate);
+    let arrayImg = "";
+    for (let i = 0; i < detail.carImg.length; i++){
+        let imgDetail = detail.carImg[i];
+        arrayImg += `<div class="filler boxshadow-outset hover"
+                    style="background-image: url('${imgDetail}')" onclick="chooseDetailPicture('${imgDetail}')"></div>`
+    }
     let data = `<div id="parking-name" class="color2 filler boxshadow-outset">Parkinglot : 
                     <span style="color: green">${detail.alt}</span></div>
-                <img class="boxshadow-outset filler" src="${detail.carImg}">
+                <div id="show-detail-img" class="boxshadow-outset filler" style="background-image: url('${detail.carImg[0]}')"></div>
+                <div id="array-picture" class="border boxshadow-inset filler">${arrayImg}</div>
                 <div id="plate" class="boxshadow-outset filler color2">License Plate : ${detail.licensePlate}</div>
                 <table id="parking-detail" class="filler color2 boxshadow-outset">
                     <tr>
@@ -423,8 +420,6 @@ function printDay(date){
     let year = date.getFullYear();
     return day + " - " + month + " - " + year;
 }
-
-
 function closeTable(){
     let table = document.getElementById("alert-content");
     table.style.display = "none";

@@ -1,22 +1,23 @@
 package com.parkingcar.repository.parkinglot;
 
 import com.parkingcar.model.account.Account;
-import com.parkingcar.model.customer.Customer;
 import com.parkingcar.model.pakingLot.ParkingLot;
+import com.parkingcar.model.pakingLot.ParkingLotStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface IParkingLotRepository extends JpaRepository<ParkingLot, Integer> {
-//    List<ParkingLot> getParkingLotByCustomer_Account(Account account);
-//    @Query(value = "select * from case_study_module_4.parking_lot where status = 0", nativeQuery = true)
-//    List<ParkingLot> getClosedParkingLot();
-//    @Query(value = "select * from case_study_module_4.parking_lot where status = 1 and customer_id is null", nativeQuery = true)
-//    List<ParkingLot> getAvailableParkingLot();
-//    @Query(value = "select * from case_study_module_4.parking_lot where status = 1 and customer_id is not null", nativeQuery = true)
-//    List<ParkingLot> getNotAvailableParkingLot();
-//    @Query(value = "select * from case_study_module_4.parking_lot where status = 1 and customer_id is not null", nativeQuery = true)
-//    List<ParkingLot> getAdminCheckParkingLot();
-//    ParkingLot getParkingLotByNameIs(String name);
+
+
+    List<ParkingLot> getParkingLotsByParkingLotStatusId(Integer parkingLotStatusId);
+
+    ParkingLot getParkingLotByNameIs(String name);
+//    @Query(value = "select bill.packing_lot_id " +
+//                    "from bill join (select packing_lot_id, max(end_date) as max_end_date from bill " +
+//            "group by packing_lot_id ) b2 on bill.packing_lot_id = b2.packing_lot_id and bill.end_date = b2.max_end_date " +
+//            "where bill.customer_id = :id", nativeQuery = true)
+//    List<Integer> getParkinglotIdByAccountId(@Param("id") Integer accountId);
+    List<ParkingLot> getParkingLotsByBill_Customer_Account(Account account);
+
 }

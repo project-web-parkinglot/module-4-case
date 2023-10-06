@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/bill/edit}" th:object="${bill}" method="post">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Car</th>
+            <th>Position</th>
+            <th>Gói thuê:</th>
+        </tr>
+        <tr>
+            <input type="hidden" th:field="*{id}">
+            <td>
+                <input th:field="*{customer.name}" readonly>
+            </td>
+            <td>
+                <input th:field="*{car.licensePlate}" readonly>
+            </td>
+            <td>
+                <input th:field="*{parkingLot.name}" readonly>
+                <input type="hidden" th:field="*{endDate}">
+            </td>
+            <td>
+                <select name="packageName" th:field="*{packageRent}">
+                    <span th:each="package:${packageRentList}">
+                    <option th:value="${package.id}" th:text="${package.packageName}"></option>
+                    </span>
+                </select>
+            </td>
+            <td>
+                <input type="submit" placeholder="edit">
+            </td>
+        </tr>
+
+    </table>
+</form>
+</body>
+</html>
