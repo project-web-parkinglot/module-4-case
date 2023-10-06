@@ -225,6 +225,9 @@ public class ParkingLotService implements IParkingLotService{
         List<String> result = new ArrayList<>();
 
         List<ParkingLot> other = parkingLotRepository.getParkingLotsByParkingLotStatusId(3);
+        List<ParkingLot> hold = parkingLotRepository.getParkingLotsByParkingLotStatusId(4);
+        other.addAll(hold);
+
         List<ParkingLot> otherParkingB1 = new ArrayList<>();
         List<ParkingLot> otherParkingB2 = new ArrayList<>();
         for (ParkingLot parkingLot : other){

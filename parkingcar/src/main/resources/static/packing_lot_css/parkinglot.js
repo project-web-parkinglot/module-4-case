@@ -11,6 +11,7 @@ let awatingParkingB2 = [];
 let arrayMy = [];
 let arrayAwait = [];
 let countdownInterval;
+
 class parkingLot{
     constructor(x1,y1,x2,y2,x3,y3,x4,y4,alt,id) {
         this.x1 = x1;
@@ -563,3 +564,50 @@ function setupTimeLeft(){
         }
     }
 }
+function setupNoteDescription(){
+    let data = "";
+    let blockSize = 0;
+    let availableSize = 0;
+    let otherSize = 0;
+    let mySize = 0;
+    let awaitSize = 0;
+    blockSize += blockParkingB1.length;
+    blockSize += blockParkingB2.length;
+    availableSize += availableParkingB1.length;
+    availableSize += availableParkingB2.length;
+    otherSize += otherParkingB1.length;
+    otherSize += otherParkingB2.length;
+    mySize += ownParkingB1.length;
+    mySize += ownParkingB2.length;
+    awaitSize += awatingParkingB1.length;
+    awaitSize += awatingParkingB2.length;
+
+
+    if (blockSize != 0){
+        data += `<div class="blockParking filler"><span class="text-scale">${fillNumber(blockSize)}</span> Blocked</div>`;
+    }
+    if (availableSize != 0){
+        data += `<div class="availableParking filler"><span class="text-scale">${fillNumber(availableSize)}</span> Available</div>`;
+    }
+    if (otherSize != 0){
+        data += `<div class="otherParking filler"><span class="text-scale">${fillNumber(otherSize)}</span> Not Available</div>`;
+    }
+    if (mySize != 0){
+        data += `<div class="myParking filler"><span class="text-scale">${fillNumber(mySize)}</span> My Parking</div>`;
+    }
+    if (awaitSize != 0){
+        data += `<div class="awaitParking filler"><span class="text-scale">${fillNumber(awaitSize)}</span> Awaiting</div>`;
+    }
+    document.getElementById("note").innerHTML = data;
+}
+function fillNumber(number){
+    switch ((number + "").length){
+        case 3:
+            return "" + number;
+        case 2:
+            return "0" + number;
+        case 1:
+            return "00" + number;
+    }
+}
+setupNoteDescription();
