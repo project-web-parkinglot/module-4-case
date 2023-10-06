@@ -128,13 +128,10 @@
     background-image: url("/packing_lot_css/img/thang.jpg");
 }
 #img-long{
-    background-image: url("/packing_lot_css/img/default.jpg");
+    background-image: url("/packing_lot_css/img/long.jpg");
 }
 #img-thien{
-    background-image: url("/packing_lot_css/img/default.jpg");
-}
-#img-hai{
-    background-image: url("/packing_lot_css/img/default.jpg");
+    background-image: url("/packing_lot_css/img/thien.jpg");
 }
 #img-thang:hover{
     filter: none;
