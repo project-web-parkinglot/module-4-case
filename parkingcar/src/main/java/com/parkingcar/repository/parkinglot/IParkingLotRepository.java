@@ -20,4 +20,6 @@ public interface IParkingLotRepository extends JpaRepository<ParkingLot, Integer
 //    List<Integer> getParkinglotIdByAccountId(@Param("id") Integer accountId);
     List<ParkingLot> getParkingLotsByBill_Customer_Account(Account account);
 
+    ParkingLot getParkingLotById(Integer id);
+
 }

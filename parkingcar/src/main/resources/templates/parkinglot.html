@@ -28,6 +28,21 @@
         </div>
     </div>
 </div>
+
+<div id="edit-table" class="border filler boxshadow-outset">
+    <div id="parking-lot-name" class="boxshadow-outset filler border color2"></div>
+    <div id="array-picture-edit" class="boxshadow-inset filler border color1"></div>
+    <input required minlength="8" maxlength="10" class="filler boxshadow-inset border"
+           id="plate-edit" type="text" name="licensePlate" placeholder="-- Enter License Plate --">
+    <div id="button">
+        <div></div>
+        <div id="button-back" class="filler boxshadow-outset border hover" onclick="closeEditTable()">Cancel</div>
+        <div id="button-submit" class="filler boxshadow-outset border hover">Submit</div>
+    </div>
+</div>
+
+
+
 <div id="control-cover">
     <div id="cover" class="border filler color1 boxshadow-outset">
         <div id="function-key"></div>
@@ -61,6 +76,7 @@
             <div class="availableParking filler">Available</div>
             <div class="otherParking filler">Has Been Owned</div>
             <div class="myParking filler">My Parking</div>
+            <div class="awaitParking filler">Awaiting</div>
         </div>
     </div>
     <div id="option" class="color2 boxshadow-outset"></div>
@@ -94,6 +110,8 @@
 <input type="hidden" id="ownParkingB2" th:value="${ownParkingB2}">
 <input type="hidden" id="otherParkingB1" th:value="${otherParkingB1}">
 <input type="hidden" id="otherParkingB2" th:value="${otherParkingB2}">
+<input type="hidden" id="awaitingParkingB1" th:value="${awaitingParkingB1}">
+<input type="hidden" id="awaitingParkingB2" th:value="${awatingParkingB2}">
 
 </body>
 <script src="packing_lot_css/parkinglot.js"></script>

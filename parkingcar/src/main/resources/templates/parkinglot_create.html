@@ -9,6 +9,12 @@
 </head>
 <body class="color2">
 <div th:replace="parkinglot :: header"></div>
+<div id="alert-table" class="border filler boxshadow-outset">
+    <p>Please <span class="target-text">FILL IN</span> the complete
+        <span class="target-text">LICENSE PLATE NUMBER</span><br>
+    Provide at least <span class="target-text">1 PHOTO</span></p>
+    <div class="color2 boxshadow-inset filler hover border" onclick="closeAlertTable()">OK</div>
+</div>
 
 
 <div id="form-create" class="border filler boxshadow-inset">
@@ -20,6 +26,7 @@
             <svg id="parkinglot"></svg>
         </div>
         <div id="option" class="color2 boxshadow-outset"></div>
+
     </div>
     <div id="form-input" class="filler boxshadow-outset">
         <div id="parking-lot-name" class="boxshadow-outset filler border" th:text="${parking.name}"></div>
@@ -66,13 +73,79 @@
 
         </form>
     </div>
+
+    </div>
+    <form id="form-input" class="border filler boxshadow-outset color1" action="/parking/create" method="post">
+        <div id="parking-lot-name" class="boxshadow-outset filler border" th:text="${parking.name}"></div>
+        <table id="profile" class="boxshadow-inset filler border">
+            <tr>
+                <th colspan="2">Profile</th>
+            </tr>
+            <tr>
+                <td width="150px">- User Name : </td>
+                <td th:text="${account.username}"></td>
+            </tr>
+            <tr>
+                <td>- Email : </td>
+                <td th:text="${account.email}"></td>
+            </tr>
+            <tr>
+                <td>- Name : </td>
+                <td th:text="${customer.getName()}"></td>
+            </tr>
+            <tr>
+                <td>- Phone Number : </td>
+                <td th:text="${customer.getPhoneNumber()}"></td>
+            </tr>
+            <tr>
+                <td>- Room Rented : </td>
+                <td th:text="${customer.getRoomRented()}"></td>
+            </tr>
+            <tr>
+                <td>- Gender : </td>
+                <td th:text="${customer.getGender() == 1 ? 'Male' : 'Female'}"></td>
+            </tr>
+            <tr>
+                <td>- Birthday : </td>
+                <td th:text="${customer.getDOB()}"></td>
+            </tr>
+            <tr>
+                <td>- Address : </td>
+                <td th:text="${customer.getAddress()}"></td>
+            </tr>
+        </table>
+        <div id="array-picture" class="filler boxshadow-inset border">
+            <div class="filler hover-border boxshadow-outset" onclick="addImgToInput()"
+                 style="background-image: url('/packing_lot_css/icon/add.png')"></div>
+        </div>
+        <input required minlength="8" maxlength="10" class="filler boxshadow-inset border"
+               id="plate" type="text" name="licensePlate" placeholder="-- Enter License Plate --">
+        <div id="button">
+            <div></div>
+            <div id="button-back" class="filler boxshadow-outset border hover" onclick="transferDataConfirm('back')">Quit</div>
+            <div id="button-submit" class="filler boxshadow-outset border hover" onclick="check()">Submit</div>
+        </div>
+
+        <input type="hidden" name="linkimg" id="carimage">
+        <input type="hidden" name="parkingId" id="id-parkinglot" th:value="${parking.id}">
+        <button id="submit-hidden" type="submit" hidden="hidden"></button>
+    </form>
+
 </div>
 
 
 
 
+
+
+<input type="file" id="input-img" style="display: none" multiple class="inps" onchange="handleUpload()">
+
 <input type="hidden" id="arrayAvailableB1" th:value="${arrayAvailableB1}">
 <input type="hidden" id="arrayAvailableB2" th:value="${arrayAvailableB2}">
 </body>
 <script src="/packing_lot_css/parkinglotcreate.js"></script>
+
+
+<script type="module" src="/packing_lot_css/firebase.js"></script>
+
 </html>

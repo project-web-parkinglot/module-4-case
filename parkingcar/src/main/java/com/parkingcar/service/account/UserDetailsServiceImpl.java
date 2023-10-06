@@ -19,6 +19,7 @@ import java.util.Set;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
     @Autowired
     IAccountRepository iAccountRepository;
     @Autowired
@@ -54,5 +55,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 accountUser.getPassword(), accountUser.isStatus(), true, true, true, grantList);
         return userDetails;
     }
-
 }

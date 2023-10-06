@@ -1,4 +1,5 @@
 package com.parkingcar.model.pakingLot;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -6,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+
 
 @Setter
 @Getter
@@ -17,6 +19,7 @@ public class ParkingLotStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String statusName;
+    @JsonBackReference
     @OneToMany(mappedBy = "parkingLotStatus")
     private List<ParkingLot> parkingLotList;
 
@@ -36,4 +39,15 @@ public class ParkingLotStatus {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
+    @Override
+    public String toString() {
+        return "ParkingLotStatus{" +
+                "id=" + id +
+                ", statusName='" + statusName + '\'' +
+                ", parkingLotList=" + parkingLotList +
+                '}';
+    }
+
 }

@@ -6,7 +6,10 @@ let ownParkingB1 = [];
 let ownParkingB2 = [];
 let otherParkingB1 = [];
 let otherParkingB2 = [];
+let awatingParkingB1 = [];
+let awatingParkingB2 = [];
 let arrayMy = [];
+let arrayAwait = [];
 let countdownInterval;
 class parkingLot{
     constructor(x1,y1,x2,y2,x3,y3,x4,y4,alt,id) {
@@ -92,6 +95,14 @@ function convertData(){
     if (dataOtherB2 != ""){
         otherParkingB2 = eval(dataOtherB2);
     }
+    let dataAwaitB1 = document.getElementById("awaitingParkingB1").value;
+    if (dataAwaitB1 != ""){
+        awatingParkingB1 = eval(dataAwaitB1);
+    }
+    let dataAwaitB2 = document.getElementById("awaitingParkingB2").value;
+    if (dataAwaitB2 != ""){
+        awatingParkingB2 = eval(dataAwaitB2);
+    }
 }
 convertData()
 
@@ -112,6 +123,7 @@ function setupMap(level){
         arrayAvailable = availableParkingB1;
         arrayOther = otherParkingB1;
         arrayMy = ownParkingB1;
+        arrayAwait = awatingParkingB1;
 
         areaControl.style.backgroundImage = `url("/packing_lot_css/img/b1.png")`
         document.getElementById("button-level").innerHTML = `<div class="border color4 filler boxshadow-outset">B1</div>
@@ -121,6 +133,7 @@ function setupMap(level){
         arrayAvailable = availableParkingB2;
         arrayOther = otherParkingB2;
         arrayMy = ownParkingB2;
+        arrayAwait = awatingParkingB2;
 
         areaControl.style.backgroundImage = `url("/packing_lot_css/img/b2.png")`
         document.getElementById("button-level").innerHTML = `<div class="border hover color2 filler boxshadow-outset" onclick="setupMap(1)">B1</div>
@@ -161,6 +174,16 @@ function setupMap(level){
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
                                   " onclick="locationAction('${point.alt}', event, 2)"/>`
+    }
+    for (let i = 0; i < arrayAwait.length; i++){
+        let point = arrayAwait[i];
+        data += `<polygon class="awaitParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+                                  ${width * point.x2 / 100},${height * point.y2 / 100} 
+                                  ${width * point.x3 / 100},${height * point.y3 / 100} 
+                                  ${width * point.x4 / 100},${height * point.y4 / 100}
+                                  " onclick="locationAction('${point.alt}', event, 4)"/>
+                <text x="${width / 400 * (point.x1 + point.x2 + point.x3 + point.x4)}"
+                      y="${height / 400 * (point.y1 + point.y2 + point.y3 + point.y4)}">Hold</text>`
     }
 
 
@@ -205,6 +228,10 @@ function locationAction(id, event, status){
                     showAlertData("hasBeenOwned", id);
                     data += `<span class="not-available">Has Been Owned</span>`
                     break;
+                case 4:
+                    showAlertData("awaiting", id);
+                    data += `<span class="not-available">Awaiting </span>`
+                    break;
             }
             break;
         case '2':
@@ -222,10 +249,14 @@ function locationAction(id, event, status){
                     data += `<span class="not-available">Has Been Owned</span>`
                     break;
                 case 3:
-                    showInfo(id);
+                    showInfo(id,0);
                     data += `<div onclick="buttonOption('extension','${id}')">Extension</div>`
+                    data += `<div onclick="buttonOption('edit','${id}')">Edit Car Info</div>`
                     data += `<div onclick="buttonOption('end lease', '${id}')">End Lease</div>`
                     break;
+                case 4:
+                    showInfo(id,1);
+                    data += `<div onclick="buttonOption('cancel request', '${id}')">Delete Request</div>`
             }
             break;
         case '1':
@@ -239,10 +270,14 @@ function locationAction(id, event, status){
                     data += `<div onclick="buttonOption('prohibition', '${id}')">Prohibition</div>`
                     break;
                 case 3:
-                    showInfo(id);
+                    showInfo(id,0);
                     data += `<div onclick="buttonOption('extension', '${id}')">Extension</div>`
                     data += `<div onclick="buttonOption('end lease', '${id}')">End Lease</div>`
                     break;
+                case 4:
+                    showInfo(id,1);
+                    data += `<div onclick="buttonOption('detail request', '${id}')">Request Manage</div>`
+                    data += `<div onclick="buttonOption('cancel request', '${id}')">Abort Request</div>`
             }
             break;
     }
@@ -281,7 +316,16 @@ function buttonOption(action, id){
             break;
         case "cancel":
             cancelOption();
-            break
+            break;
+        case "cancel request":
+            transferDataConfirm("end lease", id);
+            break;
+        case "detail request":
+            transferDataConfirm(action, id);
+            break;
+        case "edit":
+            showEditTable(id);
+            break;
     }
 }
 function transferDataConfirm(action, id){
@@ -306,16 +350,31 @@ function transferDataConfirm(action, id){
         case "rental":
             window.location.href = "/parking/create/" + id;
             return;
+        case "detail request":
+            // window.location.href =
+            return;
     }
     table.style.display = "grid";
     cancelCountDown();
 }
+
+function showEditTable(id){
+    document.getElementById("edit-table").style.display = "grid";
+    let detail = getClass(id, 0);
+    document.getElementById("parking-lot-name").innerHTML = `ParkingLot : <span class="target-text">${id}</span>`;
+    document.getElementById("plate-edit").value = detail.licensePlate;
+}
+function closeEditTable(){
+    document.getElementById("edit-table").style.display = "none";
+}
+
 function chooseDetailPicture(imgurl){
     let display = document.getElementById("show-detail-img");
     display.style.backgroundImage = `url('${imgurl}')`;
 }
-function showInfo(id){
-    let detail = getClass(id);
+
+function showInfo(id, ind){
+    let detail = getClass(id, ind);
     let dateRemaining = getTimeRemaining(detail.dueDate);
     let arrayImg = "";
     for (let i = 0; i < detail.carImg.length; i++){
@@ -402,17 +461,29 @@ function showAlertData(status, parkingId){
                 <h1 id="alert-parking">${dataAlert}</h1>`
     document.getElementById("parking-info").innerHTML = data;
 }
-function getClass(id){
-    for (let i = 0; i < arrayMy.length; i++){
-        if(id == arrayMy[i].alt){
-            return arrayMy[i];
+function getClass(id,ind){
+    if (ind == 0) {
+        for (let i = 0; i < arrayMy.length; i++) {
+            if (id == arrayMy[i].alt) {
+                return arrayMy[i];
+            }
+        }
+    } else {
+        for (let i = 0; i < arrayAwait.length; i++) {
+            if (id == arrayAwait[i].alt) {
+                return arrayAwait[i];
+            }
         }
     }
 }
 function getTimeRemaining(date){
-    let now = new Date();
-    let dayRemain = Math.floor((date - now) / (1000 * 60 * 60 * 24));
-    return dayRemain;
+    if (isNaN(date)){
+        return "Hold"
+    } else {
+        let now = new Date();
+        let dayRemain = Math.floor((date - now) / (1000 * 60 * 60 * 24));
+        return dayRemain;
+    }
 }
 function printDay(date){
     let day = String(date.getDate()).padStart(2,'0');

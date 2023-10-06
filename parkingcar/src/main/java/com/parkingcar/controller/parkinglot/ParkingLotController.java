@@ -24,8 +24,9 @@ public class ParkingLotController {
     private IParkingLotService parkingLotService;
     @Autowired
     private IAccountService accountService;
-            Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(1, "CUSTOMER"),null);
-        @GetMapping("/")
+    Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(2, "CUSTOMER"), null);
+
+    @GetMapping("/")
     public String showParkingLotPage(Model model) {
         int role;
         if (account == null) {
@@ -43,11 +44,13 @@ public class ParkingLotController {
         model.addAttribute("arrayAvailableB1", availableParking.get(0));
         model.addAttribute("arrayAvailableB2", availableParking.get(1));
 
-        if (account.getRole().getId() == 1){
+        if (account.getRole().getId() == 1) {
             List<String> adminCheck = parkingLotService.getCheckParking();
 
             model.addAttribute("ownParkingB1", adminCheck.get(0));
             model.addAttribute("ownParkingB2", adminCheck.get(1));
+            model.addAttribute("awaitingParkingB1", adminCheck.get(2));
+            model.addAttribute("awaitingParkingB2", adminCheck.get(3));
 
         } else if (account.getRole().getId() == 2) {
             List<String> customerParking = parkingLotService.getMyParking(account);
@@ -56,6 +59,8 @@ public class ParkingLotController {
             model.addAttribute("ownParkingB2", customerParking.get(1));
             model.addAttribute("otherParkingB1", customerParking.get(2));
             model.addAttribute("otherParkingB2", customerParking.get(3));
+            model.addAttribute("awaitingParkingB1", customerParking.get(4));
+            model.addAttribute("awaitingParkingB2", customerParking.get(5));
         } else {
             List<String> anonymousParking = parkingLotService.getAnonymousParking();
 
@@ -67,7 +72,7 @@ public class ParkingLotController {
 
     @GetMapping("/parking/lock/{name}")
     public String lockParking(@PathVariable String name) {
-        if (account.getRole().getId() >= 2) {
+        if (account.getRole().getId() == 1) {
             try {
                 parkingLotService.lockParking(name);
             } catch (IllegalAccessException e) {
@@ -79,7 +84,7 @@ public class ParkingLotController {
 
     @GetMapping("/parking/unlock/{name}")
     public String unlockParking(@PathVariable String name) {
-        if (account.getRole().getId() >= 2) {
+        if (account.getRole().getId() == 1) {
             try {
                 parkingLotService.unlockParking(name);
             } catch (IllegalAccessException e) {
@@ -114,15 +119,14 @@ public class ParkingLotController {
             return "parkinglot_create";
         }
         return "redirect:/";
-
     }
+
     @PostMapping("parking/create")
-    public String createHireRequest(@RequestParam Integer parkingId){
-        Bill bill = new Bill();
-        bill.setStatus("0");
+    public String createHireRequest(@RequestParam Integer parkingId,
+                                    @RequestParam String linkimg,
+                                    @RequestParam String licensePlate) {
 
-
+        parkingLotService.createNewRequest(account, parkingId, linkimg, licensePlate);
         return "redirect:/";
     }
-
 }
