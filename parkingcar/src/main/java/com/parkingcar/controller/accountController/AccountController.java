@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/login")
@@ -34,14 +35,14 @@ public class AccountController {
     @Autowired
     private ICustomerService customerService;
 
-    @GetMapping("/create")
+    @GetMapping("/")
     public String loginForm(Model model) {
         AccountDto accountDto = new AccountDto();
         model.addAttribute("accountDto", accountDto);
         return "/account/login";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     private String createAccount(@Validated  @ModelAttribute("accountDto") AccountDto accountDto,
                                  @RequestParam("username") String username,
                                  @RequestParam("password") String password,
@@ -84,6 +85,25 @@ public class AccountController {
         return "redirect:/login/create";
     }
 
+    @GetMapping("/userInfo")
+    public String userInfo(Model model, Principal principal, RedirectAttributes redirectAttributes) {
+        String userName = principal.getName();
+        Account account = iAccountService.findAccountByUserName(userName);
+        if (account.getRole().getName().equals("ROLE_CUSTOMER")) {
+            if (!account.isStatus()) {
+                return "account/login";
+            } else {
+                model.addAttribute("info", account);
+                model.addAttribute("accountName", userName);
+                return "/";
+            }
+        } else if (account.getRole().getName().equals("ROLE_ADMIN")) {
+            model.addAttribute("info", account);
+            model.addAttribute("accountName", userName);
+            return "/";
+        }
+        return "/";
+    }
     private String getSiteURL(HttpServletRequest request) {
         String siteURL = request.getRequestURL().toString();
         return siteURL.replace(request.getServletPath(), "");
