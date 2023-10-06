@@ -16,14 +16,17 @@
         <tr>
             <input type="hidden" th:field="*{id}">
             <td>
-                <input th:field="*{customer.name}" readonly>
+                <input th:field="${bill.customer.name}" readonly>
+                <input type="hidden" th:field="${bill.customer.id}">
             </td>
             <td>
                 <input th:field="*{car.licensePlate}" readonly>
+                <input type="hidden" th:field="${bill.car.id}">
             </td>
             <td>
                 <input th:field="*{parkingLot.name}" readonly>
                 <input type="hidden" th:field="*{endDate}">
+                <input type="hidden" th:field="${bill.parkingLot.id}">
             </td>
             <td>
                 <select name="packageName" th:field="*{packageRent}">

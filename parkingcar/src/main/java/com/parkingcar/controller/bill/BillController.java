@@ -4,9 +4,13 @@ import com.parkingcar.dto.customer.ICustomerDTO;
 import com.parkingcar.model.bill.Bill;
 import com.parkingcar.model.customer.Customer;
 import com.parkingcar.model.packageRent.PackageRent;
+import com.parkingcar.model.pakingLot.Car;
+import com.parkingcar.model.pakingLot.ParkingLot;
 import com.parkingcar.service.bill.IBillService;
+import com.parkingcar.service.bill.ICarService;
 import com.parkingcar.service.customer.ICustomerService;
 import com.parkingcar.service.packageRent.IPackageRentService;
+import com.parkingcar.service.parkinglot.IParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +30,10 @@ public class BillController {
     private IPackageRentService packageRentService;
     @Autowired
     private ICustomerService customerService;
+    @Autowired
+    private IParkingLotService parkingLotService;
+    @Autowired
+    private ICarService carService;
 
 
     @GetMapping("/update")
@@ -42,6 +50,12 @@ public class BillController {
         bill.setMoneyPay(bill.getPackageRent().getMoneyRent());
         bill.setTimePay(LocalDate.now());
         bill.setEndDate(bill.getEndDate().plusDays(bill.getPackageRent().getDay()));
+        Customer customer = customerService.findById(bill.getCustomer().getId());
+        bill.setCustomer(customer);
+        ParkingLot parkingLot = parkingLotService.getParkingById(bill.getParkingLot().getId());
+        bill.setParkingLot(parkingLot);
+        Car car = carService.getCarById(bill.getCar().getId());
+        bill.setCar(car);
         billService.saveBill(bill);
         redirectAttributes.addFlashAttribute("message","ok");
         return "redirect:/customer/showBill";
