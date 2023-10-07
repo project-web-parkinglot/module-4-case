@@ -17,7 +17,11 @@
 
     <!-- Custom styles for this template -->
     <link href="/page_admin_css/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <style>
+        body{
+            background-color: #EAE9E5;
+        }
+    </style>
     <!-- Custom styles for this page -->
     <link href="/page_admin_css/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!--    ajax-->
@@ -28,7 +32,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">PARKING LOT INFORMATION </h1>
-    <span th:text="${message}"></span>
+
     <div class="card shadow mb-4">
 
         <div class="card-body">
@@ -64,7 +68,7 @@
                         </td>
                         <td th:text="${#numbers.formatDecimal(customer.moneyPay,0,'COMMA',0,'POINT')} +'VND'"></td>
                         <td th:switch="${customer.billStatus}">
-                            <span th:case="1">Approved</span>
+                            <span th:case="1" >Approved</span>
                             <span th:case="0">Not approved</span>
                         </td>
                         <td th:text="${customer.licensePlate}"></td>
