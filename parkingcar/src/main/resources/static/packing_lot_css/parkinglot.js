@@ -63,48 +63,6 @@ let role = document.getElementById("roleTrans").value;
 if (role == ""){
     role = 0;
 }
-function convertData(){
-    let datablockB1 = document.getElementById("arrayBlockB1").value;
-    if (datablockB1 != ""){
-        blockParkingB1 = eval(datablockB1);
-    }
-    let datablockB2 = document.getElementById("arrayBlockB2").value;
-    if (datablockB2 != ""){
-        blockParkingB2 = eval(datablockB2);
-    }
-    let dataAvailableB1 = document.getElementById("arrayAvailableB1").value;
-    if (dataAvailableB1 != ""){
-        availableParkingB1 = eval(dataAvailableB1);
-    }
-    let dataAvailableB2 = document.getElementById("arrayAvailableB2").value;
-    if (dataAvailableB2 != ""){
-        availableParkingB2 = eval(dataAvailableB2);
-    }
-    let dataOwnB1 = document.getElementById("ownParkingB1").value;
-    if (dataOwnB1 != ""){
-        ownParkingB1 = eval(dataOwnB1);
-    }
-    let dataOwnB2 = document.getElementById("ownParkingB2").value;
-    if (dataOwnB2 != ""){
-        ownParkingB2 = eval(dataOwnB2);
-    }
-    let dataOtherB1 = document.getElementById("otherParkingB1").value;
-    if (dataOtherB1 != ""){
-        otherParkingB1 = eval(dataOtherB1);
-    }
-    let dataOtherB2 = document.getElementById("otherParkingB2").value;
-    if (dataOtherB2 != ""){
-        otherParkingB2 = eval(dataOtherB2);
-    }
-    let dataAwaitB1 = document.getElementById("awaitingParkingB1").value;
-    if (dataAwaitB1 != ""){
-        awatingParkingB1 = eval(dataAwaitB1);
-    }
-    let dataAwaitB2 = document.getElementById("awaitingParkingB2").value;
-    if (dataAwaitB2 != ""){
-        awatingParkingB2 = eval(dataAwaitB2);
-    }
-}
 function setupMap(level){
     cancelOption();
     let areaControl = document.getElementById("map-control");
@@ -125,8 +83,10 @@ function setupMap(level){
         arrayAwait = awatingParkingB1;
 
         areaControl.style.backgroundImage = `url("/packing_lot_css/img/b1.png")`
-        document.getElementById("button-level").innerHTML = `<div class="border color4 filler boxshadow-outset">B1</div>
-                                                                      <div class="border hover color2 filler boxshadow-outset" onclick="setupMap(2)">B2</div>`
+        document.getElementById("page-num").value = 1;
+        document.getElementById("button-level").innerHTML =
+            `<div class="border color4 filler boxshadow-outset">B1</div>
+            <div class="border hover color2 filler boxshadow-outset" onclick="setupMap(2)">B2</div>`
     } else {
         arrayBlock = blockParkingB2;
         arrayAvailable = availableParkingB2;
@@ -135,13 +95,16 @@ function setupMap(level){
         arrayAwait = awatingParkingB2;
 
         areaControl.style.backgroundImage = `url("/packing_lot_css/img/b2.png")`
-        document.getElementById("button-level").innerHTML = `<div class="border hover color2 filler boxshadow-outset" onclick="setupMap(1)">B1</div>
-                                                                      <div class="border color4 filler boxshadow-outset">B2</div>`
+        document.getElementById("page-num").value = 2;
+        document.getElementById("button-level").innerHTML =
+            `<div class="border hover color2 filler boxshadow-outset" onclick="setupMap(1)">B1</div>
+            <div class="border color4 filler boxshadow-outset">B2</div>`
     }
 
     for (let i = 0; i < arrayBlock.length; i++){
         let point = arrayBlock[i];
-        data += `<polygon class="blockParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+        data += `<polygon class="blockParking" id="${point.alt}" points="
+                                  ${width * point.x1  / 100},${height * point.y1 / 100} 
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
@@ -149,7 +112,8 @@ function setupMap(level){
     }
     for (let i = 0; i < arrayAvailable.length; i++){
         let point = arrayAvailable[i];
-        data += `<polygon class="availableParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+        data += `<polygon class="availableParking" id="${point.alt}" points="
+                                  ${width * point.x1  / 100},${height * point.y1 / 100} 
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
@@ -157,7 +121,8 @@ function setupMap(level){
     }
     for (let i = 0; i < arrayMy.length; i++){
         let point = arrayMy[i];
-        data += `<polygon class="myParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+        data += `<polygon class="myParking" id="${point.alt}"
+                                  points="${width * point.x1  / 100},${height * point.y1 / 100} 
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
@@ -168,7 +133,8 @@ function setupMap(level){
     }
     for (let i = 0; i < arrayOther.length; i++){
         let point = arrayOther[i];
-        data += `<polygon class="otherParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+        data += `<polygon class="otherParking" id="${point.alt}" points="
+                                  ${width * point.x1  / 100},${height * point.y1 / 100} 
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
@@ -176,7 +142,8 @@ function setupMap(level){
     }
     for (let i = 0; i < arrayAwait.length; i++){
         let point = arrayAwait[i];
-        data += `<polygon class="awaitParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+        data += `<polygon class="awaitParking" id="${point.alt}" points="
+                                  ${width * point.x1  / 100},${height * point.y1 / 100} 
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
@@ -528,30 +495,40 @@ function closeTable(){
 }
 function confirmTable(action, id){
     clearInterval(countdownInterval);
+    let link = "";
     switch (action){
         case "lock":
-            window.location.href = "/parking/lock/" + id;
+            link = "http://localhost:8080/parking/api/lock/" + id;
             break;
         case "unlock":
-            window.location.href = "/parking/unlock/" + id;
+            link = "http://localhost:8080/parking/api/unlock/" + id;
             break;
         case "end lease":
-            window.location.href = "/parking/endlease/" + id;
+            link = "http://localhost:8080/parking/api/endlease/" + id;
             break;
         case "edit":
-            document.getElementById("confirm-edit").click();
-            break;
+            updateCarInfo();
+            closeEditTable();
+            return;
         case 'signup':
-            break;
+            return;
         case 'login':
-            break;
+            return;
         case 'profile':
             alert('profile')
-            break;
+            return;
         case 'logout':
             alert('linklogout')
-            break;
+            return;
     }
+    $.ajax({
+        contentType: "application/json",
+        method: "GET",
+        url: link,
+        success: function () {
+            updateMap();
+        }
+    })
 }
 function clickHiddenButton(){
     document.getElementById("button").click();
@@ -632,9 +609,57 @@ function fillNumber(number){
 function closeAlertTable(){
     document.getElementById("alert-table").style.display = "none";
 }
-convertData();
-setupMap(1);
-setupNoteDescription();
+function updateMap(){
+    $.ajax({
+        contentType: "application/json",
+        method: "GET",
+        url: "http://localhost:8080/parking/api/map",
+        success: function (data) {
+            console.log(data)
+            blockParkingB1 = eval(data[0]);
+            blockParkingB2 = eval(data[1]);
+            availableParkingB1 = eval(data[2]);
+            availableParkingB2 = eval(data[3]);
+            ownParkingB1 = eval(data[4]);
+            ownParkingB2 = eval(data[5]);
+            awatingParkingB1 = eval(data[6]);
+            awatingParkingB2 = eval(data[7]);
+            otherParkingB1 = eval(data[8]);
+            otherParkingB2 = eval(data[9]);
+
+            let mapPage = +document.getElementById("page-num").value;
+            setupMap(mapPage);
+            setupNoteDescription();
+        },
+        catch: function (){
+            console.log("toang gòi");
+        }
+    })
+}
+function updateCarInfo(){
+    let parkingName = document.getElementById("parking-id-edit").value;
+    let licensePlate = document.getElementById("plate-edit").value;
+    let linkNewImg = document.getElementById("linkNewImg").value;
+    let linkDelImg = document.getElementById("linkDelImg").value;
+    const dataEditCar = {
+        parkingName: parkingName,
+        licensePlate: licensePlate,
+        linkNewImg: linkNewImg,
+        linkDelImg: linkDelImg
+    }
+    $.ajax({
+        contentType: "application/json",
+        method: "POST",
+        dataType: "json",
+        data: JSON.stringify(dataEditCar),
+        url: "http://localhost:8080/parking/api/edit",
+        complete: function () {
+            updateMap();
+        }
+    })
+}
+updateMap();
+
 
 // document.getElementById('map-control').addEventListener('click', function(event) {
 //     var rect = event.target.getBoundingClientRect();

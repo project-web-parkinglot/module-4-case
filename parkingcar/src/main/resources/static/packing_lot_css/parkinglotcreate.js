@@ -165,7 +165,6 @@ function check(){
 function closeAlertTable(){
     document.getElementById("alert-table").style.display = "none";
 }
-
 convertData();
 setupMap(1);
 changeColorParking();
