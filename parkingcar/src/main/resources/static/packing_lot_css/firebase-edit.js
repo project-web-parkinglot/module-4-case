@@ -39,7 +39,7 @@ async function uploadImage(file) {
 }
 
 function displayDownloadDetailLink(url){
-    document.getElementById("add-img-edit").value = url;
+    document.getElementById("linkNewImg").value = url;
 }
 function insertPicture(url){
     let data =  `<div class="div-main filler hover-border boxshadow-outset"

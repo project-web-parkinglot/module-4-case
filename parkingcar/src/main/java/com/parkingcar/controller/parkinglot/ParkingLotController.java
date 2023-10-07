@@ -24,7 +24,7 @@ public class ParkingLotController {
     private IParkingLotService parkingLotService;
     @Autowired
     private IAccountService accountService;
-    Account account = new Account(1, "test", "aaa", "a@gmail.com", true, new Role(2, "CUSTOMER"), null);
+    Account account = new Account(3, "thang_quoc", "aaa", "a@gmail.com", true, new Role(2, "CUSTOMER"), null);
 
     @GetMapping("/")
     public String showParkingLotPage(Model model) {
@@ -39,6 +39,7 @@ public class ParkingLotController {
         List<String> blockParking = parkingLotService.getBlockParking();
         List<String> availableParking = parkingLotService.getAvailableParking();
 
+        model.addAttribute("account", account);
         model.addAttribute("arrayBlockB1", blockParking.get(0));
         model.addAttribute("arrayBlockB2", blockParking.get(1));
         model.addAttribute("arrayAvailableB1", availableParking.get(0));
@@ -121,12 +122,19 @@ public class ParkingLotController {
         return "redirect:/";
     }
 
-    @PostMapping("parking/create")
+    @PostMapping("/parking/create")
     public String createHireRequest(@RequestParam Integer parkingId,
                                     @RequestParam String linkimg,
                                     @RequestParam String licensePlate) {
-
         parkingLotService.createNewRequest(account, parkingId, linkimg, licensePlate);
+        return "redirect:/";
+    }
+    @PostMapping("/parking/edit")
+    public String editCarInfo(@RequestParam String parkingName,
+                              @RequestParam String licensePlate,
+                              @RequestParam String linkNewImg,
+                              @RequestParam String linkDelImg){
+        parkingLotService.editCarInfo(parkingName, licensePlate, linkNewImg, linkDelImg);
         return "redirect:/";
     }
 }

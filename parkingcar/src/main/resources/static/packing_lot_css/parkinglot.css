@@ -203,11 +203,12 @@
 }
 #array-picture{
     width: 100%;
-    aspect-ratio: 5/1;
+    aspect-ratio: 5/1.2;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     background-color: white;
     margin-bottom: 20px;
+    overflow: auto;
 }
 #array-picture div{
     margin: 10px;
@@ -295,6 +296,7 @@
     background-size: contain;
     background-position-x: center;
     background-position-y: bottom;
+    background-repeat: no-repeat;
     margin-bottom: 20px;
 }
 .div-branch{

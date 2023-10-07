@@ -11,6 +11,7 @@ let awatingParkingB2 = [];
 let arrayMy = [];
 let arrayAwait = [];
 let countdownInterval;
+let sizeImgDetail = 0;
 
 class parkingLot{
     constructor(x1,y1,x2,y2,x3,y3,x4,y4,alt,id) {
@@ -62,7 +63,6 @@ let role = document.getElementById("roleTrans").value;
 if (role == ""){
     role = 0;
 }
-
 function convertData(){
     let datablockB1 = document.getElementById("arrayBlockB1").value;
     if (datablockB1 != ""){
@@ -105,8 +105,6 @@ function convertData(){
         awatingParkingB2 = eval(dataAwaitB2);
     }
 }
-convertData()
-
 function setupMap(level){
     cancelOption();
     let areaControl = document.getElementById("map-control");
@@ -191,15 +189,6 @@ function setupMap(level){
     document.getElementById("parkinglot").innerHTML = data;
     setupTimeLeft();
 }
-setupMap(1)
-
-// document.getElementById('map-control').addEventListener('click', function(event) {
-//     var rect = event.target.getBoundingClientRect();
-//     var x = ((event.clientX - rect.left) / rect.width) * 100;
-//     var y = ((event.clientY - rect.top) / rect.height) * 100;
-//
-//     alert('x: ' + x + ' y: ' + y);
-// });
 function locationAction(id, event, status){
     status = +status
 
@@ -331,6 +320,7 @@ function buttonOption(action, id){
     }
 }
 function transferDataConfirm(action, id){
+    clearInterval(countdownInterval);
     let content = document.getElementById("content-alert");
     let table = document.getElementById("alert-content");
     switch (action){
@@ -355,49 +345,65 @@ function transferDataConfirm(action, id){
         case "detail request":
             // window.location.href =
             return;
+        case "edit":
+            content.innerHTML = `Are you sure about <span class="target-text">EDIT INFORMATION</span>`;
+            document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('edit',0)"></div>`;
+            break;
+        case "logout":
+            content.innerHTML = `Are you sure about <span class="target-text">LOGOUT</span>`;
+            document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('logout',0)"></div>`;
+            break;
     }
     table.style.display = "grid";
     cancelCountDown();
 }
-
 function showEditTable(id){
     document.getElementById("edit-table").style.display = "grid";
     let detail = getClass(id, 0);
+    sizeImgDetail = detail.carImg.length;
     document.getElementById("parking-lot-name").innerHTML = `ParkingLot : <span class="target-text">${id}</span>`;
     document.getElementById("plate-edit").value = detail.licensePlate;
 
     let dataImg = `<div id="add-icon" class="div-main filler hover-border boxshadow-outset"
                     style="background-image: ; background-position: center" onclick="addImg()"></div>`
-    for (let i = 0 ; i < detail.carImg.length; i++){
+    for (let i = 0 ; i < sizeImgDetail; i++){
         let img = detail.carImg[i];
         dataImg += `<div class="div-main filler hover-border boxshadow-outset"
                     style="background-image: url('/packing_lot_css/icon/non-delete-picture.png')"
-                    onclick="chooseDeleteImg(this)">
+                    onclick="chooseDeleteImg(this, '${img}')">
                     <div class="div-branch" style="background-image: url('${img}')"></div></div>`;
     }
-
+    document.getElementById("parking-id-edit").value = id;
     document.getElementById('array-picture-edit').innerHTML = dataImg;
 }
 function addImg(){
     document.getElementById("add-img-edit").click();
 }
-function chooseDeleteImg(ele){
+function chooseDeleteImg(ele,link){
     let background = window.getComputedStyle(ele).getPropertyValue('background-image');
+    let dataDel = document.getElementById("linkDelImg").value;
+    let sizeNew = document.getElementById("add-img-edit").files.length;
+    let sizeDel = dataDel.length - dataDel.replace(" ","").length;
+
     if (background.includes(`non-delete-picture`)) {
-        ele.style.backgroundImage = `url("/packing_lot_css/icon/delete-picture.png")`;
+        if ((sizeNew == 0 && sizeDel != sizeImgDetail - 1) || (sizeNew != 0)){
+            ele.style.backgroundImage = `url("/packing_lot_css/icon/delete-picture.png")`;
+            document.getElementById("linkDelImg").value += (link + " ");
+        }else {
+            document.getElementById("alert-table").style.display = "grid";
+        }
     } else {
         ele.style.backgroundImage = `url("/packing_lot_css/icon/non-delete-picture.png")`;
+        document.getElementById("linkDelImg").value = dataDel.replace(link + " ","");
     }
 }
 function closeEditTable(){
     document.getElementById("edit-table").style.display = "none";
 }
-
 function chooseDetailPicture(imgurl){
     let display = document.getElementById("show-detail-img");
     display.style.backgroundImage = `url('${imgurl}')`;
 }
-
 function showInfo(id, ind){
     let detail = getClass(id, ind);
     let dateRemaining = getTimeRemaining(detail.dueDate);
@@ -532,6 +538,19 @@ function confirmTable(action, id){
         case "end lease":
             window.location.href = "/parking/endlease/" + id;
             break;
+        case "edit":
+            document.getElementById("confirm-edit").click();
+            break;
+        case 'signup':
+            break;
+        case 'login':
+            break;
+        case 'profile':
+            alert('profile')
+            break;
+        case 'logout':
+            alert('linklogout')
+            break;
     }
 }
 function clickHiddenButton(){
@@ -610,4 +629,17 @@ function fillNumber(number){
             return "00" + number;
     }
 }
+function closeAlertTable(){
+    document.getElementById("alert-table").style.display = "none";
+}
+convertData();
+setupMap(1);
 setupNoteDescription();
+
+// document.getElementById('map-control').addEventListener('click', function(event) {
+//     var rect = event.target.getBoundingClientRect();
+//     var x = ((event.clientX - rect.left) / rect.width) * 100;
+//     var y = ((event.clientY - rect.top) / rect.height) * 100;
+//
+//     alert('x: ' + x + ' y: ' + y);
+// });
