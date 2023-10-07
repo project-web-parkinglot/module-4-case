@@ -41,19 +41,22 @@ function setupMap(level){
         arrayAvailable = availableParkingB1;
 
         areaControl.style.backgroundImage = `url("/packing_lot_css/img/b1.png")`
-        document.getElementById("button-level").innerHTML = `<div class="border color4 filler boxshadow-outset">B1</div>
-                                                                      <div class="border hover color2 filler boxshadow-outset" onclick="setupMap(2)">B2</div>`
+        document.getElementById("button-level").innerHTML =
+            `<div class="border color4 filler boxshadow-outset">B1</div>
+            <div class="border hover color2 filler boxshadow-outset" onclick="setupMap(2)">B2</div>`
     } else {
         arrayAvailable = availableParkingB2;
 
         areaControl.style.backgroundImage = `url("/packing_lot_css/img/b2.png")`
-        document.getElementById("button-level").innerHTML = `<div class="border hover color2 filler boxshadow-outset" onclick="setupMap(1)">B1</div>
-                                                                      <div class="border color4 filler boxshadow-outset">B2</div>`
+        document.getElementById("button-level").innerHTML =
+            `<div class="border hover color2 filler boxshadow-outset" onclick="setupMap(1)">B1</div>
+            <div class="border color4 filler boxshadow-outset">B2</div>`
     }
 
     for (let i = 0; i < arrayAvailable.length; i++){
         let point = arrayAvailable[i];
-        data += `<polygon class="availableParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+        data += `<polygon class="availableParking" id="${point.alt}" points="
+                                  ${width * point.x1  / 100},${height * point.y1 / 100} 
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
@@ -86,13 +89,15 @@ function transferDataConfirm(action){
         case "back":
             content.innerHTML = `Are you sure about <span class="target-text">BACK TO MAINPAGE</span><br><br>
                                  -- your data is not save --`;
-            document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('back')"></div>`;
+            document.getElementById("hidden-button").innerHTML =
+                `<div id="button" onclick="confirmTable('back')"></div>`;
             break;
         case "submit":
             content.innerHTML = `Are you sure about<br>
                     <span class="target-text">SUBMIT THIS INFOMATION</span><br><br>
                     <small>we will process the request as soon as possible</small>`;
-            document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('submit')"></div>`;
+            document.getElementById("hidden-button").innerHTML =
+                `<div id="button" onclick="confirmTable('submit')"></div>`;
             break;
     }
     table.style.display = "grid";
@@ -160,7 +165,6 @@ function check(){
 function closeAlertTable(){
     document.getElementById("alert-table").style.display = "none";
 }
-
 convertData();
 setupMap(1);
 changeColorParking();

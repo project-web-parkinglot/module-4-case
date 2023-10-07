@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
 
@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/page_admin/index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
                 <img src="/logo.png" height="200px" width="170px"/>
 
             </a>
@@ -46,37 +46,19 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Danh sách khách hàng</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/page_admin/tables.html">Danh sách khách hàng</a>
-                        <a class="collapse-item" href="/page_admin/tables.html">Danh sách account</a>
-
-
-                    </div>
-                </div>
+                <a class="nav-link" th:href="@{/admin/showlistcustomer}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>List of customer</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="/page_admin/tables.html">
+                <a class="nav-link" th:href="@{/admin/listapproved}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Danh mục cần duyệt</span></a>
+                    <span>List to approved</span></a>
             </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="/page_admin/charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
