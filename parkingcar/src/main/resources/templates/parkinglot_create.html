@@ -65,6 +65,12 @@
         </div>
         <input required minlength="8" maxlength="10" class="filler boxshadow-inset border"
                id="plate" type="text" name="licensePlate" placeholder="-- Enter License Plate --">
+        <select id="package" class="filler boxshadow-outset border color4" name="pack">
+            <option th:each="pack : ${package}"
+                    th:text="${pack.day + ' days ' +
+                    #numbers.formatCurrency(pack.moneyRent) + ' VND'}"
+            th:value="${pack.id}"></option>
+        </select>
         <div id="button">
             <div></div>
             <div id="button-back" class="filler boxshadow-outset border hover"

@@ -5,6 +5,7 @@
     <title>Parking Lot Manager</title>
     <link rel="stylesheet" href="/common.css">
     <link rel="stylesheet" href="/packing_lot_css/parkinglot.css">
+    <script src="/packing_lot_css/jquery.js"></script>
 </head>
 <body class="color2">
 <div th:fragment="header">
@@ -46,14 +47,9 @@
 <div id="edit-table" class="border filler boxshadow-outset">
     <div id="parking-lot-name" class="boxshadow-outset filler border color2"></div>
     <div id="array-picture-edit" class="boxshadow-inset filler border color1"></div>
-    <form action="/parking/edit" method="post">
-        <input required minlength="8" maxlength="10" class="filler boxshadow-inset border"
-               id="plate-edit" type="text" name="licensePlate" placeholder="-- Enter License Plate --">
-        <input id="parking-id-edit" type="hidden" name="parkingName">
-        <input id="linkNewImg" type="hidden" name="linkNewImg">
-        <input id="linkDelImg" type="hidden" name="linkDelImg">
-        <button id="confirm-edit" hidden="hidden" type="submit"></button>
-    </form>
+    <input required minlength="8" maxlength="10" class="filler boxshadow-inset border"
+           id="plate-edit" type="text" name="licensePlate" placeholder="-- Enter License Plate --">
+
     <div id="button">
         <div></div>
         <div id="button-back" class="filler boxshadow-outset border hover"
@@ -62,6 +58,9 @@
              onclick="transferDataConfirm('edit',0)">Submit</div>
     </div>
     <input id="add-img-edit" type="file" hidden="hidden" multiple class="inps" onchange="handleUpload()">
+    <input id="parking-id-edit" type="hidden">
+    <input id="linkNewImg" type="hidden">
+    <input id="linkDelImg" type="hidden">
 </div>
 
 <div id="control-cover">
@@ -121,17 +120,7 @@
 </div>
 
 <input type="hidden" id="roleTrans" th:value="${role}">
-<input type="hidden" id="arrayBlockB1" th:value="${arrayBlockB1}">
-<input type="hidden" id="arrayBlockB2" th:value="${arrayBlockB2}">
-<input type="hidden" id="arrayAvailableB1" th:value="${arrayAvailableB1}">
-<input type="hidden" id="arrayAvailableB2" th:value="${arrayAvailableB2}">
-<input type="hidden" id="ownParkingB1" th:value="${ownParkingB1}">
-<input type="hidden" id="ownParkingB2" th:value="${ownParkingB2}">
-<input type="hidden" id="otherParkingB1" th:value="${otherParkingB1}">
-<input type="hidden" id="otherParkingB2" th:value="${otherParkingB2}">
-<input type="hidden" id="awaitingParkingB1" th:value="${awaitingParkingB1}">
-<input type="hidden" id="awaitingParkingB2" th:value="${awatingParkingB2}">
-
+<input type="hidden" id="page-num" value="1">
 </body>
 <script src="packing_lot_css/parkinglot.js"></script>
 <script src="packing_lot_css/button.js"></script>

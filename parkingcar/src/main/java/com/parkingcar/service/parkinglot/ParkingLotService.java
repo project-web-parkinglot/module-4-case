@@ -3,10 +3,12 @@ package com.parkingcar.service.parkinglot;
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.bill.Bill;
 import com.parkingcar.model.customer.Customer;
+import com.parkingcar.model.packageRent.PackageRent;
 import com.parkingcar.model.pakingLot.Car;
 import com.parkingcar.model.pakingLot.CarImage;
 import com.parkingcar.model.pakingLot.ParkingLot;
 import com.parkingcar.model.pakingLot.ParkingLotStatus;
+import com.parkingcar.repository.packageRent.IPackageRentRepository;
 import com.parkingcar.repository.parkinglot.ICustomerUseCreate;
 import com.parkingcar.repository.parkinglot.IParkingLotRepository;
 import com.parkingcar.repository.parkinglot.IParkingLotStatusRepository;
@@ -34,12 +36,8 @@ public class ParkingLotService implements IParkingLotService{
     private ICarRepository carRepository;
     @Autowired
     private ICarImgRepository carImgRepository;
-
-    @Override
-    public List<ParkingLot> getWaitingCheckParkingLot() {
-        return parkingLotRepository.getParkingLotsByParkingLotStatusId(4);
-    }
-
+    @Autowired
+    private IPackageRentRepository packageRentRepository;
     public String convertClassJs(List<ParkingLot> list){
         String result = "[";
         for (ParkingLot parkingLot : list){
@@ -273,7 +271,6 @@ public class ParkingLotService implements IParkingLotService{
             throw new IllegalAccessException("Cannot Lock this Parkinglot");
         }
     }
-
     @Override
     @Transactional
     public void endLeaseParkingLot(String name) throws IllegalAccessException {
@@ -293,20 +290,17 @@ public class ParkingLotService implements IParkingLotService{
             throw new IllegalAccessException("Cannot end lease this Parkinglot");
         }
     }
-
     @Override
     public Customer getCustomerByAccountId(Integer accountId) {
         return customerUseCreate.getCustomerByAccount_Id(accountId);
     }
-
-
     @Override
     public ParkingLot getParkingById(Integer id) {
         return parkingLotRepository.getParkingLotById(id);
     }
     @Override
     @Transactional
-    public void createNewRequest(Account account, Integer parkingId, String linkimg, String licensePlate) {
+    public void createNewRequest(Account account, Integer parkingId, String linkimg, String licensePlate, Integer pack) {
         Customer customer = getCustomerByAccountId(account.getId());
         ParkingLot parkingLot = parkingLotRepository.getParkingLotById(parkingId);
         parkingLot.setParkingLotStatus(parkingLotStatusRepository.getParkingLotStatusById(4));
@@ -324,14 +318,15 @@ public class ParkingLotService implements IParkingLotService{
             carImgRepository.save(carImage);
         }
 
+        PackageRent packageRent = packageRentRepository.getReferenceById(pack);
         Bill newBill = new Bill();
         newBill.setStatus("0");
         newBill.setCar(car);
         newBill.setCustomer(customer);
         newBill.setParkingLot(parkingLot);
+        newBill.setPackageRent(packageRent);
         billUseCreate.save(newBill);
     }
-
     @Override
     @Scheduled(cron = "0 0 0 * * ?")
     public void checkDueDate() {
@@ -350,7 +345,6 @@ public class ParkingLotService implements IParkingLotService{
             }
         }
     }
-
     @Override
     public void editCarInfo(String parkingName, String newPlate, String linkNewImg, String linkDelImg) {
         ParkingLot parkingLot = findByName(parkingName);
@@ -380,4 +374,9 @@ public class ParkingLotService implements IParkingLotService{
             }
         }
     }
+    @Override
+    public List<PackageRent> getPackage() {
+        return packageRentRepository.findAll();
+    }
+
 }
