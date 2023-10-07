@@ -323,7 +323,9 @@
 <div class="container" id="container">
     <div class="form-container sign-up-container">
 
-        <form action="/login/create" method="post" th:object="${accountDto}">
+
+        <form action="/login/" method="post" th:object="${accountDto}">
+
             <h1>Create Account</h1>
             <span>or use your email for registration</span>
             <!-- Username input -->
@@ -333,20 +335,20 @@
             <span style="color: red" th:if="${#fields.hasErrors('username')}"
                   th:errors="*{username}">
                     </span>
-            <span style="color: red"  th:if="${fail}">This username has been used, please take another one!</span>
+            <span style="color: red" th:if="${fail}">This username has been used, please take another one!</span>
             <!-- Email input -->
             <input type="email" id="form2Example4" placeholder="Email"
-                    name="email" th:field="*{email}" aria-describedby="oke"/>
-            <span style="color: red"  id="oke" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                   name="email" th:field="*{email}" aria-describedby="oke"/>
+            <span style="color: red" id="oke" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
             <span style="color: red" id="oke" th:if="${fail}">This email already exists!</span>
             <!-- Password input -->
             <div class="password-input">
                 <input type="password" id="form2Example5" placeholder="Password"
-                        name="password" th:field="*{password}"/>
+                       name="password" th:field="*{password}"/>
                 <span style="color: red" th:if="${#fields.hasErrors('password')}"
                       th:errors="*{password}"></span>
                 <input type="password" id="form2Example6" placeholder="Re-enter Password"
-                        name="password1" onkeyup="checkRPW()"/>
+                       name="password1" onkeyup="checkRPW()"/>
                 <span style="color: red" id="message"></span>
             </div>
             <!-- Submit button -->
@@ -363,7 +365,6 @@
             <!-- Email input -->
             <h1>Sign in</h1>
 
-
             <div class="form-outline mb-4">
                 <label class="form-label" for="form2Example8">User Name</label>
                 <input name="username" type="text" id="form2Example8" class="form-control"/>
@@ -374,7 +375,7 @@
                 <input name="password" type="password" id="form2Example7" class="form-control"/>
             </div>
             <div class="forget-pass">
-                <a href="/email">Forget Password?</a>
+                <a href="/login/email">Forget Password ?</a>
             </div>
             <br>
             <!-- Submit button -->
@@ -384,11 +385,7 @@
                     Sign in
                 </button>
 
-
-                <button> >Sign In</button>
-
             </div>
-
         </form>
     </div>
     <div class="overlay-container">
@@ -436,7 +433,7 @@
         singUpButton.disabled = false;
         if (pw.length >= 6) {
             if (pw === rpw) {
-                message.textContent = "password ok";
+                message.textContent = "password matched";
                 // document.getElementById('button').style.display = 'block';
                 message.style.color = "green";
                 singUpButton.disabled = false;

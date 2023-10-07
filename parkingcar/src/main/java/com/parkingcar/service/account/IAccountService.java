@@ -23,4 +23,6 @@ public interface IAccountService {
     boolean verify(String code);
 
     void resetPW(Account account, String newPassword);
+    void reset(Account accountUser);
+
 }
