@@ -322,58 +322,6 @@
 
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-
-
-            <form action="/signUp" method="post" th:object="${accountDto}">
-                <h1>Create Account</h1>
-                <span>or use your email for registration</span>
-                <!-- Username input -->
-                <input
-                        type="text"
-                        id="form2Example18"
-                        placeholder="Username"
-                        name="username"
-                        th:field="*{username}"
-                />
-                <span style="color: red" th:if="${#fields.hasErrors('username')}"
-                      th:errors="*{username}">
-                    </span>
-                <!-- Email input -->
-                <input
-                        type="email"
-                        id="form2Example4"
-                        placeholder="Email"
-                        name="email"
-                        th:field="*{email}"
-                />
-                <span style="color: red" th:if="${#fields.hasErrors('email')}"
-                      th:errors="*{email}"></span>
-                <!-- Password input -->
-                <div class="password-input">
-                    <input
-                            type="password"
-                            id="form2Example5"
-                            placeholder="Password"
-                            name="password"
-                            th:field="*{password}"/>
-                    <span style="color: red" th:if="${#fields.hasErrors('password')}"
-                          th:errors="*{password}"></span>
-                    <input
-                            type="password"
-                            id="form2Example6"
-                            placeholder="Re-enter Password"
-                            name="password1"
-                            onkeyup="checkRPW()"/>
-                    <span style="color: red" id="message"></span>
-                </div>
-                <!-- Submit button -->
-                <div class="btn-sign-in">
-                    <button type="submit" id="signUp1" class="btn btn-primary btn-block mb-3">
-                        Register
-                    </button>
-                </div>
-            </form>
-
         <form action="/login/create" method="post" th:object="${accountDto}">
             <h1>Create Account</h1>
             <span>or use your email for registration</span>
@@ -414,11 +362,6 @@
             <!-- Email input -->
             <h1>Sign in</h1>
 
-            <span>or use your account</span>
-            <input type="email" placeholder="Email"/>
-            <input type="password" placeholder="Password"/>
-            <a href="#">Forgot your password?</a>
-            <button>Sign In</button>
 
             <div class="form-outline mb-4">
                 <label class="form-label" for="form2Example8">User Name</label>
@@ -435,10 +378,9 @@
             <br>
             <!-- Submit button -->
             <div class="btn-sign-in">
-<!--                <button type="submit" id="signIn" class="btn btn-primary btn-block mb-4">-->
-<!--                    Sign in-->
-<!--                </button>-->
-                <a href="/" role="button" class="btn btn-primary">Sign Up</a>
+                <button type="submit" id="signIn" class="btn btn-primary btn-block mb-4">
+                    Sign in
+                </button>
             </div>
 
         </form>
