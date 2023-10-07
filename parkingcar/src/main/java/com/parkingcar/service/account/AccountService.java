@@ -2,6 +2,7 @@ package com.parkingcar.service.account;
 
 import com.parkingcar.model.account.Account;
 import com.parkingcar.repository.account.IAccountRepository;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -46,7 +47,7 @@ public class AccountService implements IAccountService {
         String toAddress = account.getEmail();
         String fromAddress = "thien97.night1@gmail.com";
         String senderName = "ParkingCar!";
-        String subject = "Confirm your email address";
+        String subject = "Confirm your email address! ParkingCar";
         String content = "";
         // email form
         String verifyURL = siteURL + "/verify?code=" + account.getVerificationCode();
@@ -97,7 +98,23 @@ public class AccountService implements IAccountService {
 
     @Override
     public void sendVerificationReset(Account account, String siteURL) throws MessagingException, UnsupportedEncodingException {
+        String toAddress = account.getEmail();
+        String fromAddress = "thien97.night1@gmail.com";
+        String senderName = "ParkingCar!";
+        String subject = "Confirm your email address";
+        String content = "";
+        // email form
+        String verifyURL = siteURL + "/verify?code=" + account.getVerificationCode();
 
+        content += "";
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+        helper.setText(content, true);
+        mailSender.send(message);
     }
 
     @Override
@@ -126,9 +143,10 @@ public class AccountService implements IAccountService {
 
     }
 
-    public static void main(String[] args) {
-        AccountService accountService = new AccountService();
-        Account account = accountService.findAccountByEmail("thien97.night1@gmail.com");
-        System.out.println(account);
+    @Override
+    public void reset(Account accountUser) {
+        String randomCode = RandomString.make(64);
+        accountUser.setVerificationCode(randomCode);
+        iAccountRepository.save(accountUser);
     }
 }
