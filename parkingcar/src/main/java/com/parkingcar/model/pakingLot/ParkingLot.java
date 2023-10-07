@@ -1,5 +1,6 @@
 package com.parkingcar.model.pakingLot;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.parkingcar.model.bill.Bill;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,10 +35,9 @@ public class ParkingLot {
     @ManyToOne
     @JoinColumn(name = "statusId", referencedColumnName = "id")
     private ParkingLotStatus parkingLotStatus;
-
+    @JsonBackReference
     @OneToOne(mappedBy = "parkingLot")
     private Bill bill;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,12 +45,10 @@ public class ParkingLot {
         ParkingLot that = (ParkingLot) o;
         return id == that.id;
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-
     @Override
     public String toString() {
         return "ParkingLot{" +

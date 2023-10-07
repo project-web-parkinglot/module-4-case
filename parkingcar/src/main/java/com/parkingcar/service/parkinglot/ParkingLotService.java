@@ -351,4 +351,33 @@ public class ParkingLotService implements IParkingLotService{
         }
     }
 
+    @Override
+    public void editCarInfo(String parkingName, String newPlate, String linkNewImg, String linkDelImg) {
+        ParkingLot parkingLot = findByName(parkingName);
+        if (parkingLot != null){
+            Car car = parkingLot.getBill().getCar();
+            car.setLicensePlate(newPlate);
+            carRepository.save(car);
+
+            if (!linkNewImg.equals("")){
+                String[] newImg = linkNewImg.split(" ");
+                for (String link : newImg){
+                    CarImage carImage = new CarImage();
+                    carImage.setUrlImg(link);
+                    carImage.setCar(car);
+                    carImgRepository.save(carImage);
+                }
+            }
+            if (!linkDelImg.equals("")){
+                linkDelImg = linkDelImg.trim();
+                linkDelImg = linkDelImg.replace(" +", "");
+                String[] delImg = linkDelImg.split(" ");
+                for (String link : delImg){
+                    CarImage carImage = carImgRepository.getCarImageByUrlImgEquals(link);
+                    carImage.setCar(null);
+                    carImgRepository.save(carImage);
+                }
+            }
+        }
+    }
 }

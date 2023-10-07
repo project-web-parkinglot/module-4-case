@@ -1,6 +1,7 @@
 package com.parkingcar.model.pakingLot;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class CarImage {
     private Integer id;
     @Column(length = 65535, columnDefinition = "LONGTEXT")
     private String urlImg;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "carId", referencedColumnName = "id")
     private Car car;
