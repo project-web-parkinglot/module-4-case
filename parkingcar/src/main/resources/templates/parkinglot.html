@@ -5,27 +5,42 @@
     <title>Parking Lot Manager</title>
     <link rel="stylesheet" href="/common.css">
     <link rel="stylesheet" href="/packing_lot_css/parkinglot.css">
+    <script src="/packing_lot_css/jquery.js"></script>
 </head>
 <body class="color2">
 <div th:fragment="header">
     <div id="alert-content" class="border filler boxshadow-outset">
         <p id="content-alert"></p>
-        <div id="cancel-button" class="boxshadow-inset filler hover border" onclick="closeTable()">Cancel</div>
-        <div id="confirm-button" class="boxshadow-inset filler hover border" onclick="clickHiddenButton()">Confirm</div>
+        <div id="cancel-button" class="boxshadow-inset filler hover border"
+             onclick="closeTable()">Cancel</div>
+        <div id="confirm-button" class="boxshadow-inset filler hover border"
+             onclick="clickHiddenButton()">Confirm</div>
     </div>
     <div id="hidden-button"></div>
 
     <div id="header" class="border filler color1 boxshadow-inset">
         <a href="/" id="logo"></a>
         <div></div>
-        <div class="border hover filler color2 boxshadow-outset">Signup</div>
-        <div class="border hover filler color2 boxshadow-outset">Login</div>
+        <div th:if="${account == null}" class="border hover filler color2 boxshadow-outset"
+             onclick="confirmTable('signup',0)">Signup</div>
+        <div th:if="${account == null}" class="border hover filler color2 boxshadow-outset"
+             onclick="confirmTable('login',0)">Login</div>
+        <div th:if="${account.id != null}" class="border hover filler color2 boxshadow-outset"
+             th:text="${account.username}" th:attr="onclick=|confirmTable('profile', ${account.id})|"></div>
+        <div th:if="${account.id != null}" class="border hover filler color4 boxshadow-outset"
+             onclick="transferDataConfirm('logout', 0)">LogOut</div>
     </div>
     <div id="slogan" class="border filler color1 boxshadow-outset">
         <div>
             <img src="/packing_lot_css/img/carSlogan.png"/>
             <p>chỉ <span class="target-text">5 NGHÌN</span> gửi xe, có người care sáng tối !!!</p>
         </div>
+    </div>
+    <div id="alert-table" class="border filler boxshadow-outset">
+        <p>Please <span class="target-text">FILL IN</span> the complete
+            <span class="target-text">LICENSE PLATE NUMBER</span><br>
+            Provide at least <span class="target-text">1 PHOTO</span></p>
+        <div class="color2 boxshadow-inset filler hover border" onclick="closeAlertTable()">OK</div>
     </div>
 </div>
 
@@ -34,12 +49,18 @@
     <div id="array-picture-edit" class="boxshadow-inset filler border color1"></div>
     <input required minlength="8" maxlength="10" class="filler boxshadow-inset border"
            id="plate-edit" type="text" name="licensePlate" placeholder="-- Enter License Plate --">
+
     <div id="button">
         <div></div>
-        <div id="button-back" class="filler boxshadow-outset border hover" onclick="closeEditTable()">Cancel</div>
-        <div id="button-submit" class="filler boxshadow-outset border hover">Submit</div>
+        <div id="button-back" class="filler boxshadow-outset border hover"
+             onclick="closeEditTable()">Cancel</div>
+        <div id="button-submit" class="filler boxshadow-outset border hover"
+             onclick="transferDataConfirm('edit',0)">Submit</div>
     </div>
-    <input id="add-img-edit" type="file" multiple hidden="hidden" class="inps" onchange="handleUpload()">
+    <input id="add-img-edit" type="file" hidden="hidden" multiple class="inps" onchange="handleUpload()">
+    <input id="parking-id-edit" type="hidden">
+    <input id="linkNewImg" type="hidden">
+    <input id="linkDelImg" type="hidden">
 </div>
 
 <div id="control-cover">
@@ -50,14 +71,20 @@
     <div id="contact-box" class="filler boxshadow-inset color1">
         <p>Building Manager</p>
         <div id="img-member" th:attr="onmouseleave=|backImgMember()|">
-            <div th:attr="onmouseover=|changeImgMember(0)|" id="img-thang" class="border filler boxshadow-outset">Quốc Thắng</div>
-            <div th:attr="onmouseover=|changeImgMember(1)|" id="img-long" class="border filler boxshadow-outset">Đình Long</div>
-            <div th:attr="onmouseover=|changeImgMember(2)|" id="img-thien" class="border filler boxshadow-outset">Hoàn Thiện</div>
+            <div th:attr="onmouseover=|changeImgMember(0)|" id="img-thang"
+                 class="border filler boxshadow-outset">Quốc Thắng</div>
+            <div th:attr="onmouseover=|changeImgMember(1)|" id="img-long"
+                 class="border filler boxshadow-outset">Đình Long</div>
+            <div th:attr="onmouseover=|changeImgMember(2)|" id="img-thien"
+                 class="border filler boxshadow-outset">Hoàn Thiện</div>
         </div>
         <div id="table-contact">
-            <div th:attr="onclick=|actionButton('contact')|" class="boxshadow-outset color2 filler" style="background-image: url('/packing_lot_css/icon/phone.png')">Contact us</div>
-            <div th:attr="onclick=|actionButton('facebook')|" class="boxshadow-outset color2 filler" style="background-image: url('/packing_lot_css/icon/face.png')">Follow us</div>
-            <div th:attr="onclick=|actionButton('feedback')|" class="boxshadow-outset color2 filler" style="background-image: url('/packing_lot_css/icon/mail.png')">Feedback to us</div>
+            <div th:attr="onclick=|actionButton('contact')|" class="boxshadow-outset color2 filler"
+                 style="background-image: url('/packing_lot_css/icon/phone.png')">Contact us</div>
+            <div th:attr="onclick=|actionButton('facebook')|" class="boxshadow-outset color2 filler"
+                 style="background-image: url('/packing_lot_css/icon/face.png')">Follow us</div>
+            <div th:attr="onclick=|actionButton('feedback')|" class="boxshadow-outset color2 filler"
+                 style="background-image: url('/packing_lot_css/icon/mail.png')">Feedback to us</div>
         </div>
     </div>
 </div>
@@ -70,13 +97,7 @@
     <div id="map-control" class="border filler boxshadow-inset color1">
         <div id="button-level"></div>
         <svg id="parkinglot"></svg>
-        <div id="note">
-            <div class="blockParking filler">Blocked</div>
-            <div class="availableParking filler">Available</div>
-            <div class="otherParking filler">Has Been Owned</div>
-            <div class="myParking filler">My Parking</div>
-            <div class="awaitParking filler">Awaiting</div>
-        </div>
+        <div id="note"></div>
     </div>
     <div id="option" class="color2 boxshadow-outset"></div>
 </div>
@@ -93,25 +114,13 @@
             <span class="target-text">24/7</span>. Chúng tôi cam kết xe của bạn sẽ được cách ly
             như 1 bệnh nhân <span class="target-text">F0 COVID</span></p>
         <img src="/packing_lot_css/icon/fire.png"/>
-        <p>Bãi đỗ xe được trang bị hệ thông <span class="target-text">PHÒNG CHÁY CHỮA CHÁY</span> hiện đại xen lẫn yếu
-            tố tâm linh. Cam kết <span class="target-text">CHÁY 1 XE ĐỀN 1 CĂN HỘ</span></p>
+        <p>Bãi đỗ xe được trang bị hệ thông <span class="target-text">PHÒNG CHÁY CHỮA CHÁY
+        </span> hiện đại xen lẫn yếu tố tâm linh. Cam kết <span class="target-text">CHÁY 1 XE ĐỀN 1 CĂN HỘ</span></p>
     </div>
 </div>
 
-
-
 <input type="hidden" id="roleTrans" th:value="${role}">
-<input type="hidden" id="arrayBlockB1" th:value="${arrayBlockB1}">
-<input type="hidden" id="arrayBlockB2" th:value="${arrayBlockB2}">
-<input type="hidden" id="arrayAvailableB1" th:value="${arrayAvailableB1}">
-<input type="hidden" id="arrayAvailableB2" th:value="${arrayAvailableB2}">
-<input type="hidden" id="ownParkingB1" th:value="${ownParkingB1}">
-<input type="hidden" id="ownParkingB2" th:value="${ownParkingB2}">
-<input type="hidden" id="otherParkingB1" th:value="${otherParkingB1}">
-<input type="hidden" id="otherParkingB2" th:value="${otherParkingB2}">
-<input type="hidden" id="awaitingParkingB1" th:value="${awaitingParkingB1}">
-<input type="hidden" id="awaitingParkingB2" th:value="${awatingParkingB2}">
-
+<input type="hidden" id="page-num" value="1">
 </body>
 <script src="packing_lot_css/parkinglot.js"></script>
 <script src="packing_lot_css/button.js"></script>

@@ -322,6 +322,7 @@
 
 <div class="container" id="container">
     <div class="form-container sign-up-container">
+
         <form action="/login/create" method="post" th:object="${accountDto}">
             <h1>Create Account</h1>
             <span>or use your email for registration</span>
@@ -378,9 +379,14 @@
             <br>
             <!-- Submit button -->
             <div class="btn-sign-in">
+
                 <button type="submit" id="signIn" class="btn btn-primary btn-block mb-4">
                     Sign in
                 </button>
+
+
+                <button> >Sign In</button>
+
             </div>
 
         </form>
