@@ -75,7 +75,7 @@ public class AccountController {
         BeanUtils.copyProperties(accountDto, account);
         account.setPassword(BCrypt.hashpw(account.getPassword(), BCrypt.gensalt(12)));
         Role role = new Role();
-        role.setId(1);
+        role.setId(2);
         account.setRole(role);
         System.out.println(account.getVerificationCode());
         iAccountService.createAccount(account);
@@ -85,7 +85,6 @@ public class AccountController {
         String siteURL = getSiteURL(request);
         iAccountService.sendVerificationEmail(account, siteURL);
         redirectAttributes.addFlashAttribute("success", "please check your email to confirm your account! ");
-        redirectAttributes.addFlashAttribute("ok", "ok");
         return "redirect:/login/";
     }
 
@@ -116,24 +115,24 @@ public class AccountController {
 
     @GetMapping("/email")
     public String ShowChangePasswordPage(Model model) {
-        model.addAttribute("account", new AccountDto());
+        model.addAttribute("accountDto", new AccountDto());
         return "/account/changePassword";
     }
 
-    @GetMapping("/confirmMail")
-    public String confirmEmail(@Validated AccountDto accountDto, @RequestParam String email,
+    @PostMapping("/confirm_email")
+    public String confirmEmail(@Validated AccountDto accountDto, @RequestParam("email") String email,
                                HttpServletRequest request, RedirectAttributes redirectAttributes,
                                Model model) throws UnsupportedEncodingException, MessagingException {
-        if (iAccountService.findAccountByUserName(email) == null) {
+        if (iAccountService.findAccountByEmail(accountDto.getEmail()) == null) {
             model.addAttribute("fail", "This email don't exists or invalid email format!");
             System.out.println(accountDto.getEmail());
             return "/account/changePassword";
         }
-        Account account = iAccountService.findAccountByUserName(email);
+        Account account = iAccountService.findAccountByEmail(email);
         iAccountService.reset(account);
         String siteURL = getSiteURL(request);
         iAccountService.sendVerificationReset(account, siteURL);
-        redirectAttributes.addFlashAttribute("success", "Please check your email to change your account's password.");
+        redirectAttributes.addFlashAttribute("successPassword", "Please check your email to change your account's password.");
         return "redirect:/login/";
     }
 
@@ -164,11 +163,12 @@ public class AccountController {
             return "redirect:/login/";
         }
     }
-
-    @GetMapping("/reset_pw")
-    public String resetPassword(AccountDto accountDto, Model model) {
-        model.addAttribute("accountDto", new AccountDto());
-        return "/account/resetPassword";
+    @PostMapping("/verify_reset_password")
+    public String changePassword(@ModelAttribute Account accountUser, @RequestParam("new_pw") String new_pw,
+                         RedirectAttributes redirectAttributes) {
+        iAccountService.resetPW(accountUser, new_pw);
+        redirectAttributes.addFlashAttribute("successPasswordChange", "Password change successful.");
+        return "redirect:/login/";
     }
 
     @GetMapping("/404")

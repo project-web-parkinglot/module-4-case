@@ -353,7 +353,7 @@
             </div>
             <!-- Submit button -->
             <div class="btn-sign-in">
-                <button type="submit" id="signUp1" class="btn btn-primary btn-block mb-3">
+                <button type="submit" id="signUp" class="btn btn-primary btn-block mb-3">
                     Register
                 </button>
             </div>
@@ -393,28 +393,40 @@
             <div class="overlay-panel overlay-left">
                 <h1>Welcome Back!</h1>
                 <p>To keep connected with us please login with your personal info</p>
-                <button class="ghost" id="signIn">Sign In</button>
+                <button class="ghost" id="signIn1">Sign In</button>
             </div>
             <div class="overlay-panel overlay-right">
                 <h1>Hello, Fellow Villagers!</h1>
                 <p>Sign in with your personal details and be with us</p>
-                <button class="ghost" id="signUp">Sign Up</button>
+                <button class="ghost" id="signUp1">Sign Up</button>
             </div>
         </div>
     </div>
-    <script th:if="${ok != null}">
-        alert("Create Successfully!")
+    <script th:if="${success != null}">
+        window.addEventListener('load', function () {
+            alert("Please check your email to verify your account!");
+        });
+    </script>
+    <script th:if="${successPassword != null}">
+        window.addEventListener('load', function () {
+            alert("Please check your email to change your account's password!");
+        });
+    </script>
+    <script th:if="${successPasswordChange != null}">
+        window.addEventListener('load', function () {
+            alert("Change password successfully!");
+        });
     </script>
 </div>
 
 <footer>
     <p>
-        Created with <i class="fa fa-heart"></i> by C0523G1
+        Created with <i class="fa fa-heart"></i> by C0523G1-Team 4
     </p>
 </footer>
 <script>
-    const signUpButton = document.getElementById('signUp');
-    const signInButton = document.getElementById('signIn');
+    const signUpButton = document.getElementById('signUp1');
+    const signInButton = document.getElementById('signIn1');
     const container = document.getElementById('container');
 
     signUpButton.addEventListener('click', () => {
@@ -434,14 +446,14 @@
         if (pw.length >= 6) {
             if (pw === rpw) {
                 message.textContent = "password matched";
-                // document.getElementById('button').style.display = 'block';
+                document.getElementById('signUp').style.display = 'block';
                 message.style.color = "green";
                 singUpButton.disabled = false;
             } else {
                 message.textContent = "Password not match.";
                 message.style.color = "#C71010FF"
                 singUpButton.disabled = true;
-                // document.getElementById('button').style.display = 'none';
+                document.getElementById('signUp').style.display = 'none';
                 let tabRegister = document.getElementById("tab-register");
                 tabRegister.click();
             }
