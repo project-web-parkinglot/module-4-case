@@ -9,12 +9,6 @@
 </head>
 <body class="color2">
 <div th:replace="parkinglot :: header"></div>
-<div id="alert-table" class="border filler boxshadow-outset">
-    <p>Please <span class="target-text">FILL IN</span> the complete
-        <span class="target-text">LICENSE PLATE NUMBER</span><br>
-        Provide at least <span class="target-text">1 PHOTO</span></p>
-    <div class="color2 boxshadow-inset filler hover border" onclick="closeAlertTable()">OK</div>
-</div>
 
 <div id="form-create" class="border filler boxshadow-inset">
     <div id="map-container">
@@ -71,10 +65,18 @@
         </div>
         <input required minlength="8" maxlength="10" class="filler boxshadow-inset border"
                id="plate" type="text" name="licensePlate" placeholder="-- Enter License Plate --">
+        <select id="package" class="filler boxshadow-outset border color4" name="pack">
+            <option th:each="pack : ${package}"
+                    th:text="${pack.day + ' days ' +
+                    #numbers.formatCurrency(pack.moneyRent) + ' VND'}"
+            th:value="${pack.id}"></option>
+        </select>
         <div id="button">
             <div></div>
-            <div id="button-back" class="filler boxshadow-outset border hover" onclick="transferDataConfirm('back')">Quit</div>
-            <div id="button-submit" class="filler boxshadow-outset border hover" onclick="check()">Submit</div>
+            <div id="button-back" class="filler boxshadow-outset border hover"
+                 onclick="transferDataConfirm('back')">Quit</div>
+            <div id="button-submit" class="filler boxshadow-outset border hover"
+                 onclick="check()">Submit</div>
         </div>
 
         <input type="hidden" name="linkimg" id="carimage">

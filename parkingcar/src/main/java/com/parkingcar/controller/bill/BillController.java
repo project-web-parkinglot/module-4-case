@@ -58,7 +58,9 @@ public class BillController {
         bill.setCar(car);
         billService.saveBill(bill);
         redirectAttributes.addFlashAttribute("message","ok");
-        return "redirect:/customer/showBill";
+        return "redirect:/customer/showbill";
     }
+
+
 
 }

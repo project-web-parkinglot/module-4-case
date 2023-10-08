@@ -11,6 +11,8 @@ let awatingParkingB2 = [];
 let arrayMy = [];
 let arrayAwait = [];
 let countdownInterval;
+let sizeImgDetail = 0;
+
 class parkingLot{
     constructor(x1,y1,x2,y2,x3,y3,x4,y4,alt,id) {
         this.x1 = x1;
@@ -61,51 +63,6 @@ let role = document.getElementById("roleTrans").value;
 if (role == ""){
     role = 0;
 }
-
-function convertData(){
-    let datablockB1 = document.getElementById("arrayBlockB1").value;
-    if (datablockB1 != ""){
-        blockParkingB1 = eval(datablockB1);
-    }
-    let datablockB2 = document.getElementById("arrayBlockB2").value;
-    if (datablockB2 != ""){
-        blockParkingB2 = eval(datablockB2);
-    }
-    let dataAvailableB1 = document.getElementById("arrayAvailableB1").value;
-    if (dataAvailableB1 != ""){
-        availableParkingB1 = eval(dataAvailableB1);
-    }
-    let dataAvailableB2 = document.getElementById("arrayAvailableB2").value;
-    if (dataAvailableB2 != ""){
-        availableParkingB2 = eval(dataAvailableB2);
-    }
-    let dataOwnB1 = document.getElementById("ownParkingB1").value;
-    if (dataOwnB1 != ""){
-        ownParkingB1 = eval(dataOwnB1);
-    }
-    let dataOwnB2 = document.getElementById("ownParkingB2").value;
-    if (dataOwnB2 != ""){
-        ownParkingB2 = eval(dataOwnB2);
-    }
-    let dataOtherB1 = document.getElementById("otherParkingB1").value;
-    if (dataOtherB1 != ""){
-        otherParkingB1 = eval(dataOtherB1);
-    }
-    let dataOtherB2 = document.getElementById("otherParkingB2").value;
-    if (dataOtherB2 != ""){
-        otherParkingB2 = eval(dataOtherB2);
-    }
-    let dataAwaitB1 = document.getElementById("awaitingParkingB1").value;
-    if (dataAwaitB1 != ""){
-        awatingParkingB1 = eval(dataAwaitB1);
-    }
-    let dataAwaitB2 = document.getElementById("awaitingParkingB2").value;
-    if (dataAwaitB2 != ""){
-        awatingParkingB2 = eval(dataAwaitB2);
-    }
-}
-convertData()
-
 function setupMap(level){
     cancelOption();
     let areaControl = document.getElementById("map-control");
@@ -126,8 +83,10 @@ function setupMap(level){
         arrayAwait = awatingParkingB1;
 
         areaControl.style.backgroundImage = `url("/packing_lot_css/img/b1.png")`
-        document.getElementById("button-level").innerHTML = `<div class="border color4 filler boxshadow-outset">B1</div>
-                                                                      <div class="border hover color2 filler boxshadow-outset" onclick="setupMap(2)">B2</div>`
+        document.getElementById("page-num").value = 1;
+        document.getElementById("button-level").innerHTML =
+            `<div class="border color4 filler boxshadow-outset">B1</div>
+            <div class="border hover color2 filler boxshadow-outset" onclick="setupMap(2)">B2</div>`
     } else {
         arrayBlock = blockParkingB2;
         arrayAvailable = availableParkingB2;
@@ -136,13 +95,16 @@ function setupMap(level){
         arrayAwait = awatingParkingB2;
 
         areaControl.style.backgroundImage = `url("/packing_lot_css/img/b2.png")`
-        document.getElementById("button-level").innerHTML = `<div class="border hover color2 filler boxshadow-outset" onclick="setupMap(1)">B1</div>
-                                                                      <div class="border color4 filler boxshadow-outset">B2</div>`
+        document.getElementById("page-num").value = 2;
+        document.getElementById("button-level").innerHTML =
+            `<div class="border hover color2 filler boxshadow-outset" onclick="setupMap(1)">B1</div>
+            <div class="border color4 filler boxshadow-outset">B2</div>`
     }
 
     for (let i = 0; i < arrayBlock.length; i++){
         let point = arrayBlock[i];
-        data += `<polygon class="blockParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+        data += `<polygon class="blockParking" id="${point.alt}" points="
+                                  ${width * point.x1  / 100},${height * point.y1 / 100} 
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
@@ -150,7 +112,8 @@ function setupMap(level){
     }
     for (let i = 0; i < arrayAvailable.length; i++){
         let point = arrayAvailable[i];
-        data += `<polygon class="availableParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+        data += `<polygon class="availableParking" id="${point.alt}" points="
+                                  ${width * point.x1  / 100},${height * point.y1 / 100} 
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
@@ -158,7 +121,8 @@ function setupMap(level){
     }
     for (let i = 0; i < arrayMy.length; i++){
         let point = arrayMy[i];
-        data += `<polygon class="myParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+        data += `<polygon class="myParking" id="${point.alt}"
+                                  points="${width * point.x1  / 100},${height * point.y1 / 100} 
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
@@ -169,7 +133,8 @@ function setupMap(level){
     }
     for (let i = 0; i < arrayOther.length; i++){
         let point = arrayOther[i];
-        data += `<polygon class="otherParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+        data += `<polygon class="otherParking" id="${point.alt}" points="
+                                  ${width * point.x1  / 100},${height * point.y1 / 100} 
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
@@ -177,7 +142,8 @@ function setupMap(level){
     }
     for (let i = 0; i < arrayAwait.length; i++){
         let point = arrayAwait[i];
-        data += `<polygon class="awaitParking" id="${point.alt}" points="${width * point.x1  / 100},${height * point.y1 / 100} 
+        data += `<polygon class="awaitParking" id="${point.alt}" points="
+                                  ${width * point.x1  / 100},${height * point.y1 / 100} 
                                   ${width * point.x2 / 100},${height * point.y2 / 100} 
                                   ${width * point.x3 / 100},${height * point.y3 / 100} 
                                   ${width * point.x4 / 100},${height * point.y4 / 100}
@@ -190,15 +156,6 @@ function setupMap(level){
     document.getElementById("parkinglot").innerHTML = data;
     setupTimeLeft();
 }
-setupMap(1)
-
-// document.getElementById('map-control').addEventListener('click', function(event) {
-//     var rect = event.target.getBoundingClientRect();
-//     var x = ((event.clientX - rect.left) / rect.width) * 100;
-//     var y = ((event.clientY - rect.top) / rect.height) * 100;
-//
-//     alert('x: ' + x + ' y: ' + y);
-// });
 function locationAction(id, event, status){
     status = +status
 
@@ -330,6 +287,7 @@ function buttonOption(action, id){
     }
 }
 function transferDataConfirm(action, id){
+    clearInterval(countdownInterval);
     let content = document.getElementById("content-alert");
     let table = document.getElementById("alert-content");
     switch (action){
@@ -354,49 +312,65 @@ function transferDataConfirm(action, id){
         case "detail request":
             // window.location.href =
             return;
+        case "edit":
+            content.innerHTML = `Are you sure about <span class="target-text">EDIT INFORMATION</span>`;
+            document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('edit',0)"></div>`;
+            break;
+        case "logout":
+            content.innerHTML = `Are you sure about <span class="target-text">LOGOUT</span>`;
+            document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('logout',0)"></div>`;
+            break;
     }
     table.style.display = "grid";
     cancelCountDown();
 }
-
 function showEditTable(id){
     document.getElementById("edit-table").style.display = "grid";
     let detail = getClass(id, 0);
+    sizeImgDetail = detail.carImg.length;
     document.getElementById("parking-lot-name").innerHTML = `ParkingLot : <span class="target-text">${id}</span>`;
     document.getElementById("plate-edit").value = detail.licensePlate;
 
     let dataImg = `<div id="add-icon" class="div-main filler hover-border boxshadow-outset"
                     style="background-image: ; background-position: center" onclick="addImg()"></div>`
-    for (let i = 0 ; i < detail.carImg.length; i++){
+    for (let i = 0 ; i < sizeImgDetail; i++){
         let img = detail.carImg[i];
         dataImg += `<div class="div-main filler hover-border boxshadow-outset"
                     style="background-image: url('/packing_lot_css/icon/non-delete-picture.png')"
-                    onclick="chooseDeleteImg(this)">
+                    onclick="chooseDeleteImg(this, '${img}')">
                     <div class="div-branch" style="background-image: url('${img}')"></div></div>`;
     }
-
+    document.getElementById("parking-id-edit").value = id;
     document.getElementById('array-picture-edit').innerHTML = dataImg;
 }
 function addImg(){
     document.getElementById("add-img-edit").click();
 }
-function chooseDeleteImg(ele){
+function chooseDeleteImg(ele,link){
     let background = window.getComputedStyle(ele).getPropertyValue('background-image');
+    let dataDel = document.getElementById("linkDelImg").value;
+    let sizeNew = document.getElementById("add-img-edit").files.length;
+    let sizeDel = dataDel.length - dataDel.replace(" ","").length;
+
     if (background.includes(`non-delete-picture`)) {
-        ele.style.backgroundImage = `url("/packing_lot_css/icon/delete-picture.png")`;
+        if ((sizeNew == 0 && sizeDel != sizeImgDetail - 1) || (sizeNew != 0)){
+            ele.style.backgroundImage = `url("/packing_lot_css/icon/delete-picture.png")`;
+            document.getElementById("linkDelImg").value += (link + " ");
+        }else {
+            document.getElementById("alert-table").style.display = "grid";
+        }
     } else {
         ele.style.backgroundImage = `url("/packing_lot_css/icon/non-delete-picture.png")`;
+        document.getElementById("linkDelImg").value = dataDel.replace(link + " ","");
     }
 }
 function closeEditTable(){
     document.getElementById("edit-table").style.display = "none";
 }
-
 function chooseDetailPicture(imgurl){
     let display = document.getElementById("show-detail-img");
     display.style.backgroundImage = `url('${imgurl}')`;
 }
-
 function showInfo(id, ind){
     let detail = getClass(id, ind);
     let dateRemaining = getTimeRemaining(detail.dueDate);
@@ -521,17 +495,40 @@ function closeTable(){
 }
 function confirmTable(action, id){
     clearInterval(countdownInterval);
+    let link = "";
     switch (action){
         case "lock":
-            window.location.href = "/parking/lock/" + id;
+            link = "http://localhost:8080/parking/api/lock/" + id;
             break;
         case "unlock":
-            window.location.href = "/parking/unlock/" + id;
+            link = "http://localhost:8080/parking/api/unlock/" + id;
             break;
         case "end lease":
-            window.location.href = "/parking/endlease/" + id;
+            link = "http://localhost:8080/parking/api/endlease/" + id;
             break;
+        case "edit":
+            updateCarInfo();
+            closeEditTable();
+            return;
+        case 'signup':
+            return;
+        case 'login':
+            return;
+        case 'profile':
+            alert('profile')
+            return;
+        case 'logout':
+            alert('linklogout')
+            return;
     }
+    $.ajax({
+        contentType: "application/json",
+        method: "GET",
+        url: link,
+        success: function () {
+            updateMap();
+        }
+    })
 }
 function clickHiddenButton(){
     document.getElementById("button").click();
@@ -563,3 +560,111 @@ function setupTimeLeft(){
         }
     }
 }
+function setupNoteDescription(){
+    let data = "";
+    let blockSize = 0;
+    let availableSize = 0;
+    let otherSize = 0;
+    let mySize = 0;
+    let awaitSize = 0;
+    blockSize += blockParkingB1.length;
+    blockSize += blockParkingB2.length;
+    availableSize += availableParkingB1.length;
+    availableSize += availableParkingB2.length;
+    otherSize += otherParkingB1.length;
+    otherSize += otherParkingB2.length;
+    mySize += ownParkingB1.length;
+    mySize += ownParkingB2.length;
+    awaitSize += awatingParkingB1.length;
+    awaitSize += awatingParkingB2.length;
+
+
+    if (blockSize != 0){
+        data += `<div class="blockParking filler"><span class="text-scale">${fillNumber(blockSize)}</span> Blocked</div>`;
+    }
+    if (availableSize != 0){
+        data += `<div class="availableParking filler"><span class="text-scale">${fillNumber(availableSize)}</span> Available</div>`;
+    }
+    if (otherSize != 0){
+        data += `<div class="otherParking filler"><span class="text-scale">${fillNumber(otherSize)}</span> Not Available</div>`;
+    }
+    if (mySize != 0){
+        data += `<div class="myParking filler"><span class="text-scale">${fillNumber(mySize)}</span> My Parking</div>`;
+    }
+    if (awaitSize != 0){
+        data += `<div class="awaitParking filler"><span class="text-scale">${fillNumber(awaitSize)}</span> Awaiting</div>`;
+    }
+    document.getElementById("note").innerHTML = data;
+}
+function fillNumber(number){
+    switch ((number + "").length){
+        case 3:
+            return "" + number;
+        case 2:
+            return "0" + number;
+        case 1:
+            return "00" + number;
+    }
+}
+function closeAlertTable(){
+    document.getElementById("alert-table").style.display = "none";
+}
+function updateMap(){
+    $.ajax({
+        contentType: "application/json",
+        method: "GET",
+        url: "http://localhost:8080/parking/api/map",
+        success: function (data) {
+            console.log(data)
+            blockParkingB1 = eval(data[0]);
+            blockParkingB2 = eval(data[1]);
+            availableParkingB1 = eval(data[2]);
+            availableParkingB2 = eval(data[3]);
+            ownParkingB1 = eval(data[4]);
+            ownParkingB2 = eval(data[5]);
+            awatingParkingB1 = eval(data[6]);
+            awatingParkingB2 = eval(data[7]);
+            otherParkingB1 = eval(data[8]);
+            otherParkingB2 = eval(data[9]);
+
+            let mapPage = +document.getElementById("page-num").value;
+            setupMap(mapPage);
+            setupNoteDescription();
+        },
+        catch: function (){
+            console.log("toang gòi");
+        }
+    })
+}
+function updateCarInfo(){
+    let parkingName = document.getElementById("parking-id-edit").value;
+    let licensePlate = document.getElementById("plate-edit").value;
+    let linkNewImg = document.getElementById("linkNewImg").value;
+    let linkDelImg = document.getElementById("linkDelImg").value;
+    const dataEditCar = {
+        parkingName: parkingName,
+        licensePlate: licensePlate,
+        linkNewImg: linkNewImg,
+        linkDelImg: linkDelImg
+    }
+    $.ajax({
+        contentType: "application/json",
+        method: "POST",
+        dataType: "json",
+        data: JSON.stringify(dataEditCar),
+        url: "http://localhost:8080/parking/api/edit",
+        complete: function () {
+            updateMap();
+        }
+    })
+}
+updateMap();
+
+
+// document.getElementById('map-control').addEventListener('click', function(event) {
+//     var rect = event.target.getBoundingClientRect();
+//     var x = ((event.clientX - rect.left) / rect.width) * 100;
+//     var y = ((event.clientY - rect.top) / rect.height) * 100;
+//
+//     alert('x: ' + x + ' y: ' + y);
+// });
