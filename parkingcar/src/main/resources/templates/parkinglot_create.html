@@ -27,7 +27,7 @@
                 <th colspan="2">Profile</th>
             </tr>
             <tr>
-                <td width="150px">- User Name : </td>
+                <td width="150px">- User : </td>
                 <td th:text="${account.username}"></td>
             </tr>
             <tr>
@@ -39,11 +39,11 @@
                 <td th:text="${customer.getName()}"></td>
             </tr>
             <tr>
-                <td>- Phone Number : </td>
+                <td>- Phone : </td>
                 <td th:text="${customer.getPhoneNumber()}"></td>
             </tr>
             <tr>
-                <td>- Room Rented : </td>
+                <td>- Room : </td>
                 <td th:text="${customer.getRoomRented()}"></td>
             </tr>
             <tr>
@@ -65,7 +65,7 @@
         </div>
         <input required minlength="8" maxlength="10" class="filler boxshadow-inset border"
                id="plate" type="text" name="licensePlate" placeholder="-- Enter License Plate --">
-        <select id="package" class="filler boxshadow-outset border color4" name="pack">
+        <select id="package" class="filler boxshadow-outset border color2" name="pack">
             <option th:each="pack : ${package}"
                     th:text="${pack.day + ' days ' +
                     #numbers.formatCurrency(pack.moneyRent) + ' VND'}"

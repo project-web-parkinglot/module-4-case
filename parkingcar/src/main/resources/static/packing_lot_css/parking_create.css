@@ -11,6 +11,9 @@
     grid-template-rows: 75px 1fr 50px 100px;
     grid-template-areas: "parking-id parking-id" "profile car-img" "license-plate car-img" "package button";
 }
+#form-input div{
+    cursor: pointer;
+}
 #parking-lot-name{
     grid-area: parking-id;
     width: 150px;
@@ -62,6 +65,7 @@
     margin-top: 20px;
     height: 70px;
     font-size: 20px;
+    cursor: pointer;
 }
 #button{
     padding-top: 30px;

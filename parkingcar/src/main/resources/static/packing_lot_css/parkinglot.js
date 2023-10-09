@@ -381,14 +381,14 @@ function chooseDeleteImg(ele,link){
         }else {
             document.getElementById("alert-table").style.display = "grid";
 
+            let dataAlert = `Must be <span class="target-text">AS LEAST 1 IMAGE</span><br>`;
+            document.getElementById("alert-table-content").innerHTML = dataAlert;
         }
     } else {
         ele.style.backgroundImage = `url("/packing_lot_css/icon/non-delete-picture.png")`;
         document.getElementById("linkDelImg").value = dataDel.replace(link + " ","");
         document.getElementById("alert-table-content").innerHTML =
-            `Please <span class="target-text">FILL IN</span> the complete
-            <span class="target-text">LICENSE PLATE NUMBER</span><br>
-            Provide at least <span class="target-text">1 PHOTO</span>`;
+            `Must be <span class="target-text">AS LEAST 1 IMAGE</span><br>`;
     }
 }
 function closeEditTable(){
@@ -609,31 +609,21 @@ function setupNoteDescription(){
 
 
     if (blockSize != 0){
-        data += `<div class="blockParking filler"><span class="text-scale">${fillNumber(blockSize)}</span> Blocked</div>`;
+        data += `<div class="blockParking filler"><span class="text-scale">${blockSize}</span> Blocked</div>`;
     }
     if (availableSize != 0){
-        data += `<div class="availableParking filler"><span class="text-scale">${fillNumber(availableSize)}</span> Available</div>`;
+        data += `<div class="availableParking filler"><span class="text-scale">${availableSize}</span> Available</div>`;
     }
     if (otherSize != 0){
-        data += `<div class="otherParking filler"><span class="text-scale">${fillNumber(otherSize)}</span> Not Available</div>`;
+        data += `<div class="otherParking filler"><span class="text-scale">${otherSize}</span> Not Available</div>`;
     }
     if (mySize != 0){
-        data += `<div class="myParking filler"><span class="text-scale">${fillNumber(mySize)}</span> My Parking</div>`;
+        data += `<div class="myParking filler"><span class="text-scale">${mySize}</span> My Parking</div>`;
     }
     if (awaitSize != 0){
-        data += `<div class="awaitParking filler"><span class="text-scale">${fillNumber(awaitSize)}</span> Awaiting</div>`;
+        data += `<div class="awaitParking filler"><span class="text-scale">${awaitSize}</span> Awaiting</div>`;
     }
     document.getElementById("note").innerHTML = data;
-}
-function fillNumber(number){
-    switch ((number + "").length){
-        case 3:
-            return "" + number;
-        case 2:
-            return "0" + number;
-        case 1:
-            return "00" + number;
-    }
 }
 function closeAlertTable(){
     document.getElementById("alert-table").style.display = "none";
