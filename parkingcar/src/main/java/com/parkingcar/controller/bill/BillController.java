@@ -45,17 +45,21 @@ public class BillController {
         return "bill/show-form-bill";
     }
     @PostMapping("/edit")
-    public String editBill(@ModelAttribute Bill bill,  RedirectAttributes redirectAttributes){
+    public String editBill(@RequestParam int id, @RequestParam int billId ,
+                           RedirectAttributes redirectAttributes){
+        Bill bill = billService.findById(billId);
+        PackageRent packageRent = packageRentService.findById(id);
         bill.setStatus("0");
-        bill.setMoneyPay(bill.getPackageRent().getMoneyRent());
+        bill.setMoneyPay(packageRent.getMoneyRent());
         bill.setTimePay(LocalDate.now());
-        bill.setEndDate(bill.getEndDate().plusDays(bill.getPackageRent().getDay()));
-        Customer customer = customerService.findById(bill.getCustomer().getId());
-        bill.setCustomer(customer);
-        ParkingLot parkingLot = parkingLotService.getParkingById(bill.getParkingLot().getId());
-        bill.setParkingLot(parkingLot);
-        Car car = carService.getCarById(bill.getCar().getId());
-        bill.setCar(car);
+        bill.setEndDate(bill.getEndDate().plusDays(packageRent.getDay()));
+        bill.setPackageRent(packageRent);
+//        Customer customer = customerService.findById(bill.getCustomer().getId());
+//        bill.setCustomer(customer);
+//        ParkingLot parkingLot = parkingLotService.getParkingById(bill.getParkingLot().getId());
+//        bill.setParkingLot(parkingLot);
+//        Car car = carService.getCarById(bill.getCar().getId());
+//        bill.setCar(car);
         billService.saveBill(bill);
         redirectAttributes.addFlashAttribute("message","ok");
         return "redirect:/customer/showbill";

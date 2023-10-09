@@ -16,4 +16,9 @@ public class PackageRentService implements IPackageRentService {
     public List<PackageRent> findAll() {
         return packageRentRepository.findAll();
     }
+
+    @Override
+    public PackageRent findById(int id) {
+        return packageRentRepository.findById(id).get();
+    }
 }
