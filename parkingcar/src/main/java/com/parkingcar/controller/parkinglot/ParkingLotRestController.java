@@ -22,8 +22,6 @@ public class ParkingLotRestController {
     private IParkingLotService parkingLotService;
     @Autowired
             private IAccountService accountService;
-
-//    Account account = new Account(1, "thang_quoc", "aaa", "a@gmail.com", true, new Role(2, "CUSTOMER"), null);
     @GetMapping("/map")
     public ResponseEntity<List<String>> showParkingMap() {
         Account account = getAccount();
@@ -43,7 +41,7 @@ public class ParkingLotRestController {
         reponseEntity.add(availableParking.get(0)); //available 1
         reponseEntity.add(availableParking.get(1)); //available 2
 
-        if (account.getRole().getId() == 1) {
+        if (role == 1) {
             List<String> adminCheck = parkingLotService.getCheckParking();
 
             reponseEntity.add(adminCheck.get(0)); //own 1
@@ -53,7 +51,7 @@ public class ParkingLotRestController {
             reponseEntity.add("[]"); //other1
             reponseEntity.add("[]"); //other2
 
-        } else if (account.getRole().getId() == 2) {
+        } else if (role == 2) {
             List<String> customerParking = parkingLotService.getMyParking(account);
 
             reponseEntity.add(customerParking.get(0)); //own 1
@@ -79,7 +77,13 @@ public class ParkingLotRestController {
     @GetMapping("/lock/{name}")
     public ResponseEntity<?> lockParking(@PathVariable String name){
         Account account = getAccount();
-        if (account.getRole().getId() == 1) {
+        int role;
+        if (account == null) {
+            role = 0;
+        } else {
+            role = account.getRole().getId();
+        }
+        if (role == 1) {
             try {
                 parkingLotService.lockParking(name);
             } catch (IllegalAccessException e) {
@@ -92,7 +96,13 @@ public class ParkingLotRestController {
     @GetMapping("/unlock/{name}")
     public ResponseEntity<?> unlockParking(@PathVariable String name) {
         Account account = getAccount();
-        if (account.getRole().getId() == 1) {
+        int role;
+        if (account == null) {
+            role = 0;
+        } else {
+            role = account.getRole().getId();
+        }
+        if (role == 1) {
             try {
                 parkingLotService.unlockParking(name);
             } catch (IllegalAccessException e) {

@@ -17,6 +17,7 @@ public interface ICustomerService {
     List<ICustomerDTO> findCustomerByBills(int id);
 
     void removeCustomer(int id);
+    CustomerDTO searchCustomerByLicense(String name);
 
 
 

@@ -1,9 +1,9 @@
 #form-update{
-    border: 1px solid;
     width: 800px;
     border-radius: 10px;
     background-color: white;
-    height: 559px
+    height: 559px;
+
 }
 #hd-form{
     border: 1px solid;
@@ -12,6 +12,7 @@
     background-color: white;
     height: 50px;
     margin-bottom: 10px;
+    box-shadow: 10px 10px 20px #51504B
 }
 b {
     padding-left: 220px;
@@ -20,6 +21,7 @@ b {
 #bt{
     margin-left: 324px;
     width: 20%;
+    margin-top: 25px;
 
 }
 input{
@@ -27,6 +29,10 @@ input{
     border-radius: 7px;
     box-shadow: #333333;
 }
-
-
+.image-preview-container2{
+    box-shadow: 10px 10px 20px #51504B;
+}
+table{
+    box-shadow: 10px 10px 20px #51504B
+}
 
