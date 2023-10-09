@@ -12,6 +12,9 @@ import com.parkingcar.service.packageRent.IPackageRentService;
 import com.parkingcar.service.packageRent.PackageRentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,10 +37,19 @@ public class CustomerController {
     private IPackageRentService packageRentService;
 
     //data giả
-    Account account = new Account(1,"dinhlong1110","abcd1234","long1110dn@gmail.com",false,new Role(2,"ROLE_CUSTOMER"),null);
-
+//    Account account = new Account(1,"dinhlong1110","abcd1234","long1110dn@gmail.com",false,new Role(2,"ROLE_CUSTOMER"),null);
+    private Account getAccount(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            Account account = accountService.findAccountByUserName(currentUserName);
+            return account;
+        }
+        return null;
+    }
     @GetMapping("/detail")
     public String showCustomerDetail(Model model){
+        Account account = getAccount();
         Customer customer = customerService.findCustomerByAccountId(account.getId());
         model.addAttribute("customer",customer);
         return "/customer/detail-customer";
@@ -64,6 +76,7 @@ public class CustomerController {
         BeanUtils.copyProperties(customerDTO,customer);
 //        String name = principal.getName();
 //        Account account1 = accountService.findAccountByUserName(name);
+        Account account = getAccount();
         customer.setAccount(account);
         customerService.saveCustomer(customer);
         redirectAttributes.addFlashAttribute("message","Sửa thành công");
@@ -71,6 +84,7 @@ public class CustomerController {
     }
     @GetMapping("/showbill")
     public String showListBill(Model model){
+        Account account = getAccount();
         List<ICustomerDTO> customerDTOList = customerService.findCustomerByBills(account.getId());
         List<PackageRent>  packageRentList = packageRentService.findAll();
         model.addAttribute("customerDTOList",customerDTOList);

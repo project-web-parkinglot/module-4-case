@@ -169,7 +169,7 @@
                     </button>
                 </div>
                 <form th:action="@{/bill/edit}" method="post">
-                    <input type="hidden" name="billId" id="billId">
+                    <input type="text" name="billId" id="billId">
                     <div class="modal-body">
                         <b style="color: red">Please choose package</b>
                         <select name="id">
@@ -190,9 +190,10 @@
 </div>
 <script>
     function sendData(id) {
+        alert(id)
         document.getElementById("billId").value = id;
     }
-
+</script>
 <!-- Bootstrap core JavaScript-->
 <script src="/page_admin_css/vendor/jquery/jquery.min.js"></script>
 <script src="/page_admin_css/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
