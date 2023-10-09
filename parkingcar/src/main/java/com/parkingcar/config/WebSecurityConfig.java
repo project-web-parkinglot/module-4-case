@@ -31,26 +31,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Các trang không yêu cầu login
 
-        http.authorizeRequests().antMatchers("/", "/login/", "/logout","/parking/create/**","customer/**", "/parking/api/**").permitAll();
+        http.authorizeRequests().antMatchers("/", "/login", "/logout","/parking/create/**","customer/**", "/parking/api/**").permitAll();
 
         // Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
         // Nếu chưa login, nó sẽ redirect tới trang /login.
         // tích hợp ở hàm trên
-        http.authorizeRequests().antMatchers("/login").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/login/**").authenticated();
         // Trang chỉ dành cho ADMIN
         http.authorizeRequests().antMatchers("/admin/**", "parking/endlease/**", "parking/lock/**", "/parking/unlock/**").access("hasRole('ROLE_ADMIN')");
 
         // Khi người dùng đã login, với vai trò XX.
         // Nhưng truy cập vào trang yêu cầu vai trò YY,
         // Ngoại lệ AccessDeniedException sẽ ném ra.
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/login/404");
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/401");
         // Cấu hình cho Login Form.
         http.authorizeRequests().and().formLogin()//
                 // Submit URL của trang login
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
-                .loginPage("/login/")//
+                .loginPage("/login")//
                 .defaultSuccessUrl("/")//
-                .failureUrl("/login/?error=true")//
+                .failureUrl("/login?error=true")//
                 .usernameParameter("username")//
                 .passwordParameter("password")
                 // Cấu hình cho Logout Page.
