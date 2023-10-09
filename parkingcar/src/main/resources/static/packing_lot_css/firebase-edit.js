@@ -16,10 +16,16 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const inps = document.querySelector(".inps");
 let filter = document.getElementById("waiting");
+let numberPicture;
+let pictureComplete;
 
 async function handleUpload() {
     filter.style.display = "flex";
     let links = "";
+    numberPicture = inps.files.length;
+    pictureComplete = 0;
+    document.getElementById("number-picture").innerHTML = pictureComplete + "/" + numberPicture;
+
     for (let i = 0; i < inps.files.length; i++) {
         let file = inps.files[i];
         if (file) {
@@ -49,6 +55,9 @@ function insertPicture(url){
                     style="background-image: url('/packing_lot_css/icon/new-picture.png')">
                     <div class="div-branch" style="background-image: url('${url}')"></div></div>`
     document.getElementById("array-picture-edit").innerHTML += data;
+
+    pictureComplete++;
+    document.getElementById("number-picture").innerHTML = pictureComplete + "/" + numberPicture;
 }
 
 window.handleUpload = handleUpload;
