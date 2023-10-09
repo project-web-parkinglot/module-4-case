@@ -12,6 +12,7 @@ let arrayMy = [];
 let arrayAwait = [];
 let countdownInterval;
 let sizeImgDetail = 0;
+let intervalEdit;
 
 class parkingLot{
     constructor(x1,y1,x2,y2,x3,y3,x4,y4,alt,id) {
@@ -29,7 +30,7 @@ class parkingLot{
 }
 class parkingLotMine{
     constructor(x1,y1,x2,y2,x3,y3,x4,y4,alt,dueDate,carImg,licensePlate,username,
-                birthday,address,gender,avata,phone,room,id) {
+                birthday,address,gender,avata,phone,room,id,editTime) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -50,6 +51,7 @@ class parkingLotMine{
         this.phone = phone;
         this.room = room;
         this.id = id;
+        this.editTime = editTime;
     }
     getGender(){
         if (this.gender == 1){
@@ -325,23 +327,42 @@ function transferDataConfirm(action, id){
     cancelCountDown();
 }
 function showEditTable(id){
-    document.getElementById("edit-table").style.display = "grid";
     let detail = getClass(id, 0);
-    sizeImgDetail = detail.carImg.length;
-    document.getElementById("parking-lot-name").innerHTML = `ParkingLot : <span class="target-text">${id}</span>`;
-    document.getElementById("plate-edit").value = detail.licensePlate;
+    let myDate = new Date();
+    myDate.setDate(myDate.getDate() - 1)
+    let dif = (detail.editTime - myDate) / 1000;
+    if (dif < 0){
+        document.getElementById("edit-table").style.display = "grid";
+        sizeImgDetail = detail.carImg.length;
+        document.getElementById("parking-lot-name").innerHTML = `ParkingLot : <span class="target-text">${id}</span>`;
+        document.getElementById("plate-edit").value = detail.licensePlate;
 
-    let dataImg = `<div id="add-icon" class="div-main filler hover-border boxshadow-outset"
+        let dataImg = `<div id="add-icon" class="div-main filler hover-border boxshadow-outset"
                     style="background-image: ; background-position: center" onclick="addImg()"></div>`
-    for (let i = 0 ; i < sizeImgDetail; i++){
-        let img = detail.carImg[i];
-        dataImg += `<div class="div-main filler hover-border boxshadow-outset"
+        for (let i = 0 ; i < sizeImgDetail; i++){
+            let img = detail.carImg[i];
+            dataImg += `<div class="div-main filler hover-border boxshadow-outset"
                     style="background-image: url('/packing_lot_css/icon/non-delete-picture.png')"
                     onclick="chooseDeleteImg(this, '${img}')">
                     <div class="div-branch" style="background-image: url('${img}')"></div></div>`;
+        }
+        document.getElementById("parking-id-edit").value = id;
+        document.getElementById('array-picture-edit').innerHTML = dataImg;
+    } else {
+        clearInterval(intervalEdit);
+        intervalEdit = setInterval(function () {
+            let now = new Date();
+            now.setDate(now.getDate() - 1)
+            let newDif = (detail.editTime - now) / 1000;
+            let hour = Math.floor(newDif / 3600);
+            newDif %= 3600;
+            let minute = Math.floor(newDif/60);
+            let second = Math.floor(newDif % 60);
+            let dataAlert = `Please edit after <span class="target-text">${hour} : ${minute} : ${second}</span> seconds`;
+            document.getElementById("alert-table-content").innerHTML = dataAlert;
+        }, 1000);
+        document.getElementById("alert-table").style.display = "grid";
     }
-    document.getElementById("parking-id-edit").value = id;
-    document.getElementById('array-picture-edit').innerHTML = dataImg;
 }
 function addImg(){
     document.getElementById("add-img-edit").click();
@@ -358,10 +379,15 @@ function chooseDeleteImg(ele,link){
             document.getElementById("linkDelImg").value += (link + " ");
         }else {
             document.getElementById("alert-table").style.display = "grid";
+
         }
     } else {
         ele.style.backgroundImage = `url("/packing_lot_css/icon/non-delete-picture.png")`;
         document.getElementById("linkDelImg").value = dataDel.replace(link + " ","");
+        document.getElementById("alert-table-content").innerHTML =
+            `Please <span class="target-text">FILL IN</span> the complete
+            <span class="target-text">LICENSE PLATE NUMBER</span><br>
+            Provide at least <span class="target-text">1 PHOTO</span>`;
     }
 }
 function closeEditTable(){
@@ -510,15 +536,18 @@ function confirmTable(action, id){
             updateCarInfo();
             closeEditTable();
             return;
-        case 'signup':
-            return;
         case 'login':
+            window.location.href = "/login";
             return;
         case 'profile':
-            alert('profile')
+            if (role == 1){
+                window.location.href = "/admin";
+            } else {
+                window.location.href = "/customer/detail";
+            }
             return;
         case 'logout':
-            alert('linklogout')
+            window.location.href = "/logout";
             return;
     }
     $.ajax({
@@ -608,6 +637,7 @@ function fillNumber(number){
 }
 function closeAlertTable(){
     document.getElementById("alert-table").style.display = "none";
+    clearInterval(intervalEdit);
 }
 function updateMap(){
     $.ajax({
@@ -659,7 +689,6 @@ function updateCarInfo(){
     })
 }
 updateMap();
-
 
 // document.getElementById('map-control').addEventListener('click', function(event) {
 //     var rect = event.target.getBoundingClientRect();
