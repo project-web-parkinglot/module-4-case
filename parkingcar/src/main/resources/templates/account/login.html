@@ -58,8 +58,8 @@
 
         button {
             border-radius: 20px;
-            border: 1px solid #FF4B2B;
-            background-color: #FF4B2B;
+            border: 1px solid #4c4941;
+            background-color: #4c4941;
             color: #FFFFFF;
             font-size: 12px;
             font-weight: bold;
@@ -174,7 +174,7 @@
         .overlay {
             /*background: #FF416C;*/
             /*background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);*/
-            background: linear-gradient(to right, #FF4B2B, #FF416C);
+            background: linear-gradient(to right, #787772, #4c4941);
             /*background-repeat: no-repeat;*/
             /*background-size: cover;*/
             /*background-position: 0 0;*/
@@ -319,13 +319,11 @@
         });
     });
 </script>
-
+<input type="hidden" id="statusPage" th:value="${success}">
 <div class="container" id="container">
     <div class="form-container sign-up-container">
 
-
-        <form action="/login/" method="post" th:object="${accountDto}">
-            <input type="hidden" id="statusPage" th:value="${statusPage}">
+        <form action="/login" method="post" th:object="${accountDto}">
             <h1>Create Account</h1>
             <span>or use your email for registration</span>
             <!-- Username input -->
@@ -412,65 +410,71 @@
             },
             buttonsStyling: false
         })
-        if (document.getElementById("success").value === "1") {
+        if (document.getElementById("statusPage").value === "1") {
             swalWithBootstrapButtons.fire(
                 'Wrong input, please check again!',
                 '',
-                'Error'
+                'success'
             )
-        } else if (document.getElementById("success").value === "2") {
+        } else if (document.getElementById("statusPage").value === "2") {
             swalWithBootstrapButtons.fire(
                 'This email already exists!',
                 '',
-                'Error'
+                'success'
             )
-        } else if (document.getElementById("success").value === "3") {
+        } else if (document.getElementById("statusPage").value === "3") {
             swalWithBootstrapButtons.fire(
                 'This username has been used, please take another one!',
                 '',
-                'Error'
+                'success'
             )
-        } else if (document.getElementById("success").value === "4") {
+        } else if (document.getElementById("statusPage").value === "4") {
             swalWithBootstrapButtons.fire(
                 'Wrong input, please check again!',
                 '',
-                'Error'
+                'success'
             )
-        }else if (document.getElementById("success").value === "5") {
+        }else if (document.getElementById("statusPage").value === "5") {
             swalWithBootstrapButtons.fire(
                 'please check your email to confirm your account!',
                 '',
-                'Success'
+                'success'
             )
-        }else if (document.getElementById("success").value === "6") {
+        }else if (document.getElementById("statusPage").value === "6") {
             swalWithBootstrapButtons.fire(
                 'Please check your email to change your accounts password!',
                 '',
-                'Success'
+                'success'
             )
-        }else if (document.getElementById("success").value === "7") {
+        }else if (document.getElementById("statusPage").value === "7") {
             swalWithBootstrapButtons.fire(
                 'Congratulations, your account has been verified!',
                 '',
-                'Success'
+                'success'
             )
-        }else if (document.getElementById("success").value === "8") {
+        }else if (document.getElementById("statusPage").value === "8") {
             swalWithBootstrapButtons.fire(
                 'Sorry, we could not verify account. It might be verified, or verification code is incorrect!',
                 '',
-                'Success'
+                'success'
             )
-        }else if (document.getElementById("success").value === "9") {
+        }else if (document.getElementById("statusPage").value === "9") {
             swalWithBootstrapButtons.fire(
                 'Password change successful!',
                 '',
-                'Success'
+                'success'
             )
-        }else if (document.getElementById("success").value === "10") {
+        }else if (document.getElementById("statusPage").value === "10") {
             swalWithBootstrapButtons.fire(
                 'Sorry, we could not verify account. It might be already verified, or verification code is incorrect.',
                 '',
-                'Success'
+                'success'
+            )
+        }else if (document.getElementById("statusPage").value === "11") {
+            swalWithBootstrapButtons.fire(
+                'Username or password is incorrect',
+                '',
+                'success'
             )
         }
     }

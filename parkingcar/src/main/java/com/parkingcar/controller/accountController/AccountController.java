@@ -38,14 +38,18 @@ public class AccountController {
     @Autowired
     private ICustomerService customerService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public String loginForm(Model model) {
         AccountDto accountDto = new AccountDto();
         model.addAttribute("accountDto", accountDto);
         return "/account/login";
     }
-
-    @PostMapping("/")
+    @GetMapping("?error")
+    public String loginForm(@RequestParam boolean error, Model model){
+        model.addAttribute("success",10);
+        return "/account/login";
+    }
+    @PostMapping("")
     private String createAccount(@Validated @ModelAttribute("accountDto") AccountDto accountDto,
                                  @RequestParam("username") String username,
                                  @RequestParam("password") String password,
@@ -58,14 +62,14 @@ public class AccountController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("success", 1);
             redirectAttributes.addFlashAttribute("accountDto", accountDto);
-            return "redirect:/login/";
+            return "redirect:/login";
         }
         if (iAccountService.findAccountByEmail(accountDto.getEmail()) != null) {
             redirectAttributes.addFlashAttribute("success", 2);
-            return "redirect:/login/";
+            return "redirect:/login";
         } else if (iAccountService.findAccountByUserName(accountDto.getUsername()) != null) {
             redirectAttributes.addFlashAttribute("success", 3);
-            return "redirect:/login/";
+            return "redirect:/login";
         }
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("success", 4);
@@ -85,27 +89,7 @@ public class AccountController {
         String siteURL = getSiteURL(request);
         iAccountService.sendVerificationEmail(account, siteURL);
         redirectAttributes.addFlashAttribute("success", 5);
-        return "redirect:/login/";
-    }
-
-    @GetMapping("/userInfo")
-    public String userInfo(Model model, Principal principal, RedirectAttributes redirectAttributes) {
-        String userName = principal.getName();
-        Account account = iAccountService.findAccountByUserName(userName);
-        if (account.getRole().getName().equals("ROLE_CUSTOMER")) {
-            if (!account.isStatus()) {
-                return "account/login";
-            } else {
-                model.addAttribute("info", account);
-                model.addAttribute("accountName", userName);
-                return "/index";
-            }
-        } else if (account.getRole().getName().equals("ROLE_ADMIN")) {
-            model.addAttribute("info", account);
-            model.addAttribute("accountName", userName);
-            return "/index";
-        }
-        return "/index";
+        return "redirect:/login";
     }
 
     private String getSiteURL(HttpServletRequest request) {
