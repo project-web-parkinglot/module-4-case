@@ -9,6 +9,7 @@
 </head>
 <body class="color2">
 <div th:fragment="header">
+    <div id="waiting">Please wait a moment for us to upload the picture...</div>
     <div id="alert-content" class="border filler boxshadow-outset">
         <p id="content-alert"></p>
         <div id="cancel-button" class="boxshadow-inset filler hover border"
@@ -21,12 +22,12 @@
     <div id="header" class="border filler color1 boxshadow-inset">
         <a href="/" id="logo"></a>
         <div></div>
-        <div th:if="${account == null}"></div>
-        <div th:if="${account == null}" class="border hover filler color2 boxshadow-outset"
+        <div class="cursorPoint" th:if="${account == null}"></div>
+        <div th:if="${account == null}" class="cursorPoint border hover filler color2 boxshadow-outset"
              onclick="confirmTable('login',0)">Login</div>
-        <div th:if="${account != null}" class="border hover filler color2 boxshadow-outset"
+        <div th:if="${account != null}" class="cursorPoint border hover filler color2 boxshadow-outset"
              th:text="${account.username}" th:attr="onclick=|confirmTable('profile', ${account.id})|"></div>
-        <div th:if="${account != null}" class="border hover filler color4 boxshadow-outset"
+        <div th:if="${account != null}" class="cursorPoint border hover filler color4 boxshadow-outset"
              onclick="transferDataConfirm('logout', 0)">LogOut</div>
     </div>
     <div id="slogan" class="border filler color1 boxshadow-outset">
@@ -37,7 +38,7 @@
     </div>
     <div id="alert-table" class="border filler boxshadow-outset">
         <p id="alert-table-content"></p>
-        <div class="color2 boxshadow-inset filler hover border" onclick="closeAlertTable()">OK</div>
+        <div class="cursorPoint color2 boxshadow-inset filler hover border" onclick="closeAlertTable()">OK</div>
     </div>
 
 </div>
@@ -50,9 +51,9 @@
 
     <div id="button">
         <div></div>
-        <div id="button-back" class="filler boxshadow-outset border hover"
+        <div id="button-back" class="cursorPoint filler boxshadow-outset border hover"
              onclick="closeEditTable()">Cancel</div>
-        <div id="button-submit" class="filler boxshadow-outset border hover"
+        <div id="button-submit" class="cursorPoint filler boxshadow-outset border hover"
              onclick="transferDataConfirm('edit',0)">Submit</div>
     </div>
     <input id="add-img-edit" type="file" hidden="hidden" multiple class="inps" onchange="handleUpload()">
@@ -77,11 +78,11 @@
                  class="border filler boxshadow-outset">Hoàn Thiện</div>
         </div>
         <div id="table-contact">
-            <div th:attr="onclick=|actionButton('contact')|" class="boxshadow-outset color2 filler"
+            <div th:attr="onclick=|actionButton('contact')|" class="cursorPoint boxshadow-outset color2 filler"
                  style="background-image: url('/packing_lot_css/icon/phone.png')">Contact us</div>
-            <div th:attr="onclick=|actionButton('facebook')|" class="boxshadow-outset color2 filler"
+            <div th:attr="onclick=|actionButton('facebook')|" class="cursorPoint boxshadow-outset color2 filler"
                  style="background-image: url('/packing_lot_css/icon/face.png')">Follow us</div>
-            <div th:attr="onclick=|actionButton('feedback')|" class="boxshadow-outset color2 filler"
+            <div th:attr="onclick=|actionButton('feedback')|" class="cursorPoint boxshadow-outset color2 filler"
                  style="background-image: url('/packing_lot_css/icon/mail.png')">Feedback to us</div>
         </div>
     </div>
@@ -100,22 +101,22 @@
     <div id="option" class="color2 boxshadow-outset"></div>
 </div>
 
-<div id="infomation" class="border filler color1 boxshadow-inset">
-    <img class="boxshadow-outset filler border" src="/packing_lot_css/img/police.png"/>
-    <div id="promotion">
-        <img src="/packing_lot_css/icon/security.png"/>
-        <p>Với kinh nghiệm <span class="target-text">TRÔNG GIỮ XE</span>
-            hơn 30 năm. Đội ngũ giám sát hơn <span class="target-text">3000 NGƯỜI và CHÓ</span>
-            Chúng tôi tự tin mang lại cho bạn giấc ngủ bình thản, sáng dậy với chiếc xe vẫn vẹn nguyên</p>
-        <img src="/packing_lot_css/icon/camera.png"/>
-        <p>Tự hào với dàn <span class="target-text">CAMERA CHẠY BẰNG CƠM</span> hoạt động
-            <span class="target-text">24/7</span>. Chúng tôi cam kết xe của bạn sẽ được cách ly
-            như 1 bệnh nhân <span class="target-text">F0 COVID</span></p>
-        <img src="/packing_lot_css/icon/fire.png"/>
-        <p>Bãi đỗ xe được trang bị hệ thông <span class="target-text">PHÒNG CHÁY CHỮA CHÁY
-        </span> hiện đại xen lẫn yếu tố tâm linh. Cam kết <span class="target-text">CHÁY 1 XE ĐỀN 1 CĂN HỘ</span></p>
-    </div>
-</div>
+<!--<div id="infomation" class="border filler color1 boxshadow-inset">-->
+<!--    <img class="boxshadow-outset filler border" src="/packing_lot_css/img/police.png"/>-->
+<!--    <div id="promotion">-->
+<!--        <img src="/packing_lot_css/icon/security.png"/>-->
+<!--        <p>Với kinh nghiệm <span class="target-text">TRÔNG GIỮ XE</span>-->
+<!--            hơn 30 năm. Đội ngũ giám sát hơn <span class="target-text">3000 NGƯỜI và CHÓ</span>-->
+<!--            Chúng tôi tự tin mang lại cho bạn giấc ngủ bình thản, sáng dậy với chiếc xe vẫn vẹn nguyên</p>-->
+<!--        <img src="/packing_lot_css/icon/camera.png"/>-->
+<!--        <p>Tự hào với dàn <span class="target-text">CAMERA CHẠY BẰNG CƠM</span> hoạt động-->
+<!--            <span class="target-text">24/7</span>. Chúng tôi cam kết xe của bạn sẽ được cách ly-->
+<!--            như 1 bệnh nhân <span class="target-text">F0 COVID</span></p>-->
+<!--        <img src="/packing_lot_css/icon/fire.png"/>-->
+<!--        <p>Bãi đỗ xe được trang bị hệ thông <span class="target-text">PHÒNG CHÁY CHỮA CHÁY-->
+<!--        </span> hiện đại xen lẫn yếu tố tâm linh. Cam kết <span class="target-text">CHÁY 1 XE ĐỀN 1 CĂN HỘ</span></p>-->
+<!--    </div>-->
+<!--</div>-->
 
 <input type="hidden" id="roleTrans" th:value="${role}">
 <input type="hidden" id="page-num" value="1">

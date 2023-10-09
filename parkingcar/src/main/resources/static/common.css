@@ -71,7 +71,7 @@
     margin-bottom: 20px;
     padding-right: 10px;
     display: grid;
-    grid-template-columns: 300px 1fr 150px 150px;
+    grid-template-columns: 300px 1fr 175px 175px;
 }
 #logo{
     margin-left: 20px;
@@ -102,6 +102,7 @@
 polygon{
     opacity: 0.4;
     transition-duration: 0.2s;
+    cursor: pointer;
 }
 polygon:hover{
     fill: rgba(255,0,255,0.5);
@@ -126,6 +127,7 @@ svg{
     align-items: center;
     display: inline-flex;
     opacity: 0.8;
+    cursor: pointer;
 }
 #option{
     position: absolute;
@@ -140,6 +142,7 @@ svg{
     background-color: #51504B;
     color: white;
     transition-duration: 0.2s;
+    cursor: pointer;
 }
 #option p{
     scale: 1.1;
@@ -295,4 +298,24 @@ text{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.cursorPoint{
+    cursor: pointer;
+}
+#waiting{
+    display: none;
+    justify-content: center;
+    margin: -5%;
+    padding: 0;
+    padding-top: 25%;
+    z-index: 1000;
+    position: fixed;
+    width: 110%;
+    aspect-ratio: 4/3;
+    background-color: rgba(0,0,0,0.9);
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    font-weight: bold;
+    font-size: 50px;
 }
