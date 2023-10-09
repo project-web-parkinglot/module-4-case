@@ -44,4 +44,9 @@ public class CustomerService implements ICustomerService{
         customerRepository.deleteById(id);
     }
 
+    @Override
+    public CustomerDTO searchCustomerByLicense(String name) {
+        return customerRepository.searchCustomerByLicense("%"+ name+ "%");
+    }
+
 }

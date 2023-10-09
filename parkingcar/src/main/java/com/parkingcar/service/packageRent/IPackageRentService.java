@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IPackageRentService {
     List<PackageRent> findAll();
+    PackageRent findById(int id);
 }

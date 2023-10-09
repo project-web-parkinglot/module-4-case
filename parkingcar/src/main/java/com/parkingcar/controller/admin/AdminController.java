@@ -3,16 +3,22 @@ package com.parkingcar.controller.admin;
 import com.parkingcar.model.bill.Bill;
 import com.parkingcar.model.bill.IBillDTO;
 import com.parkingcar.model.customer.Customer;
+import com.parkingcar.model.pakingLot.ParkingLot;
+import com.parkingcar.repository.parkinglot.IParkingLotStatusRepository;
+import com.parkingcar.service.admin.IParkingLotStatusService;
 import com.parkingcar.service.bill.IBillService;
 import com.parkingcar.service.customer.ICustomerService;
+import com.parkingcar.service.parkinglot.IParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -23,6 +29,11 @@ public class AdminController {
     private ICustomerService customerService;
     @Autowired
     private IBillService billService;
+    @Autowired
+    private IParkingLotService parkingLotService;
+    @Autowired
+    private IParkingLotStatusService parkingLotStatusService;
+
 
 
     @GetMapping
@@ -47,6 +58,22 @@ public class AdminController {
         List<Bill> billList = billService.getBillByStatus("0");
         model.addAttribute("billList",billList);
         return "/page_admin/list-approved";
+    }
+    @PostMapping("/approve")
+    public String approveBill(@RequestParam int billId, @RequestParam int parkingId, RedirectAttributes redirectAttributes){
+
+        Bill bill = billService.findById(billId);
+        ParkingLot parkinglot = parkingLotService.getParkingById(parkingId);
+        bill.setStatus("1");
+        parkinglot.setParkingLotStatus(parkingLotStatusService.getParkingLotStatusById(3));
+        if (bill.getEndDate() == null && bill.getTimePay() == null){
+            bill.setEndDate(LocalDate.now().plusDays(bill.getPackageRent().getDay()));
+            bill.setMoneyPay(bill.getPackageRent().getMoneyRent());
+            bill.setTimePay(LocalDate.now());
+        }
+        billService.saveBill(bill);
+        redirectAttributes.addFlashAttribute("statusPage",1);
+        return "redirect:/admin/listapproved";
     }
 
 }

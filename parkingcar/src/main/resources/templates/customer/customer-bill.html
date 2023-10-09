@@ -17,7 +17,42 @@
 
     <!-- Custom styles for this template -->
     <link href="/page_admin_css/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #EAE9E5;
 
+        }
+
+        .table {
+            color: black;
+            border: 1px;
+            border-radius: 10px;
+
+        }
+
+        #bd {
+            border: 1px solid;
+            margin-left: 641px;
+            width: 30%;
+            margin-top: 30px;
+            text-align: center;
+            color: black;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 10px 10px 20px #51504B
+        }
+
+        .btn {
+            margin-bottom: 10px;
+            box-shadow: 10px 10px 20px #51504B
+        }
+
+        .card-body {
+            box-shadow: 10px 10px 20px #51504B;
+        }
+
+
+    </style>
     <!-- Custom styles for this page -->
     <link href="/page_admin_css/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!--    ajax-->
@@ -26,9 +61,15 @@
 <body id="page-top">
 <div class="container-fluid">
 
+    <h1 id="bd" class="h3 mb-2 text-gray-800 ">PARKING LOT INFORMATION </h1>
+
+    <a class="btn btn-light" href="/" role="button">Back to menu</a>
+
+
+
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">PARKING LOT INFORMATION </h1>
-    <span th:text="${message}"></span>
+
+
     <div class="card shadow mb-4">
 
         <div class="card-body">
@@ -37,14 +78,14 @@
                     <thead>
                     <tr>
                         <th>N0.</th>
-                        <th>Name</th>
-                        <th>Phone number</th>
+                        <th style="width: 8%">Name</th>
+                        <th>Phone</th>
                         <th>Room rented</th>
-                        <th>Package</th>
-                        <th>Payment time</th>
-                        <th>Expire</th>
-                        <th>Payment money</th>
-                        <th>Status</th>
+                        <th style="">Package</th>
+                        <th style="width: 9%">Payment time</th>
+                        <th style="width: 9%">Expire</th>
+                        <th style="width: 11%">Payment money</th>
+                        <th style="width: 10%">Status</th>
                         <th>License plate</th>
                         <th>Position</th>
                         <th>Floor</th>
@@ -70,19 +111,24 @@
                         <td th:text="${customer.licensePlate}"></td>
                         <td th:text="${customer.parkingLotName}"></td>
                         <td th:switch="${customer.parkingLotBase}">
-                            <span th:case="1">Basement 1</span>
-                            <span th:case="2">Basement 1</span>
+                            <span th:case="1">B1</span>
+                            <span th:case="2">B2</span>
                         </td>
                         <td th:switch="${customer.billStatus}">
                             <span th:case="0">
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                <button type="button" class="btn btn-outline-info" data-toggle="modal"
                                         data-target="#exampleModal">
                                                             Extend
                                 </button>
                             </span>
                             <span th:case="1">
-                                <a class="btn btn-outline-info" th:href="@{/bill/update(id=${customer.getBillId()})}"
-                                   role="button">Extend</a>
+<!--                                <a class="btn btn-outline-info" th:href="@{/bill/update(id=${customer.getBillId()})}"-->
+                                <!--                                   role="button">Extend</a>-->
+                                <button type="button" class="btn btn-outline-info" data-toggle="modal"
+                                        data-target="#exampleModal1"
+                                        th:attr="onclick=|sendData(${customer.getBillId()})|">
+                                    Extend
+                                </button>
                             </span>
 
 
@@ -93,27 +139,59 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Please choose package</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Notification</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                        <b style="color: red">YOUR BILL IS WAITING APPROVAL</b>
+                    <b style="color: red">YOUR BILL IS WAITING APPROVAL</b>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Close</button>
+                    <button type="button" class="btn btn-outline-info">Close</button>
                 </div>
 
             </div>
         </div>
     </div>
-</div>
 
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Please choose package</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{/bill/edit}" method="post">
+                    <input type="hidden" name="billId" id="billId">
+                    <div class="modal-body">
+                        <b style="color: red">Please choose package</b>
+                        <select name="id">
+                            <option th:each="package:${packageRentList}" th:value="${package.id}"
+                                    th:text="${package.packageName}">
+
+                            </option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-info">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function sendData(id) {
+        document.getElementById("billId").value = id;
+    }
 
 <!-- Bootstrap core JavaScript-->
 <script src="/page_admin_css/vendor/jquery/jquery.min.js"></script>
