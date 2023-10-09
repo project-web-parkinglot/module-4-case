@@ -24,9 +24,9 @@
         <div th:if="${account == null}"></div>
         <div th:if="${account == null}" class="border hover filler color2 boxshadow-outset"
              onclick="confirmTable('login',0)">Login</div>
-        <div th:if="${account.id != null}" class="border hover filler color2 boxshadow-outset"
+        <div th:if="${account != null}" class="border hover filler color2 boxshadow-outset"
              th:text="${account.username}" th:attr="onclick=|confirmTable('profile', ${account.id})|"></div>
-        <div th:if="${account.id != null}" class="border hover filler color4 boxshadow-outset"
+        <div th:if="${account != null}" class="border hover filler color4 boxshadow-outset"
              onclick="transferDataConfirm('logout', 0)">LogOut</div>
     </div>
     <div id="slogan" class="border filler color1 boxshadow-outset">
