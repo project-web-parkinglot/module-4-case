@@ -8,6 +8,9 @@ import com.parkingcar.model.pakingLot.ParkingLot;
 import com.parkingcar.service.account.IAccountService;
 import com.parkingcar.service.parkinglot.IParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,10 +29,11 @@ public class ParkingLotController {
     private IParkingLotService parkingLotService;
     @Autowired
     private IAccountService accountService;
-    Account account = new Account(1, "thang_quoc", "aaa", "a@gmail.com", true, new Role(2, "CUSTOMER"), null);
+//    Account account = new Account(1, "thang_quoc", "aaa", "a@gmail.com", true, new Role(2, "CUSTOMER"), null);
 
     @GetMapping("/")
     public String showParkingLotPage(Model model) {
+        Account account = getAccount();
         int role;
         if (account == null) {
             role = 0;
@@ -41,6 +46,7 @@ public class ParkingLotController {
     }
     @GetMapping("/parking/create/{name}")
     public String showFormCreateParking(@PathVariable String name, Model model) {
+        Account account = getAccount();
         if (account.getRole().getId() == 2) {
             ParkingLot parkingLot = parkingLotService.findByName(name);
             model.addAttribute("parking", parkingLot);
@@ -64,7 +70,17 @@ public class ParkingLotController {
                                     @RequestParam String linkimg,
                                     @RequestParam String licensePlate,
                                     @RequestParam Integer pack) {
+        Account account = getAccount();
         parkingLotService.createNewRequest(account, parkingId, linkimg, licensePlate, pack);
         return "redirect:/";
+    }
+    private Account getAccount(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            Account account = accountService.findAccountByUserName(currentUserName);
+            return account;
+        }
+        return null;
     }
 }
