@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -20,6 +22,7 @@ public class Car {
     private Integer id;
     @Column(unique = true)
     private String licensePlate;
+    private LocalDateTime editTime;
 
     @OneToMany(mappedBy = "car")
     private List<CarImage> carImageList;

@@ -13,12 +13,14 @@ import com.parkingcar.repository.parkinglot.ICustomerUseCreate;
 import com.parkingcar.repository.parkinglot.IParkingLotRepository;
 import com.parkingcar.repository.parkinglot.IParkingLotStatusRepository;
 import com.parkingcar.repository.parkinglot.*;
+import com.parkingcar.service.account.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -75,7 +77,8 @@ public class ParkingLotService implements IParkingLotService{
                     + customer.getName() + "','" + customer.getDOB() + "','"
                     + customer.getAddress() + "','" + customer.getGender() + "','"
                     + customer.getImages() + "','" + customer.getPhoneNumber() + "','"
-                    + customer.getRoomRented() + "'," + parkingLot.getId() + "),";
+                    + customer.getRoomRented() + "'," + parkingLot.getId() + ", new Date('"
+                    + car.getEditTime() + "')),";
         }
         result += "]";
         return result;
@@ -351,6 +354,7 @@ public class ParkingLotService implements IParkingLotService{
         if (parkingLot != null){
             Car car = parkingLot.getBill().getCar();
             car.setLicensePlate(newPlate);
+            car.setEditTime(LocalDateTime.now());
             carRepository.save(car);
 
             if (!linkNewImg.equals("")){

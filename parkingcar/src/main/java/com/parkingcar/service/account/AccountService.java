@@ -704,7 +704,8 @@ public class AccountService implements IAccountService {
     public boolean verify(String code) {
         Account account = iAccountRepository.findByVerificationCode(code);
         Calendar cal = Calendar.getInstance();
-        if (account == null ) {
+
+        if (account == null) {
             return false;
         } else {
             account.setVerificationCode(null);
