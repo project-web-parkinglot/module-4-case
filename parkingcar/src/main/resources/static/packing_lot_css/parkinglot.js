@@ -423,8 +423,7 @@ function showInfo(id, ind){
                     </tr>
                 </table>
                 <div id="customer-id">
-<!--                    <img class="boxshadow-outset filler" src="${detail.avata}">-->
-                    <div id="avata" class="boxshadow-outset filler" style="background-image: url('https://drive.google.com/uc?id=1IVVkpJfHkcY8HLgzopA5hmRnd_71mLFc')"></div>
+                    <div id="avata" class="boxshadow-outset filler" style="background-image: url('${detail.avata}')"></div>
                     <div></div>
                     <table id="customer-info" class="color2 filler boxshadow-outset">
                         <tr>
