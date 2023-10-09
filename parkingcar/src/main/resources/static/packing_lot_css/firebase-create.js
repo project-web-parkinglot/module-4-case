@@ -15,8 +15,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const inps = document.querySelector(".inps");
+let filter = document.getElementById("waiting");
 
 async function handleUpload() {
+    filter.style.display = "flex";
     let links = "";
     for (let i = 0; i < inps.files.length; i++) {
         let file = inps.files[i];
@@ -40,6 +42,7 @@ async function uploadImage(file) {
 
 function displayDownloadDetailLink(url){
     document.getElementById("carimage").value = url;
+    filter.style.display = "none";
 }
 function insertPicture(url){
     let data =  `<div class="filler boxshadow-outset" style="background-image: url('${url}')"></div>`

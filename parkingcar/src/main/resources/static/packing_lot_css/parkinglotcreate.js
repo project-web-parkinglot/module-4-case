@@ -88,6 +88,7 @@ function changeColorParking(){
 }
 
 function transferDataConfirm(action){
+    clearInterval(countdownInterval);
     let content = document.getElementById("content-alert");
     let table = document.getElementById("alert-content");
     switch (action){
@@ -131,6 +132,9 @@ function confirmTable(action, id){
             } else {
                 window.location.href = "/customer/detail";
             }
+            return;
+        case 'logout':
+            window.location.href = "/logout";
             return;
     }
 }
