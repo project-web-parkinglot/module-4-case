@@ -56,20 +56,20 @@ public class AccountController {
         accountDto.setPassWord(password);
         new AccountDto().validate(accountDto, bindingResult);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("fail", "Wrong input, please check again");
-            model.addAttribute("accountDto", accountDto);
-            return "/account/login";
+            redirectAttributes.addFlashAttribute("success", 1);
+            redirectAttributes.addFlashAttribute("accountDto", accountDto);
+            return "redirect:/login/";
         }
         if (iAccountService.findAccountByEmail(accountDto.getEmail()) != null) {
-            model.addAttribute("fail", "This email already exists!");
-            return "/account/login";
+            redirectAttributes.addFlashAttribute("success", 2);
+            return "redirect:/login/";
         } else if (iAccountService.findAccountByUserName(accountDto.getUsername()) != null) {
-            model.addAttribute("fail", "This username has been used, please take another one!");
-            return "/account/login";
+            redirectAttributes.addFlashAttribute("success", 3);
+            return "redirect:/login/";
         }
         if (bindingResult.hasErrors()) {
-            model.addAttribute("fail", "Wrong input, please check again");
-            model.addAttribute("accountDto", accountDto);
+            redirectAttributes.addFlashAttribute("success", 4);
+            redirectAttributes.addFlashAttribute("accountDto", accountDto);
         }
         Account account = new Account();
         BeanUtils.copyProperties(accountDto, account);
@@ -84,7 +84,7 @@ public class AccountController {
         customerService.saveCustomer(customer);
         String siteURL = getSiteURL(request);
         iAccountService.sendVerificationEmail(account, siteURL);
-        redirectAttributes.addFlashAttribute("success", "please check your email to confirm your account! ");
+        redirectAttributes.addFlashAttribute("success", 5);
         return "redirect:/login/";
     }
 
@@ -124,7 +124,7 @@ public class AccountController {
                                HttpServletRequest request, RedirectAttributes redirectAttributes,
                                Model model) throws UnsupportedEncodingException, MessagingException {
         if (iAccountService.findAccountByEmail(accountDto.getEmail()) == null) {
-            model.addAttribute("fail", "This email don't exists or invalid email format!");
+            model.addAttribute("success", "This email don't exists or invalid email format!");
             System.out.println(accountDto.getEmail());
             return "/account/changePassword";
         }
@@ -132,17 +132,17 @@ public class AccountController {
         iAccountService.reset(account);
         String siteURL = getSiteURL(request);
         iAccountService.sendVerificationReset(account, siteURL);
-        redirectAttributes.addFlashAttribute("successPassword", "Please check your email to change your account's password.");
+        redirectAttributes.addFlashAttribute("success", "Please check your email to change your account's password.");
         return "redirect:/login/";
     }
 
     @GetMapping("/verify")
     public String verifyUser(@RequestParam("code") String code, RedirectAttributes redirectAttributes) {
         if (iAccountService.verify(code)) {
-            redirectAttributes.addFlashAttribute("createSuccessfully", "Congratulations, your account has been verified.");
+            redirectAttributes.addFlashAttribute("success", 7);
             return "redirect:/login/";
         } else {
-            redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It might be verified, or verification code is incorrect.");
+            redirectAttributes.addFlashAttribute("success", 8);
             return "redirect:/login/";
         }
     }
@@ -160,7 +160,7 @@ public class AccountController {
             model.addAttribute("account", account);
             return "/account/resetPassword";
         } else {
-            redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It might be already verified, or verification code is incorrect.");
+            redirectAttributes.addFlashAttribute("success", "Sorry, we could not verify account. It might be already verified, or verification code is incorrect.");
             return "redirect:/login/";
         }
     }
@@ -169,7 +169,7 @@ public class AccountController {
     public String changePassword(@ModelAttribute Account accountUser, @RequestParam("new_pw") String new_pw,
                                  RedirectAttributes redirectAttributes) {
         iAccountService.resetPW(accountUser, new_pw);
-        redirectAttributes.addFlashAttribute("successPasswordChange", "Password change successful.");
+        redirectAttributes.addFlashAttribute("success", 9);
         return "redirect:/login/";
     }
 

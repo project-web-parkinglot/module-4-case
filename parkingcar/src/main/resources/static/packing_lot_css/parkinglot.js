@@ -270,6 +270,7 @@ function buttonOption(action, id){
             transferDataConfirm(action, id);
             break;
         case "login":
+            window.location.href = "/login"
             break;
         case "rental":
             transferDataConfirm(action, id);
@@ -331,7 +332,7 @@ function showEditTable(id){
     let myDate = new Date();
     myDate.setDate(myDate.getDate() - 1)
     let dif = (detail.editTime - myDate) / 1000;
-    if (dif < 0){
+    if (dif < 0 || isNaN(dif)){
         document.getElementById("edit-table").style.display = "grid";
         sizeImgDetail = detail.carImg.length;
         document.getElementById("parking-lot-name").innerHTML = `ParkingLot : <span class="target-text">${id}</span>`;
@@ -422,8 +423,7 @@ function showInfo(id, ind){
                     </tr>
                 </table>
                 <div id="customer-id">
-<!--                    <img class="boxshadow-outset filler" src="${detail.avata}">-->
-                    <div id="avata" class="boxshadow-outset filler" style="background-image: url('https://drive.google.com/uc?id=1IVVkpJfHkcY8HLgzopA5hmRnd_71mLFc')"></div>
+                    <div id="avata" class="boxshadow-outset filler" style="background-image: url('${detail.avata}')"></div>
                     <div></div>
                     <table id="customer-info" class="color2 filler boxshadow-outset">
                         <tr>
