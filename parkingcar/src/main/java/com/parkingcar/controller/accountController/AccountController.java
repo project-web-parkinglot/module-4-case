@@ -139,11 +139,12 @@ public class AccountController {
     @GetMapping("/verify")
     public String verifyUser(@RequestParam("code") String code, RedirectAttributes redirectAttributes) {
         if (iAccountService.verify(code)) {
-            redirectAttributes.addFlashAttribute("success", "Congratulations, your account has been verified.");
+            redirectAttributes.addFlashAttribute("createSuccessfully", "Congratulations, your account has been verified.");
+            return "redirect:/login/";
         } else {
             redirectAttributes.addFlashAttribute("fail", "Sorry, we could not verify account. It might be verified, or verification code is incorrect.");
+            return "redirect:/login/";
         }
-        return "redirect:/login/";
     }
 
     @GetMapping("/verify_reset")
@@ -163,9 +164,10 @@ public class AccountController {
             return "redirect:/login/";
         }
     }
+
     @PostMapping("/verify_reset_password")
     public String changePassword(@ModelAttribute Account accountUser, @RequestParam("new_pw") String new_pw,
-                         RedirectAttributes redirectAttributes) {
+                                 RedirectAttributes redirectAttributes) {
         iAccountService.resetPW(accountUser, new_pw);
         redirectAttributes.addFlashAttribute("successPasswordChange", "Password change successful.");
         return "redirect:/login/";
@@ -174,5 +176,10 @@ public class AccountController {
     @GetMapping("/404")
     public String change404(Model model) {
         return "/account/404";
+    }
+
+    @GetMapping("/logoutSuccessful")
+    public String logoutPage() {
+        return "redirect:/";
     }
 }

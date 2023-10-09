@@ -402,21 +402,6 @@
             </div>
         </div>
     </div>
-    <script th:if="${success != null}">
-        window.addEventListener('load', function () {
-            alert("Please check your email to verify your account!");
-        });
-    </script>
-    <script th:if="${successPassword != null}">
-        window.addEventListener('load', function () {
-            alert("Please check your email to change your account's password!");
-        });
-    </script>
-    <script th:if="${successPasswordChange != null}">
-        window.addEventListener('load', function () {
-            alert("Change password successfully!");
-        });
-    </script>
 </div>
 
 <footer>
