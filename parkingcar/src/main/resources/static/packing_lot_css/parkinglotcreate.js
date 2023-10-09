@@ -1,6 +1,7 @@
 let availableParkingB1 = [];
 let availableParkingB2 = [];
 let countdownInterval;
+
 class parkingLot{
     constructor(x1,y1,x2,y2,x3,y3,x4,y4,alt,id) {
         this.x1 = x1;
@@ -14,6 +15,10 @@ class parkingLot{
         this.alt = alt;
         this.id = id;
     }
+}
+let role = document.getElementById("roleTrans").value;
+if (role == ""){
+    role = 0;
 }
 function convertData(){
     let dataAvailableB1 = document.getElementById("arrayAvailableB1").value;
@@ -99,6 +104,10 @@ function transferDataConfirm(action){
             document.getElementById("hidden-button").innerHTML =
                 `<div id="button" onclick="confirmTable('submit')"></div>`;
             break;
+        case "logout":
+            content.innerHTML = `Are you sure about <span class="target-text">LOGOUT</span>`;
+            document.getElementById("hidden-button").innerHTML = `<div id="button" onclick="confirmTable('logout',0)"></div>`;
+            break;
     }
     table.style.display = "grid";
     cancelCountDown();
@@ -107,7 +116,7 @@ function clickHiddenButton(){
     document.getElementById("button").click();
     closeTable();
 }
-function confirmTable(action){
+function confirmTable(action, id){
     clearInterval(countdownInterval);
     switch (action){
         case "back":
@@ -116,6 +125,13 @@ function confirmTable(action){
         case "submit":
             document.getElementById("submit-hidden").click();
             break;
+        case 'profile':
+            if (role == 1){
+                window.location.href = "/admin";
+            } else {
+                window.location.href = "/customer/detail";
+            }
+            return;
     }
 }
 function cancelCountDown(){
@@ -165,6 +181,7 @@ function check(){
 function closeAlertTable(){
     document.getElementById("alert-table").style.display = "none";
 }
+
 convertData();
 setupMap(1);
 changeColorParking();
