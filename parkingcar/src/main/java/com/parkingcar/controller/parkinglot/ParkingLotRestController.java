@@ -3,12 +3,14 @@ package com.parkingcar.controller.parkinglot;
 import com.parkingcar.model.account.Account;
 import com.parkingcar.model.account.Role;
 import com.parkingcar.model.pakingLot.DataEditCar;
+import com.parkingcar.service.account.IAccountService;
 import com.parkingcar.service.parkinglot.IParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +19,14 @@ import java.util.List;
 public class ParkingLotRestController {
     @Autowired
     private IParkingLotService parkingLotService;
+    @Autowired
+            private IAccountService accountService;
 
-    Account account = new Account(1, "thang_quoc", "aaa", "a@gmail.com", true, new Role(2, "CUSTOMER"), null);
+//    Account account = new Account(1, "thang_quoc", "aaa", "a@gmail.com", true, new Role(2, "CUSTOMER"), null);
     @GetMapping("/map")
-    public ResponseEntity<List<String>> showParkingMap() {
+    public ResponseEntity<List<String>> showParkingMap(Principal principal) {
+        String name = principal.getName();
+        Account account = accountService.findAccountByUserName(name);
         int role;
         if (account == null) {
             role = 0;
@@ -71,7 +77,9 @@ public class ParkingLotRestController {
         return new ResponseEntity<>(reponseEntity, HttpStatus.OK);
     }
     @GetMapping("/lock/{name}")
-    public ResponseEntity<?> lockParking(@PathVariable String name){
+    public ResponseEntity<?> lockParking(@PathVariable String name, Principal principal){
+        String accountName = principal.getName();
+        Account account = accountService.findAccountByUserName(accountName);
         if (account.getRole().getId() == 1) {
             try {
                 parkingLotService.lockParking(name);
@@ -83,7 +91,9 @@ public class ParkingLotRestController {
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
     @GetMapping("/unlock/{name}")
-    public ResponseEntity<?> unlockParking(@PathVariable String name) {
+    public ResponseEntity<?> unlockParking(@PathVariable String name, Principal principal) {
+        String accountName = principal.getName();
+        Account account = accountService.findAccountByUserName(accountName);
         if (account.getRole().getId() == 1) {
             try {
                 parkingLotService.unlockParking(name);

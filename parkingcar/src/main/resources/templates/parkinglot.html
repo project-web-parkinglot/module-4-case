@@ -21,8 +21,7 @@
     <div id="header" class="border filler color1 boxshadow-inset">
         <a href="/" id="logo"></a>
         <div></div>
-        <div th:if="${account == null}" class="border hover filler color2 boxshadow-outset"
-             onclick="confirmTable('signup',0)">Signup</div>
+        <div th:if="${account == null}"></div>
         <div th:if="${account == null}" class="border hover filler color2 boxshadow-outset"
              onclick="confirmTable('login',0)">Login</div>
         <div th:if="${account.id != null}" class="border hover filler color2 boxshadow-outset"
@@ -37,11 +36,10 @@
         </div>
     </div>
     <div id="alert-table" class="border filler boxshadow-outset">
-        <p>Please <span class="target-text">FILL IN</span> the complete
-            <span class="target-text">LICENSE PLATE NUMBER</span><br>
-            Provide at least <span class="target-text">1 PHOTO</span></p>
+        <p id="alert-table-content"></p>
         <div class="color2 boxshadow-inset filler hover border" onclick="closeAlertTable()">OK</div>
     </div>
+
 </div>
 
 <div id="edit-table" class="border filler boxshadow-outset">
