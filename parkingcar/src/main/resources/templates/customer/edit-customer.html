@@ -13,12 +13,7 @@
 <body>
 <div class="container-fluid">
     <div>
-        <div class="col-md-12">
-            <div id="header" class="border filler color1 boxshadow-inset">
-                <div class="border hover filler color2 boxshadow-outset">Signup</div>
-                <div class="border hover filler color2 boxshadow-outset">Login</div>
-            </div>
-        </div>
+        <div th:replace="parkinglot :: header"></div>
     </div>
     <form th:action="@{/customer/updatecustomer}" th:object="${customerDTO}" method="post">
         <div class="container">
@@ -56,7 +51,7 @@
                                     <label>Tên:</label>
                                 </th>
                                 <td>
-                                    <input type="text" th:field="*{name}">
+                                    <input type="text" th:field="*{name}"><br>
                                     <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
                                 </td>
 
@@ -74,8 +69,8 @@
                                 <th>
                                     <label>Ngày sinh: </label></th>
                                 <td>
-                                    <input type="date" th:field="*{DOB}">
-                                    <small th:if="${#fields.hasErrors('DOB')}" th:errors="*{DOB}"></small>
+                                    <input type="date" th:field="*{DOB}"> <br>
+                                    <small  th:if="${#fields.hasErrors('DOB')}" th:errors="*{DOB}"></small>
                                 </td>
 
                             </tr>
@@ -83,7 +78,7 @@
                                 <th>
                                     <label>Số điện thoại :</label></th>
                                 <td>
-                                    <input type="text" th:field="*{phoneNumber}">
+                                    <input type="text" th:field="*{phoneNumber}"> <br>
                                     <small th:if="${#fields.hasErrors('phoneNumber')}"
                                            th:errors="*{phoneNumber}"></small>
                                 </td>
@@ -93,7 +88,7 @@
                                 <th>
                                     <label>Quê quán :</label></th>
                                 <td>
-                                    <input type="text" th:field="*{address}">
+                                    <input type="text" th:field="*{address}"> <br>
                                     <small th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></small>
                                 </td>
 
@@ -120,7 +115,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận xoá</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Edit</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -128,7 +123,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                        <button type="submit" class="btn btn-primary">Edit </button>
                                     </div>
                                 </div>
                             </div>
