@@ -325,7 +325,7 @@
 
 
         <form action="/login/" method="post" th:object="${accountDto}">
-
+            <input type="hidden" id="statusPage" th:value="${statusPage}">
             <h1>Create Account</h1>
             <span>or use your email for registration</span>
             <!-- Username input -->
@@ -403,7 +403,100 @@
         </div>
     </div>
 </div>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    window.onload = function () {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success'
+            },
+            buttonsStyling: false
+        })
+        if (document.getElementById("success").value === "1") {
+            swalWithBootstrapButtons.fire(
+                'Wrong input, please check again!',
+                '',
+                'Error'
+            )
+        } else if (document.getElementById("success").value === "2") {
+            swalWithBootstrapButtons.fire(
+                'This email already exists!',
+                '',
+                'Error'
+            )
+        } else if (document.getElementById("success").value === "3") {
+            swalWithBootstrapButtons.fire(
+                'This username has been used, please take another one!',
+                '',
+                'Error'
+            )
+        } else if (document.getElementById("success").value === "4") {
+            swalWithBootstrapButtons.fire(
+                'Wrong input, please check again!',
+                '',
+                'Error'
+            )
+        }else if (document.getElementById("success").value === "5") {
+            swalWithBootstrapButtons.fire(
+                'please check your email to confirm your account!',
+                '',
+                'Success'
+            )
+        }else if (document.getElementById("success").value === "6") {
+            swalWithBootstrapButtons.fire(
+                'Please check your email to change your accounts password!',
+                '',
+                'Success'
+            )
+        }else if (document.getElementById("success").value === "7") {
+            swalWithBootstrapButtons.fire(
+                'Congratulations, your account has been verified!',
+                '',
+                'Success'
+            )
+        }else if (document.getElementById("success").value === "8") {
+            swalWithBootstrapButtons.fire(
+                'Sorry, we could not verify account. It might be verified, or verification code is incorrect!',
+                '',
+                'Success'
+            )
+        }else if (document.getElementById("success").value === "9") {
+            swalWithBootstrapButtons.fire(
+                'Password change successful!',
+                '',
+                'Success'
+            )
+        }else if (document.getElementById("success").value === "10") {
+            swalWithBootstrapButtons.fire(
+                'Sorry, we could not verify account. It might be already verified, or verification code is incorrect.',
+                '',
+                'Success'
+            )
+        }
+    }
+    function deleteCommodity(id, name) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success m-3',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+        swalWithBootstrapButtons.fire({
+            title: `Are you sure you want to delete Commodity: ${name}?`,
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `/commodity/delete?id=${id}`;
+            }
+        })
+    }
+</script>
 <footer>
     <p>
         Created with <i class="fa fa-heart"></i> by C0523G1-Team 4
