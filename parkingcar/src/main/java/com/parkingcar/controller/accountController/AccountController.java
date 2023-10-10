@@ -102,7 +102,6 @@ public class AccountController {
         model.addAttribute("accountDto", new AccountDto());
         return "/account/changePassword";
     }
-
     @PostMapping("/confirm_email")
     public String confirmEmail(@Validated AccountDto accountDto, @RequestParam("email") String email,
                                HttpServletRequest request, RedirectAttributes redirectAttributes,
@@ -119,7 +118,6 @@ public class AccountController {
         redirectAttributes.addFlashAttribute("success", "Please check your email to change your account's password.");
         return "redirect:/login/";
     }
-
     @GetMapping("/verify")
     public String verifyUser(@RequestParam("code") String code, RedirectAttributes redirectAttributes) {
         if (iAccountService.verify(code)) {
