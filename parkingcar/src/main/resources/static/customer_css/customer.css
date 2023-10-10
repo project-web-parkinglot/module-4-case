@@ -3,12 +3,14 @@
     background-color:white ;
     margin-top: 10px;
     margin-bottom: 10px;
-    box-shadow: 10px 10px 20px #51504B
+    box-shadow: 10px 10px 20px #51504B;
+    width: 100%;
+
 }
 #info{
-    padding-left: 485px;
+    padding-left: 42%;
     display: flex;
-    margin-top: 4px;
+    margin-top: 9px;
 
 }
 body{
@@ -45,4 +47,10 @@ td{
 #btn{
     margin-left: 70%;
     width: 30%;
+}
+.row{
+    width: 100%;
+}
+small{
+    color: red;
 }

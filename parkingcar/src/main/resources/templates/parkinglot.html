@@ -9,7 +9,7 @@
 </head>
 <body class="color2">
 <div th:fragment="header">
-    <div id="waiting">Please wait a moment for us to upload the picture...</div>
+    <div id="waiting">Please wait a moment for us to upload the picture...<span style="color: white" id="number-picture"></span></div>
     <div id="alert-content" class="border filler boxshadow-outset">
         <p id="content-alert"></p>
         <div id="cancel-button" class="boxshadow-inset filler hover border"
@@ -34,6 +34,7 @@
         <div>
             <img src="/packing_lot_css/img/carSlogan.png"/>
             <p>hire <span class="target-text">ONCE</span>, park <span class="target-text">ANYWHERE</span>...!!!</p>
+            <img src="/packing_lot_css/img/carSlogan.png"/>
         </div>
     </div>
     <div id="alert-table" class="border filler boxshadow-outset">
@@ -60,6 +61,7 @@
     <input id="parking-id-edit" type="hidden">
     <input id="linkNewImg" type="hidden">
     <input id="linkDelImg" type="hidden">
+    <input id="currentPicSize" type="number" hidden="hidden">
 </div>
 
 <div id="control-cover">

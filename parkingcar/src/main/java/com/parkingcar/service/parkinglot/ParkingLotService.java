@@ -313,6 +313,7 @@ public class ParkingLotService implements IParkingLotService{
         car.setCustomer(customer);
         Car newCar = carRepository.save(car);
 
+        linkimg = linkimg.trim();
         String[] imgList = linkimg.split(" ");
         for (String link : imgList){
             CarImage carImage = new CarImage();
@@ -358,6 +359,7 @@ public class ParkingLotService implements IParkingLotService{
             carRepository.save(car);
 
             if (!linkNewImg.equals("")){
+                linkNewImg = linkDelImg.trim();
                 String[] newImg = linkNewImg.split(" ");
                 for (String link : newImg){
                     CarImage carImage = new CarImage();
