@@ -18,11 +18,24 @@ const inps = document.querySelector(".inps");
 let filter = document.getElementById("waiting");
 let numberPicture;
 let pictureComplete;
+let maxpic = 5;
+let currentPic = 0;
 
 async function handleUpload() {
+    numberPicture = inps.files.length;
+    let dataDel = document.getElementById("linkDelImg").value;
+    let sizeDel = dataDel.length - dataDel.replaceAll(" ","").length;
+    let picBefore = +document.getElementById("currentPicSize").value;
+
+    if (numberPicture + currentPic > (maxpic - picBefore + sizeDel)){
+        document.getElementById("alert-table-content").innerHTML =
+            `Must be <span class="target-text">AS MAX 5 IMAGES</span><br>`;
+        document.getElementById("alert-table").style.display = "grid";
+        return;
+    }
+
     filter.style.display = "flex";
     let links = "";
-    numberPicture = inps.files.length;
     pictureComplete = 0;
     document.getElementById("number-picture").innerHTML = pictureComplete + "/" + numberPicture;
 
@@ -37,7 +50,7 @@ async function handleUpload() {
             console.error("No file selected.");
         }
     }
-    displayDownloadDetailLink(links.trim());
+    displayDownloadDetailLink(links);
 }
 
 async function uploadImage(file) {
@@ -47,7 +60,7 @@ async function uploadImage(file) {
 }
 
 function displayDownloadDetailLink(url){
-    document.getElementById("linkNewImg").value = url;
+    document.getElementById("linkNewImg").value += url;
     filter.style.display = "none";
 }
 function insertPicture(url){
@@ -58,6 +71,7 @@ function insertPicture(url){
 
     pictureComplete++;
     document.getElementById("number-picture").innerHTML = pictureComplete + "/" + numberPicture;
+    currentPic++;
 }
 
 window.handleUpload = handleUpload;
