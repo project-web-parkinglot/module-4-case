@@ -19,12 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
-import java.security.Principal;
-import java.security.PublicKey;
 
 @Controller
 
@@ -102,7 +98,6 @@ public class AccountController {
         model.addAttribute("accountDto", new AccountDto());
         return "/account/changePassword";
     }
-
     @PostMapping("/confirm_email")
     public String confirmEmail(@Validated AccountDto accountDto, @RequestParam("email") String email,
                                HttpServletRequest request, RedirectAttributes redirectAttributes,
@@ -119,7 +114,6 @@ public class AccountController {
         redirectAttributes.addFlashAttribute("success", "Please check your email to change your account's password.");
         return "redirect:/login/";
     }
-
     @GetMapping("/verify")
     public String verifyUser(@RequestParam("code") String code, RedirectAttributes redirectAttributes) {
         if (iAccountService.verify(code)) {
@@ -159,7 +153,7 @@ public class AccountController {
 
     @GetMapping("/404")
     public String change404(Model model) {
-        return "/account/404";
+        return "errors";
     }
 
     @GetMapping("/logoutSuccessful")

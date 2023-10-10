@@ -337,6 +337,7 @@ function showEditTable(id){
         sizeImgDetail = detail.carImg.length;
         document.getElementById("parking-lot-name").innerHTML = `ParkingLot : <span class="target-text">${id}</span>`;
         document.getElementById("plate-edit").value = detail.licensePlate;
+        document.getElementById("currentPicSize").value = sizeImgDetail;
 
         let dataImg = `<div id="add-icon" class="div-main filler hover-border boxshadow-outset"
                     style="background-image: ; background-position: center" onclick="addImg()"></div>`
@@ -370,9 +371,13 @@ function addImg(){
 }
 function chooseDeleteImg(ele,link){
     let background = window.getComputedStyle(ele).getPropertyValue('background-image');
+
     let dataDel = document.getElementById("linkDelImg").value;
-    let sizeNew = document.getElementById("add-img-edit").files.length;
-    let sizeDel = dataDel.length - dataDel.replace(" ","").length;
+    let sizeDel = dataDel.length - dataDel.replaceAll(" ","").length;
+    let dataNew = document.getElementById("linkNewImg").value;
+    let sizeNew = dataNew.length - dataNew.replaceAll(" ","").length;
+    let picBefore = +document.getElementById("currentPicSize").value;
+    let maxpic = 5;
 
     if (background.includes(`non-delete-picture`)) {
         if ((sizeNew == 0 && sizeDel != sizeImgDetail - 1) || (sizeNew != 0)){
@@ -385,10 +390,14 @@ function chooseDeleteImg(ele,link){
             document.getElementById("alert-table-content").innerHTML = dataAlert;
         }
     } else {
-        ele.style.backgroundImage = `url("/packing_lot_css/icon/non-delete-picture.png")`;
-        document.getElementById("linkDelImg").value = dataDel.replace(link + " ","");
-        document.getElementById("alert-table-content").innerHTML =
-            `Must be <span class="target-text">AS LEAST 1 IMAGE</span><br>`;
+        if (sizeNew + picBefore - sizeDel >= maxpic){
+            document.getElementById("alert-table-content").innerHTML =
+                `Must be <span class="target-text">AS MAX 5 IMAGES</span><br>`;
+            document.getElementById("alert-table").style.display = "grid";
+        } else {
+            ele.style.backgroundImage = `url("/packing_lot_css/icon/non-delete-picture.png")`;
+            document.getElementById("linkDelImg").value = dataDel.replaceAll(link + " ","");
+        }
     }
 }
 function closeEditTable(){

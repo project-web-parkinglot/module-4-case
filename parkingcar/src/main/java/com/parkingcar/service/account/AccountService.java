@@ -337,13 +337,6 @@ public class AccountService implements IAccountService {
                 "                    <tr>\n" +
                 "                        <td align=\"center\" height=\"15\" style=\"border-top:1px solid #dedede\" valign=\"top\">&nbsp;</td>\n" +
                 "                    </tr>\n" +
-                "                    <tr>\n" +
-                "                        <td align=\"center\" valign=\"top\"><a href=\"http://localhost:8080/login/\" title=\"\" target=\"_blank\">\n" +
-                "                            <img alt=\"C0523G1\" border=\"0\" height=\"36\"\n" +
-                "                                src=\"/packing_lot_css/cover/cover2.png\"\n" +
-                "                                width=\"80\" class=\"CToWUd\" data-bit=\"iit\"></a></td>\n" +
-                "                    </tr>\n" +
-                "                    <tr>\n" +
                 "                        <td align=\"center\" height=\"40\" valign=\"top\">&nbsp;</td>\n" +
                 "                    </tr>\n" +
                 "                    </tbody>\n" +
@@ -397,21 +390,6 @@ public class AccountService implements IAccountService {
                 "                <div style=\"display:none;width:0px;height:0px;max-width:0px;max-height:0px;font-size:0px;line-height:0px\">\n" +
                 "                    Agoda Login – Password reset instructions\n" +
                 "                </div>\n" +
-                "            </td>\n" +
-                "        </tr>\n" +
-                "        <tr>\n" +
-                "            <td align=\"center\">\n" +
-                "                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:600px\">\n" +
-                "                    <tbody>\n" +
-                "                    <tr>\n" +
-                "                        <td align=\"center\" style=\"padding:20px 15px 20px 15px\"><a href=\"http://localhost:8080/\"\n" +
-                "                                                                                  title=\"C0523G1-Team4\" target=\"_blank\"><img\n" +
-                "                                alt=\"C0523G1-Team4\" border=\"0\" height=\"36\"\n" +
-                "                                src=\"/packing_lot_css/cover/cover2.png\"\n" +
-                "                                width=\"80\" class=\"CToWUd\" data-bit=\"iit\"></a></td>\n" +
-                "                    </tr>\n" +
-                "                    </tbody>\n" +
-                "                </table>\n" +
                 "            </td>\n" +
                 "        </tr>\n" +
                 "        </tbody>\n" +
@@ -672,12 +650,6 @@ public class AccountService implements IAccountService {
                 "                    </tr>\n" +
                 "                    <tr>\n" +
                 "                        <td align=\"center\" height=\"15\" style=\"border-top:1px solid #dedede\" valign=\"top\">&nbsp;</td>\n" +
-                "                    </tr>\n" +
-                "                    <tr>\n" +
-                "                        <td align=\"center\" valign=\"top\"><a href=\"http://localhost:8080/login/\" title=\"\" target=\"_blank\">\n" +
-                "                            <img alt=\"C0523G1\" border=\"0\" height=\"36\"\n" +
-                "                                src=\"/packing_lot_css/cover/cover2.png\"\n" +
-                "                                width=\"80\" class=\"CToWUd\" data-bit=\"iit\"></a></td>\n" +
                 "                    </tr>\n" +
                 "                    <tr>\n" +
                 "                        <td align=\"center\" height=\"40\" valign=\"top\">&nbsp;</td>\n" +

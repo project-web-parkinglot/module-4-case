@@ -177,6 +177,8 @@ function check(){
     let plate = document.getElementById("plate").value;
 
     if (linkImg == "" || id == "" || plate == ""){
+        document.getElementById("alert-table-content").innerHTML =
+            `Must be <span class="target-text">AS LEAST 1 IMAGE</span><br>`;
         document.getElementById("alert-table").style.display = "grid";
     } else {
         transferDataConfirm('submit');

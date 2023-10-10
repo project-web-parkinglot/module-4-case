@@ -16,10 +16,25 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const inps = document.querySelector(".inps");
 let filter = document.getElementById("waiting");
+let numberPicture;
+let pictureComplete;
+let maxpic = 5;
+let currentPic = 0;
 
 async function handleUpload() {
+    numberPicture = inps.files.length;
+    if (numberPicture + currentPic > maxpic){
+        document.getElementById("alert-table-content").innerHTML =
+            `Must be <span class="target-text">AS MAX 5 IMAGES</span><br>`;
+        document.getElementById("alert-table").style.display = "grid";
+        return;
+    }
+
     filter.style.display = "flex";
     let links = "";
+    pictureComplete = 0;
+    document.getElementById("number-picture").innerHTML = pictureComplete + "/" + numberPicture;
+
     for (let i = 0; i < inps.files.length; i++) {
         let file = inps.files[i];
         if (file) {
@@ -31,7 +46,7 @@ async function handleUpload() {
             console.error("No file selected.");
         }
     }
-    displayDownloadDetailLink(links.trim());
+    displayDownloadDetailLink(links);
 }
 
 async function uploadImage(file) {
@@ -41,12 +56,16 @@ async function uploadImage(file) {
 }
 
 function displayDownloadDetailLink(url){
-    document.getElementById("carimage").value = url;
+    document.getElementById("carimage").value += url;
     filter.style.display = "none";
 }
 function insertPicture(url){
+    currentPic++;
     let data =  `<div class="filler boxshadow-outset" style="background-image: url('${url}')"></div>`
     document.getElementById("array-picture").innerHTML += data;
+
+    pictureComplete++;
+    document.getElementById("number-picture").innerHTML = pictureComplete + "/" + numberPicture;
 }
 
 window.handleUpload = handleUpload;

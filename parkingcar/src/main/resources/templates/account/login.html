@@ -382,7 +382,6 @@
                 <button type="submit" id="signIn" class="btn btn-primary btn-block mb-4">
                     Sign in
                 </button>
-
             </div>
         </form>
     </div>
@@ -414,25 +413,25 @@
             swalWithBootstrapButtons.fire(
                 'Wrong input, please check again!',
                 '',
-                'success'
+                'fail'
             )
         } else if (document.getElementById("statusPage").value === "2") {
             swalWithBootstrapButtons.fire(
                 'This email already exists!',
                 '',
-                'success'
+                'fail'
             )
         } else if (document.getElementById("statusPage").value === "3") {
             swalWithBootstrapButtons.fire(
                 'This username has been used, please take another one!',
                 '',
-                'success'
+                'fail'
             )
         } else if (document.getElementById("statusPage").value === "4") {
             swalWithBootstrapButtons.fire(
                 'Wrong input, please check again!',
                 '',
-                'success'
+                'fail'
             )
         }else if (document.getElementById("statusPage").value === "5") {
             swalWithBootstrapButtons.fire(
@@ -456,7 +455,7 @@
             swalWithBootstrapButtons.fire(
                 'Sorry, we could not verify account. It might be verified, or verification code is incorrect!',
                 '',
-                'success'
+                'fail'
             )
         }else if (document.getElementById("statusPage").value === "9") {
             swalWithBootstrapButtons.fire(
@@ -468,13 +467,13 @@
             swalWithBootstrapButtons.fire(
                 'Sorry, we could not verify account. It might be already verified, or verification code is incorrect.',
                 '',
-                'success'
+                'fail'
             )
         }else if (document.getElementById("statusPage").value === "11") {
             swalWithBootstrapButtons.fire(
                 'Username or password is incorrect',
                 '',
-                'success'
+                'fail'
             )
         }
     }
