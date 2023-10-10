@@ -390,16 +390,11 @@ function chooseDeleteImg(ele,link){
             document.getElementById("alert-table-content").innerHTML = dataAlert;
         }
     } else {
-        alert("new " + sizeNew)
-        alert("bef " + picBefore)
-        alert("del" + sizeDel)
         if (sizeNew + picBefore - sizeDel >= maxpic){
-            alert("1")
             document.getElementById("alert-table-content").innerHTML =
                 `Must be <span class="target-text">AS MAX 5 IMAGES</span><br>`;
             document.getElementById("alert-table").style.display = "grid";
         } else {
-            alert("2")
             ele.style.backgroundImage = `url("/packing_lot_css/icon/non-delete-picture.png")`;
             document.getElementById("linkDelImg").value = dataDel.replaceAll(link + " ","");
         }
