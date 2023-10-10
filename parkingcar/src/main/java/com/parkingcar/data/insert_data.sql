@@ -16,11 +16,11 @@ INSERT INTO `case_study_module_4`.`role` (`name`)
 VALUES ('ROLE_ADMIN'),('ROLE_CUSTOMER');
 
 Insert into `account`(email, `password`, `status`,`username`,verification_code,role_id)
-values("long1110dn@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"dinhlong1110",null,"2"),
-("tsaivan569@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"nhavan1110",null,"2"),
-("smallhouse3110@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"hongduyen1110",null,"2"),
-("xuanthanh1107@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"xuanthanh1110",null,"2"),
-("lequocthang307@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"thang307",null,"2"),
+values("longdn@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"dinhlong1110",null,"2"),
+("van569@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"nhavan1110",null,"2"),
+("house3110@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"hongduyen1110",null,"2"),
+("thanh1107@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"xuanthanh1110",null,"2"),
+("lethang@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"thang307",null,"2"),
 ("codegym@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"codegym",null,"1");
 
 insert into customer(`address`,`name`,phone_number, room_rented,account_id,dob,images,gender)

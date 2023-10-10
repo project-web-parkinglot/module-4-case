@@ -359,7 +359,7 @@ public class ParkingLotService implements IParkingLotService{
             carRepository.save(car);
 
             if (!linkNewImg.equals("")){
-                linkNewImg = linkDelImg.trim();
+                linkNewImg = linkNewImg.trim();
                 String[] newImg = linkNewImg.split(" ");
                 for (String link : newImg){
                     CarImage carImage = new CarImage();
