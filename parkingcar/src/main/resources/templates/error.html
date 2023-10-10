@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parking Lot Manager</title>
+    <link rel="stylesheet" href="/common.css">
+    <link rel="stylesheet" href="/packing_lot_css/parkinglot.css">
+    <script src="/packing_lot_css/jquery.js"></script>
+    <style>
+        .container {
+            display: flex;
+            align-items: center;
+            height: 0vh; /* Đảm bảo chiều cao của container là 100% chiều cao của viewport */
+        }
+
+        .centered-element {
+            display: flex;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        h1 {
+            font-size: 700%;
+        }
+    </style>
+</head>
+<body class="color2">
+<div th:fragment="header">
+    <div id="waiting">Please wait a moment for us to upload the picture...<span style="color: white"
+                                                                                id="number-picture"></span></div>
+    <div id="alert-content" class="border filler boxshadow-outset">
+        <p id="content-alert"></p>
+        <div id="cancel-button" class="boxshadow-inset filler hover border"
+             onclick="closeTable()">Cancel
+        </div>
+        <div id="confirm-button" class="boxshadow-inset filler hover border"
+             onclick="clickHiddenButton()">Confirm
+        </div>
+    </div>
+    <div id="hidden-button"></div>
+
+    <div id="header" class="border filler color1 boxshadow-inset">
+        <a href="/" id="logo"></a>
+        <div></div>
+    </div>
+    <div id="slogan" class="border filler color1 boxshadow-outset">
+        <div>
+            <img src="/packing_lot_css/img/carSlogan.png"/>
+            <p>hire <span class="target-text">ONCE</span>, park <span class="target-text">ANYWHERE</span>...!!!</p>
+            <img src="/packing_lot_css/img/carSlogan.png"/>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="centered-element"> <h1>403</h1></div>
+</div>
+</body>
+</html>
