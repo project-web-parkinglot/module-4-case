@@ -38,12 +38,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // tích hợp ở hàm trên
 //        http.authorizeRequests().antMatchers("/login/**").authenticated();
         // Trang chỉ dành cho ADMIN
-        http.authorizeRequests().antMatchers("/admin/**", "parking/endlease/**", "parking/lock/**", "/parking/unlock/**").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/admin/**", "parking/endlease/**", "parking/lock/**", "/parking/unlock/**").access("hasRole('ROLE_ADMIN')").and().exceptionHandling().accessDeniedPage("/errors");
+//        http.authorizeRequests().antMatchers("/admin/**", "parking/endlease/**", "parking/lock/**", "/parking/unlock/**").authenticated().and().exceptionHandling().accessDeniedPage("/errors");
 
         // Khi người dùng đã login, với vai trò XX.
         // Nhưng truy cập vào trang yêu cầu vai trò YY,
         // Ngoại lệ AccessDeniedException sẽ ném ra.
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/401");
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
         // Cấu hình cho Login Form.
         http.authorizeRequests().and().formLogin()//
                 // Submit URL của trang login
