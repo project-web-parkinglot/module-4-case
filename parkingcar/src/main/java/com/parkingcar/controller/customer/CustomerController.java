@@ -56,12 +56,9 @@ public class CustomerController {
         return "/customer/detail-customer";
     }
     @GetMapping("/edit")
-    public String showFormEdit(@RequestParam int id, Model model, Principal principal){
+    public String showFormEdit(@RequestParam int id, Model model){
         Account account = getAccount();
-//        String name = principal.getName();
-//        Account account1 = accountService.findAccountByUserName(name);
         Customer customer = customerService.findById(id);
-//        customer.setAccount(account1);
         CustomerDTO customerDTO = new CustomerDTO();
         BeanUtils.copyProperties(customer,customerDTO);
         model.addAttribute("customerDTO",customerDTO);
@@ -70,17 +67,16 @@ public class CustomerController {
     }
 
     @PostMapping("/updatecustomer")
-    public String updateCustomer(@Validated  @ModelAttribute CustomerDTO customerDTO,  BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String updateCustomer(@Validated  @ModelAttribute CustomerDTO customerDTO, Model model ,  BindingResult bindingResult, RedirectAttributes redirectAttributes){
         Account account = getAccount();
         new CustomerDTO().validate(customerDTO,bindingResult);
         if (bindingResult.hasErrors()){
+            model.addAttribute("customerDTO",customerDTO);
+            model.addAttribute("account",account);
             return "/customer/edit-customer";
         }
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDTO,customer);
-//        String name = principal.getName();
-//        Account account1 = accountService.findAccountByUserName(name);
-
         customer.setAccount(account);
         customerService.saveCustomer(customer);
         redirectAttributes.addFlashAttribute("message","Sửa thành công");

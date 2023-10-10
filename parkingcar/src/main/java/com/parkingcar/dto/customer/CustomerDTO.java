@@ -146,7 +146,7 @@ public class CustomerDTO implements Validator {
     public void validate(Object target, Errors errors) {
         CustomerDTO customerDTO = (CustomerDTO) target;
         if (customerDTO.getName().equals("")){
-            errors.rejectValue("name",null,"Tên không được để trống");
+            errors.rejectValue("name",null,"Name cannot be blank");
         } else if (!customerDTO.getName().matches("^[A-Z][a-z]+(\\s[A-Z][a-z]+)+$")) {
             errors.rejectValue("name",null,"Tên chỉ chứa kí tự chữ");
         } else if (!customerDTO.getPhoneNumber().matches("^0[0-9]{9}$")) {
