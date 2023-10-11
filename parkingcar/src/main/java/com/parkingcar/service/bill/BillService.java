@@ -34,4 +34,9 @@ public class BillService implements IBillService {
     public List<Bill> getBillByStatus(String status) {
         return billRepository.getBillByStatus(status);
     }
+
+    @Override
+    public int getCountStatus() {
+        return billRepository.getCountStatus();
+    }
 }

@@ -146,15 +146,15 @@ public class CustomerDTO implements Validator {
     public void validate(Object target, Errors errors) {
         CustomerDTO customerDTO = (CustomerDTO) target;
         if (customerDTO.getName().equals("")){
-            errors.rejectValue("name",null,"Tên không được để trống");
+            errors.rejectValue("name",null,"Name cannot be blank");
         } else if (!customerDTO.getName().matches("^[A-Z][a-z]+(\\s[A-Z][a-z]+)+$")) {
-            errors.rejectValue("name",null,"Tên chỉ chứa kí tự chữ");
+            errors.rejectValue("name",null,"The name contains only alphanumeric characters");
         } else if (!customerDTO.getPhoneNumber().matches("^0[0-9]{9}$")) {
-            errors.rejectValue("phoneNumber",null,"Số điện thoại chỉ chứa kí tự số");
+            errors.rejectValue("phoneNumber",null,"Phone numbers contain only numeric characters");
         } else if (!customerDTO.getAddress().matches("^[A-Z][A-zA-z ]+$")) {
-            errors.rejectValue("address",null,"Quên quán phải bắt đầu bằng chữ in hoa,");
+            errors.rejectValue("address",null,"Hometown must begin with a capital letter");
         } else if (!customerDTO.isAgeValid()) {
-            errors.rejectValue("DOB", null, "Tuổi phải lớn hơn 18");
+            errors.rejectValue("DOB", null, "Age must be greater than 18");
         }
     }
     public boolean isAgeValid() {

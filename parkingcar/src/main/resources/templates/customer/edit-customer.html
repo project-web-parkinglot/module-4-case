@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="/customer_css/customer.css">
     <link rel="stylesheet" href="/common.css">
     <link rel="stylesheet" href="/packing_lot_css/parkinglot.css">
-<!--    <style>-->
-<!--        small{-->
-<!--            color: red;-->
-<!--        }-->
-<!--    </style>-->
+    <style>
+        small{
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -22,38 +22,31 @@
     </div>
     <form th:action="@{/customer/updatecustomer}" th:object="${customerDTO}" method="post">
         <div class="container">
-
             <div class="row">
                 <div class="col-md-4">
                     <div class="col-lg-6">
-                        <div id="image-preview-container2" class="card" style="width: 18rem ">
+                        <div id="image-preview-container2" class="card" style="width: 18rem;margin-left: 30% ">
                             <img style="margin: 2%; width: 17rem ; height: 20rem"  th:src="*{images}"
                                  alt="Avatar's customer">
                             <input type="hidden" th:value="*{images}">
                         </div>
                         <input type="file" id="upload-file1" multiple accept=".jpg, .jpeg, .png"
-                               onchange="limitFiles(this,1)">
+                               onchange="limitFiles(this,1)" style="margin-left:60px">
                         <input name="image2" type="hidden" id="image2" th:field="*{images}"
                                required>
                     </div>
-                    <!--                    <div class="card" style="width: 18rem;">-->
-                    <!--                        <img src="/customer_css/img_2.png" class="card-img-top" alt="...">-->
-
-                    <!--                            <input type="file" th:field="*{images}" alt=" ">-->
-                    <!--&lt;!&ndash;                            <a href="#" class="btn btn-outline-warning">Thay đổi ảnh</a>&ndash;&gt;-->
-                    <!--                    </div>-->
                 </div>
 
                 <div class="col-md-8">
                     <div id="hd-form">
-                        <b>CẬP NHẬT THÔNG TIN KHÁCH HÀNG</b>
+                        <b>UPDATE INFORMATION CUSTOMER </b>
                     </div>
                     <div id="form-update">
                         <table>
                             <tr>
                                 <input type="hidden" th:field="*{id}">
                                 <th>
-                                    <label>Tên:</label>
+                                    <label>Name:</label>
                                 </th>
                                 <td>
                                     <input type="text" th:field="*{name}"><br>
@@ -63,16 +56,16 @@
                             </tr>
                             <tr>
                                 <th>
-                                    <label>Giới tính: </label>
+                                    <label>Gender: </label>
                                 </th>
                                 <td>
-                                    <input type="radio" th:field="*{gender}" value="1">Nam
-                                    <input type="radio" th:field="*{gender}" value="0">Nữ
+                                    <input type="radio" th:field="*{gender}" value="1">Male
+                                    <input type="radio" th:field="*{gender}" value="0">Female
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    <label>Ngày sinh: </label></th>
+                                    <label>Birthday: </label></th>
                                 <td>
                                     <input type="date" th:field="*{DOB}"> <br>
                                     <small  th:if="${#fields.hasErrors('DOB')}" th:errors="*{DOB}"></small>
@@ -81,7 +74,7 @@
                             </tr>
                             <tr>
                                 <th>
-                                    <label>Số điện thoại :</label></th>
+                                    <label>Phone number :</label></th>
                                 <td>
                                     <input type="text" th:field="*{phoneNumber}"> <br>
                                     <small th:if="${#fields.hasErrors('phoneNumber')}"
@@ -91,28 +84,33 @@
                             </tr>
                             <tr>
                                 <th>
-                                    <label>Quê quán :</label></th>
+                                    <label>Country :</label></th>
                                 <td>
                                     <input type="text" th:field="*{address}"> <br>
                                     <small th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></small>
                                 </td>
-
                             </tr>
                             <tr>
-                                <th><label>Phòng đang thuê: </label></th>
+                                <th><label>Room rented </label></th>
                                 <td>
                                     <input type="text" th:field="*{roomRented}">
                                 </td>
                             </tr>
                             <tr>
-                                <th><label>Biển số xe</label></th>
-                                <td th:each="car:${customerDTO.carList}">
-                                    <span th:field="*{carList}" th:text="${car.licensePlate}">
-                                    </span>
+                              <td>
+                                  <input type="hidden" th:field="*{carList}">
+                                  <input type="hidden" th:field="*{bills}">
+                              </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button id="bt" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Update
+                                    </button>
                                 </td>
+
                             </tr>
                         </table>
-<!--                        <button id="bt" class="btn btn-outline-secondary" type="submit">Cập nhật</button>-->
 
 
                         <!-- Modal -->
@@ -124,63 +122,23 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Bạn có chắc chắc thay đổi <span style="color: red" th:text="${customerDTO.name}"></span> ?
+                                       <b>Do you want to update </b> <span style="color: red" th:text="${customerDTO.name}">?</span> ?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Edit </button>
+                                        <button type="submit" class="btn btn-secondary">Edit </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button id="bt" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Cập nhật
-                    </button>
+
                 </div>
             </div>
         </div>
     </form>
 </div>
-<!--modal-->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<div class="form-group row" style="align-content: center">-->
-<!--  <label class="col-lg-2 col-form-label">Avatar <span-->
-<!--          class="text-danger">*</span>-->
-<!--  </label>-->
-<!--  <div class="col-lg-6">-->
-<!--    <div id="image-preview-container1">-->
-<!--      <img style="margin: 2%; width: 10rem" th:src="*{imageIdCardBack}"-->
-<!--           alt="Avatar's customer">-->
-<!--      <input type="hidden" th:value="*{imageIdCardBack}">-->
-<!--    </div>-->
-<!--    <input type="file"-->
-<!--           id="upload-file" multiple accept=".jpg, .jpeg, .png"-->
-<!--           onchange="limitFiles(this, 1)">-->
-<!--    <input name="image2" type="hidden" id="image2" th:field="*{imageIdCardBack}"-->
-<!--           required>-->
-<!--  </div>-->
-<!--</div>-->
 
 
 <script>

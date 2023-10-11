@@ -6,6 +6,7 @@ import com.parkingcar.model.customer.Customer;
 import com.parkingcar.model.pakingLot.ParkingLot;
 import com.parkingcar.repository.parkinglot.IParkingLotStatusRepository;
 import com.parkingcar.service.admin.IParkingLotStatusService;
+import com.parkingcar.service.admin.IParkingService;
 import com.parkingcar.service.bill.IBillService;
 import com.parkingcar.service.customer.ICustomerService;
 import com.parkingcar.service.parkinglot.IParkingLotService;
@@ -33,11 +34,21 @@ public class AdminController {
     private IParkingLotService parkingLotService;
     @Autowired
     private IParkingLotStatusService parkingLotStatusService;
+    @Autowired
+    private IParkingService parkingService;
 
 
 
     @GetMapping
-    public String showForm() {
+    public String showForm(Model model) {
+        int available = parkingService.countByParkingLotStatus(1);
+        int block = parkingService.countByParkingLotStatus(2);
+        int owner = parkingService.countByParkingLotStatus(3);
+        int waiting = parkingService.countByParkingLotStatus(4);
+        model.addAttribute("available",available);
+        model.addAttribute("block",block);
+        model.addAttribute("owner",owner);
+        model.addAttribute("waiting",billService.getCountStatus());
         return "/page_admin/index";
     }
 

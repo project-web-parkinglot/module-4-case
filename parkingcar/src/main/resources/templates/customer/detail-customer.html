@@ -23,27 +23,27 @@
                 <div class="bg-header">
                     <img src="/packing_lot_css/cover/cover2.png" class="bg filler">
                     <div class="filler" style="background-color: white;padding: 15px 20px">
-                        Họ và tên: <span th:text="${customer.name}"></span>
+                        <span th:text="${customer.name}"></span>
                         <div class="overlay">
                             <img class="filler" th:src="${customer.images}" height="200" width="172" style=" padding-left:15px; padding-bottom: 25px"/>
                         </div>
                     </div>
                 </div>
                 <div class="header filler">
-                    <b id="info" >THÔNG TIN CÁ NHÂN</b>
+                    <b id="info" >CUSTOMER INFORMATION</b>
                 </div>
 
                 <table class="border filler">
                     <tr>
-                        <th>Tên :</th>
+                        <th>Name :</th>
                         <td th:text="${customer.name}"></td>
                     </tr>
                     <tr>
-                        <th>Địa chỉ :</th>
+                        <th>Address :</th>
                         <td th:text="${customer.address}"></td>
                     </tr>
                     <tr>
-                        <th>Giới tính:</th>
+                        <th>Gender:</th>
                         <td th:switch="${customer.gender}">
                             <span th:case="1">Nam</span>
                             <span th:case="0">Nữ</span>
@@ -51,19 +51,19 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Ngày sinh:</th>
+                        <th>Birthday:</th>
                         <td th:text="${customer.getDOB()}"></td>
                     </tr>
                     <tr>
-                        <th>Số điện thoại:</th>
+                        <th>Phone number:</th>
                         <td th:text="${customer.phoneNumber}"></td>
                     </tr>
                     <tr>
-                        <th>Phòng đang thuê:</th>
+                        <th>Room rented:</th>
                         <td th:text="${customer.roomRented}"></td>
                     </tr>
                     <tr th:each="car,count:${customer.carList}">
-                        <th th:if="${count.count==1}">Biển số xe:</th>
+                        <th th:if="${count.count==1}">License plate:</th>
                         <th th:if="${count.count > 1}"></th>
                         <td >
                             <div th:text="${car.licensePlate}"></div>
@@ -71,7 +71,7 @@
                     </tr>
                     <tr>
                         <td >
-                            <a th:href="@{/customer/edit(id=${customer.id})}" id="btn" role="button" class="btn btn-info">Thay đổi</a>
+                            <a th:href="@{/customer/edit(id=${customer.id})}" id="btn" role="button" class="btn btn-secondary">Update</a>
                         </td>
                     </tr>
                 </table>
