@@ -11,4 +11,5 @@ public interface IBillService {
     Bill findById(int id);
     List<IBillDTO> getAllByStatus();
     List<Bill> getBillByStatus(String status);
+    int getCountStatus();
 }

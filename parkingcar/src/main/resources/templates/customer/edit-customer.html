@@ -25,13 +25,13 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="col-lg-6">
-                        <div id="image-preview-container2" class="card" style="width: 18rem ">
+                        <div id="image-preview-container2" class="card" style="width: 18rem;margin-left: 30% ">
                             <img style="margin: 2%; width: 17rem ; height: 20rem"  th:src="*{images}"
                                  alt="Avatar's customer">
                             <input type="hidden" th:value="*{images}">
                         </div>
                         <input type="file" id="upload-file1" multiple accept=".jpg, .jpeg, .png"
-                               onchange="limitFiles(this,1)">
+                               onchange="limitFiles(this,1)" style="margin-left:60px">
                         <input name="image2" type="hidden" id="image2" th:field="*{images}"
                                required>
                     </div>
@@ -39,7 +39,7 @@
 
                 <div class="col-md-8">
                     <div id="hd-form">
-                        <b>UPDATE INFORMATION </b>
+                        <b>UPDATE INFORMATION CUSTOMER </b>
                     </div>
                     <div id="form-update">
                         <table>
@@ -59,8 +59,8 @@
                                     <label>Gender: </label>
                                 </th>
                                 <td>
-                                    <input type="radio" th:field="*{gender}" value="1">Nam
-                                    <input type="radio" th:field="*{gender}" value="0">Nữ
+                                    <input type="radio" th:field="*{gender}" value="1">Male
+                                    <input type="radio" th:field="*{gender}" value="0">Female
                                 </td>
                             </tr>
                             <tr>
@@ -99,12 +99,13 @@
                             <tr>
                               <td>
                                   <input type="hidden" th:field="*{carList}">
+                                  <input type="hidden" th:field="*{bills}">
                               </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button id="bt" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        Cập nhật
+                                    <button id="bt" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Update
                                     </button>
                                 </td>
 
@@ -121,11 +122,11 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Bạn có chắc chắc thay đổi <span style="color: red" th:text="${customerDTO.name}"></span> ?
+                                       <b>Do you want to update </b> <span style="color: red" th:text="${customerDTO.name}">?</span> ?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Edit </button>
+                                        <button type="submit" class="btn btn-secondary">Edit </button>
                                     </div>
                                 </div>
                             </div>

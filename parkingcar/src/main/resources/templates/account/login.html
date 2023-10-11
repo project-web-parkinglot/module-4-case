@@ -29,8 +29,9 @@
 
         h1 {
             font-weight: bold;
-            margin: 0;
+            margin-bottom: 20px;
             text-align: center;
+
         }
 
         h2 {
@@ -320,12 +321,11 @@
     });
 </script>
 <input type="hidden" id="statusPage" th:value="${success}">
-<div class="container" id="container">
-    <div class="form-container sign-up-container">
+<div class="container" id="container" style="border-radius:30px" >
+    <div class="form-container sign-up-container filler">
 
         <form action="/login" method="post" th:object="${accountDto}">
             <h1>Create Account</h1>
-            <span>or use your email for registration</span>
             <!-- Username input -->
             <input
                     type="text" id="form2Example18" placeholder="Username"
