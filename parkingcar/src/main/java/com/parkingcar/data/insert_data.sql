@@ -16,20 +16,20 @@ INSERT INTO `case_study_module_4`.`role` (`name`)
 VALUES ('ROLE_ADMIN'),('ROLE_CUSTOMER');
 
 Insert into `account`(email, `password`, `status`,`username`,verification_code,role_id)
-values("long1110dn@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"dinhlong1110",null,"2"),
-("tsaivan569@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"nhavan1110",null,"2"),
-("smallhouse3110@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"hongduyen1110",null,"2"),
-("xuanthanh1107@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"xuanthanh1110",null,"2"),
-("lequocthang307@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"thang307",null,"2"),
+values("longdn@gmail.com","https://vcdn-giaitri.vnecdn.net/2020/11/03/tieu-chien-jpeg-6518-1604370167.jpgid",1,"dinhlong1110",null,"2"),
+("van569@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"nhavan1110",null,"2"),
+("house3110@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"hongduyen1110",null,"2"),
+("thanh1107@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"xuanthanh1110",null,"2"),
+("lethang@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"thang307",null,"2"),
 ("codegym@gmail.com","$2a$12$Q7HU50mE35YckkWmRgRgHuVRUBnYm.wuDm/IsWekUd9vjrn22ThyC",1,"codegym",null,"1");
 
 insert into customer(`address`,`name`,phone_number, room_rented,account_id,dob,images,gender)
 values
-("Hà Nội","Phúc Long","0932533481","P404",1,"1999-05-06","https://kenh14cdn.com/2020/10/26/photo-6-1603709795110773472651.jpg","1"),
-("Quảng Nam","Nhã Văn","0783685099","P507",2,"2001-05-03","https://phunugioi.com/wp-content/uploads/2020/03/hot-girl-trung-quoc.jpg","0"),
-("Hồ Chí Minh","Hồng Duyên","0905346958","P203",3,"1992-10-31","https://gaixinhbikini.com/wp-content/uploads/2022/09/52322319648_7ea39c2c93_o.jpg","0"),
-("Đà Nẵng","Xuân Thành","0905346958","P204",4,"1989-07-17","https://www.vietnamfineart.com.vn/wp-content/uploads/2023/03/anh-hot-girl-cute-nhat.jpg","1"),
-("Đà Nẵng","Quốc Thắng","0905123456","P504",5,"1994-07-06","https://phunugioi.com/wp-content/uploads/2020/03/hinh-anh-hot-girl-gai-xinh-trung-quoc.jpg","1");
+("Hà Nội","Phúc Long","0932533481","P404",1,"1999-05-06","https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/3/6/1020690/20190323154558-D7c4.jpg","1"),
+("Quảng Nam","Nhã Văn","0783685099","P507",2,"2001-05-03","https://toplist.vn/images/800px/park-min-young-586440.jpg","0"),
+("Hồ Chí Minh","Hồng Duyên","0905346958","P203",3,"1992-10-31","https://bazaarvietnam.vn/wp-content/uploads/2020/03/jisoo-dung-hang-song-hye-kyo-2.jpg","0"),
+("Đà Nẵng","Xuân Thành","0905346958","P204",4,"1989-07-17","https://danviet.mediacdn.vn/296231569849192448/2022/7/29/images30220941a1txig-1659080457996813660576.jpeg","1"),
+("Đà Nẵng","Quốc Thắng","0905123456","P504",5,"1994-07-06","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeCkSKv_NR8wLHvxbuuxjUWojQNEYbAbwF2Q&usqp=CAU","1");
 
 insert into `car`
 	(`license_plate`,`customer_id`)
