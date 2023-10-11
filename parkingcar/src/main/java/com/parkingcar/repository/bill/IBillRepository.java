@@ -18,5 +18,6 @@ public interface IBillRepository extends JpaRepository<Bill,Integer> {
     List<IBillDTO> getAllByStatus();
 
     List<Bill> getBillByStatus(String status);
-
+    @Query(value = "select count(`status`) from bill where `status` = 0",nativeQuery = true)
+    int getCountStatus();
 }

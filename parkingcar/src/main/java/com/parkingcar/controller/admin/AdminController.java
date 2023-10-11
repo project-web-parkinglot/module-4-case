@@ -48,7 +48,7 @@ public class AdminController {
         model.addAttribute("available",available);
         model.addAttribute("block",block);
         model.addAttribute("owner",owner);
-        model.addAttribute("waiting",waiting);
+        model.addAttribute("waiting",billService.getCountStatus());
         return "/page_admin/index";
     }
 

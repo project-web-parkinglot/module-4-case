@@ -23,7 +23,7 @@
                 <div class="bg-header">
                     <img src="/packing_lot_css/cover/cover2.png" class="bg filler">
                     <div class="filler" style="background-color: white;padding: 15px 20px">
-                        Họ và tên: <span th:text="${customer.name}"></span>
+                        <span th:text="${customer.name}"></span>
                         <div class="overlay">
                             <img class="filler" th:src="${customer.images}" height="200" width="172" style=" padding-left:15px; padding-bottom: 25px"/>
                         </div>
@@ -71,7 +71,7 @@
                     </tr>
                     <tr>
                         <td >
-                            <a th:href="@{/customer/edit(id=${customer.id})}" id="btn" role="button" class="btn btn-info">Update</a>
+                            <a th:href="@{/customer/edit(id=${customer.id})}" id="btn" role="button" class="btn btn-secondary">Update</a>
                         </td>
                     </tr>
                 </table>
